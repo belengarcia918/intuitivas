@@ -1,0 +1,193 @@
+/* NAVBAR */
+.mi-navbar {
+    background-color: #ffffff; /* tu color */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container-navbar {
+    width: 1300px;
+    margin: auto;
+}
+
+.navbar-brand {
+    font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.buscador {
+    border-radius: 5px 0 0 5px; /* lado izquierdo redondeado */
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+}
+
+.buscador:focus {
+    border-color: #c2c2c2;
+    box-shadow: 0 0 5px rgba(107, 107, 107, 0.4);
+}
+
+.buscador::placeholder {
+    color: #9e989e;
+    font-style: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.boton-buscar {
+    background-color: #000000;   /* fondo */
+    border: 2px solid #000000;   /* borde */
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px 20px;
+    border-radius: 0 5px 5px 0; /* lado derecho redondeado */
+    margin-left: -1px; /* elimina la línea entre ambos */
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.icono-lupa {
+    width: 25px;
+    height: 25px;
+}
+
+.boton-buscar:hover {
+    background-color: #000000;   /* color al pasar mouse */
+    border-color: #010101;
+    /*transform: scale(1.05);*/
+}
+
+.boton-buscar:focus,
+.boton-buscar:active {
+  background-color: #363636;
+  box-shadow: #464646;
+  outline: #525252;
+  border-color: #000000; /* o el color que quieras */
+}
+
+/* Boton Hamburguesa */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 5px rgba(107, 107, 107, 0.4);
+}
+
+.nav-link {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav-link {
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: rgb(181, 57, 230);
+}
+
+.dropdown-menu {
+    background-color: #ffffff;
+    border-color: #c2c2c2;
+    border-radius: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+    color: rgb(0, 0, 0);
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #ffffff;
+  color: rgb(181, 57, 230);
+}
+
+.icono-user, .icono-carrito, .icono-lupa {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+  margin-right: 8px; /* separa del texto */
+}
+
+
+
+/* MAIN */
+.container-main {
+    width: 1300px;
+    margin: auto;
+}
+
+
+
+
+/* FOOTER */
+.footer {
+    background-color: #635d66;
+    color: white;
+    padding: 30px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* importante para mobile */
+    max-width: 1300px;
+    margin: auto;
+}
+
+.footer-col {
+    width: 45%;
+}
+
+.footer-col h5 {
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 10px;
+}
+
+.footer-col p {
+    color: #bbb;
+}
+
+.footer-col a {
+    display: block;
+    color: #bbb;
+    text-decoration: none;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: rgb(170, 54, 202);
+}
+
+.copy {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.social-media-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.medios-icon {
+    width: 50px;
+}
+
+.underline a{
+    display: inline;
+    color: #ffffff;
+    text-decoration: underline;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.underline a:hover {
+    color: rgb(170, 54, 202);
+}
