@@ -19,7 +19,7 @@ Route::get('/productos/categoria/{categoria}', [PruebaController::class, 'catego
 Route::get('/productos/{id}', [PruebaController::class, 'mostrarProducto'])
     ->name('productos.show');
 
-Route::get('/comercializacion', [PaginaController::class, 'comercializacion'])->name('comercializacion');
+Route::get('/comercializacion', [PruebaController::class, 'comercializacion'])->name('comercializacion');
 
-Route::get('/quienes-somos', [PaginaController::class, 'quienes_somos'])->name('quienes_somos');
+Route::get('/quienes-somos', [PruebaController::class, 'quienes_somos'])->name('quienes_somos');
 
