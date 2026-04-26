@@ -31,7 +31,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Quienes Somos</a>
+              <a class="nav-link" href="{{ route('quienes_somos') }}">Quiénes Somos</a>
             </li>
 
             <li class="nav-item">
@@ -49,13 +49,9 @@
                 <li><a class="dropdown-item" href="{{ route('productos.categoria', 'cartera') }}">Cartera</a></li>
               </ul>
             </li>
-
+          
             <li class="nav-item">
-              <a class="nav-link" href="#">Comercialización</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">Términos de uso</a>
+              <a class="nav-link" href="{{route('comercializacion') }}">Comercialización</a>
             </li>
           </ul>
 
