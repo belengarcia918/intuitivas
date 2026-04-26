@@ -1,6 +1,6 @@
-/* NAVBAR Solo para probar algo soy camila*/
+/* NAVBAR */
 .mi-navbar {
-    background-color: #ffffff; /* tu color */
+    background-color: #58575b; /* tu color */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -27,7 +27,7 @@
 }
 
 .buscador::placeholder {
-    color: #9e989e;
+    color: #f0b3f3;
     font-style: Arial, Helvetica, sans-serif;
     letter-spacing: 0.5px;
 }
@@ -74,7 +74,7 @@
 
 .nav-link {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 17px;
     display: flex;
     align-items: center;
@@ -115,20 +115,79 @@
 
 
 
+
+
 /* MAIN */
-.container-main {
-    width: 1300px;
-    margin: auto;
+main {
+    min-height: 60vh;
 }
+
+@media (max-width: 768px) {
+    main {
+        min-height: auto;
+    }
+}
+
+.titulo-alineacion-izquierda {
+    text-align: start;
+    font-family: Georgia, Georgia, serif;
+    color: rgb(181, 57, 230);
+}
+
+.texto-alineacion-izquierda {
+    text-align:start; 
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    color: rgb(181, 57, 230);
+}
+
+/* Contacto */
+.form-label {
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    color: rgb(181, 57, 230);
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-control::placeholder {
+    color: #f0b3f3;
+    font-style: Arial, Helvetica, sans-serif;
+    opacity: 1; /* importante para algunos navegadores */
+}
+
+.form-control:focus {
+    border-color: #c2c2c2;
+    box-shadow: 0 0 5px rgba(107, 107, 107, 0.4);
+}
+
+.boton-enviar {
+    background-color: #5f2660;   /* fondo */
+    border: none;
+    color: white;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-enviar:hover {
+    background-color: #9d4a9f;   /* fondo */
+    border: none;
+    transform: scale(1.05); 
+}
+
 
 
 
 
 /* FOOTER */
 .footer {
-    background-color: #635d66;
+    background-color: #7f8187;
     color: white;
-    padding: 30px 20px;
+    padding: 15px 20px;
 }
 
 .footer-container {
@@ -140,28 +199,24 @@
 }
 
 .footer-col {
-    width: 45%;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.footer-col h5 {
+@media (min-width: 768px) {
+    .footer-col {
+        width: 45%;
+        margin-bottom: 0;
+    }
+}
+
+.footer-col h6 {
     font-family: 'Lato', sans-serif;
     margin-bottom: 10px;
 }
 
 .footer-col p {
-    color: #bbb;
-}
-
-.footer-col a {
-    display: block;
-    color: #bbb;
-    text-decoration: none;
-    margin: 5px 0;
-    transition: 0.3s;
-}
-
-.footer-col a:hover {
-    color: rgb(170, 54, 202);
+    color: #e4e4e4;
 }
 
 .copy {
@@ -177,7 +232,13 @@
 }
 
 .medios-icon {
-    width: 50px;
+    width: 45px;
+    margin: 5px;
+}
+
+.footer-col img {
+    max-width: 100%;
+    height: auto;
 }
 
 .underline a{

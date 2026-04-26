@@ -9,17 +9,19 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ time() }}">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     
     <!-- Navbar -->
     <x-navbar />
 
     <!-- Contenido -->
-    <main class="container mt-4">
-        {{ $slot }}
+    <main class="flex-fill">
+        <div class="container mt-4 pb-5">
+            {{ $slot }}
+        </div>
     </main>
 
     <!-- Footer -->

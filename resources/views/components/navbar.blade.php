@@ -27,7 +27,7 @@
           <!-- IZQUIERDA -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="{{ route('principal') }}">Home</a>
+              <a class="nav-link" href="{{ route('principal') }}">Home</a>
             </li>
 
             <li class="nav-item">
