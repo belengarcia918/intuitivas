@@ -21,5 +21,5 @@ Route::get('/productos/{id}', [PruebaController::class, 'mostrarProducto'])
 
 Route::get('/comercializacion', [PruebaController::class, 'comercializacion'])->name('comercializacion');
 
-Route::get('/quienes-somos', [PruebaController::class, 'quienes_somos'])->name('quienes_somos');
+Route::get('/quienes-somos', [PruebaController::class, 'quienesSomos'])->name('quienes_somos');
 

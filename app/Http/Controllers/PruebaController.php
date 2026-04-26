@@ -14,6 +14,14 @@ class PruebaController extends Controller
         return view('frontend.contacto');
     }
 
+    public function quienesSomos (){
+        return view('frontend.quienes_somos');
+    }
+
+    public function comercializacion (){
+        return view('frontend.comercializacion');
+    }
+
     /* LISTA DE PRODUCTOS */
     private function obtenerProductos()
     {
