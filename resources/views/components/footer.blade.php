@@ -17,7 +17,7 @@
 
     <div class="footer-col">
       <h6>CONTACTO</h6>
-      <p>Tel: 3704-xxxxxx</p>
+      <p>Tel: +54 9 3704-xxxxxx</p>
       <p>intuitivas@gmail.com</p>
       <p>Av. Dr Nestor Kirchner 3600. Formosa Capital.</p>
     </div>

@@ -11,17 +11,17 @@
 
         <!-- INFO -->
         <div class="col-md-6">
-            <h1>{{ $producto['nombre'] }}</h1>
+            <h1 class="titulo mb-3">{{ $producto['nombre'] }}</h1>
 
-            <h3 class="text-success">${{ $producto['precio'] }}</h3>
+            <h3 class="precio"><strong>${{ $producto['precio'] }}</strong></h3>
 
-            <p>{{ $producto['descripcion'] }}</p>
+            <p class="texto">{{ $producto['descripcion'] }}</p>
 
-            <p>
+            <p class="texto">
                 <strong>Categoría:</strong> {{ $producto['categoria'] ?? 'Sin categoría' }}
             </p>
 
-            <a href="{{ route('productos.index') }}" class="btn btn-secondary">
+            <a href="{{ route('productos.index') }}" class="boton-carrito">
                 Volver
             </a>
         </div>
