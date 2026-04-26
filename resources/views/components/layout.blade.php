@@ -13,18 +13,15 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}?v={{ time() }}">
 </head>
 <body class="d-flex flex-column min-vh-100">
-    
-    <!-- Navbar -->
+
     <x-navbar />
 
-    <!-- Contenido -->
     <main class="flex-fill">
         <div class="container mt-4 pb-5">
             {{ $slot }}
         </div>
     </main>
 
-    <!-- Footer -->
     <x-footer />
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

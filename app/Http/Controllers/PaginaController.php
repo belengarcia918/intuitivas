@@ -13,4 +13,14 @@ class PaginaController extends Controller
     public function contacto (){
         return view('frontend.contacto');
     }
+
+    
+    public function comercializacion(){
+    return view('frontend.comercializacion');
+    }
+
+    public function quienes_somos(){
+    return view('frontend.quienes_somos');
+    }
 }
+
