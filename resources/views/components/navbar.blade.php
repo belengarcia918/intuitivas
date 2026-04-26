@@ -9,7 +9,7 @@
         <form class="d-flex" role="search">
         <input class="form-control buscador" type="search" placeholder="¿Qué estás buscando?">
         <button class="btn boton-buscar" type="submit">
-          <img src="images/iconos/lupa.png" class="icono-lupa">
+          <img src="{{ asset('images/iconos/lupa.png') }}" class="icono-lupa">
         </button>
       </form>
       </div>
@@ -39,13 +39,14 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 Productos
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Sweater</a></li>
-                <li><a class="dropdown-item" href="#">Blusas/Camisas</a></li>
-                <li><a class="dropdown-item" href="#">Pantalon</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.index') }}">Todos</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'cinto') }}">Cinto</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'cartera') }}">Cartera</a></li>
               </ul>
             </li>
 
@@ -63,8 +64,8 @@
             
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                <img src="images/iconos/cuenta.png" class="icono-user me-2">Cuenta
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                <img src="{{ asset('images/iconos/cuenta.png') }}" class="icono-user me-2">Cuenta
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Crear cuenta</a></li>
@@ -75,7 +76,7 @@
 
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img src="images/iconos/carrito.png" class="icono-carrito me-2">Carrito
+                <img src="{{ asset('images/iconos/carrito.png') }}" class="icono-carrito me-2">Carrito
               </a>
             </li>
           </ul>

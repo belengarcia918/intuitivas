@@ -1,10 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\PruebaController;
 
-Route::get('/', [PaginaController::class, 'principal'])->name('principal');
+Route::get('/', [PruebaController::class, 'principal'])->name('principal');
 
-Route::get('/contacto', [PaginaController::class, 'contacto'])->name('contacto');
+Route::get('/contacto', [PruebaController::class, 'contacto'])->name('contacto');
 
+/* Lista de productos */
+Route::get('/productos', [PruebaController::class, 'verCatalogo'])
+    ->name('productos.index');
 
+/* Por categoria */
+Route::get('/productos/categoria/{categoria}', [PruebaController::class, 'categoria'])
+    ->name('productos.categoria');
+
+/* Detalle de producto */
+Route::get('/productos/{id}', [PruebaController::class, 'mostrarProducto'])
+    ->name('productos.show');

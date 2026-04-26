@@ -162,22 +162,35 @@ main {
     box-shadow: 0 0 5px rgba(107, 107, 107, 0.4);
 }
 
-.boton-enviar {
+.boton-enviar, .boton-ver {
     background-color: #5f2660;   /* fondo */
     border: none;
     color: white;
     font-family: 'Trebuchet MS', Helvetica, sans-serif;
-    padding: 10px 20px;
+    padding: 10px 50px;
     border-radius: 5px;
     font-weight: bold;
     transition: 0.3s;
 }
 
-.boton-enviar:hover {
+.boton-enviar:hover, .boton-ver:hover {
     background-color: #9d4a9f;   /* fondo */
     border: none;
     transform: scale(1.05); 
 }
+
+/* Catalago */
+.img-producto {
+    height: 200px;       /* tamaño fijo */
+    object-fit: cover;   /* recorta sin deformar */
+    width: 100%;
+}
+
+.card-body a{
+    text-decoration: none;
+}
+
+
 
 
 
