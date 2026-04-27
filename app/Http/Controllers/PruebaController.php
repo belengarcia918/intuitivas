@@ -30,4 +30,8 @@ class PruebaController extends Controller
         return view('frontend.cuenta_nueva');
     }
 
+    public function login (){
+        return view('frontend.login');
+    }
+
 }

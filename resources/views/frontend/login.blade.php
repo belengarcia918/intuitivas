@@ -6,9 +6,10 @@
             <div class="card shadow border-0 rounded-4">
                 <div class="card-body p-5">
                 
-                <h3 class="text-center mb-5 titulo-principal">Crear Cuenta</h3>
-                
-                @if(session('success'))
+                <h3 class="text-center mb-5 titulo-principal">Iniciar Sesión</h3>
+
+                <!-- MENSAJES -->
+               @if(session('success'))
                     <div id="mensaje-success" data-msg="{{ session('success') }}"></div>
                 @endif
 
@@ -16,71 +17,45 @@
                     <div id="mensaje-error" data-msg="{{ session('error') }}"></div>
                 @endif
 
-                <form action="{{ url('/nueva_cuenta') }}" method="POST">
+                <!-- FORM -->
+                <form action="{{ url('/login') }}" method="POST">
                     @csrf
-
-                    <!-- Nombre y Apellido -->
-                    <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Tu nombre" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Apellido</label>
-                        <input type="text" name="apellido" class="form-control" placeholder="Tu apellido" required>
-                    </div>
-                    </div>
 
                     <!-- Email -->
                     <div class="mb-3">
-                    <label class="form-label">Correo electrónico</label>
-                    <input type="email" name="email" class="form-control" placeholder="ejemplo@mail.com" required>
-                    </div>
-
-                    <!-- Teléfono -->
-                    <div class="mb-3">
-                    <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" placeholder="Ej: 3794 123456">
-                    </div>
-
-                    <!-- Dirección -->
-                    <div class="mb-3">
-                    <label class="form-label">Dirección</label>
-                    <input type="text" class="form-control" placeholder="Calle, número, ciudad">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" name="email" class="form-control" placeholder="ejemplo@mail.com" required>
                     </div>
 
                     <!-- Contraseña -->
                     <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
                     </div>
 
-                    <!-- Confirmar contraseña -->
-                    <div class="mb-3">
-                    <label class="form-label">Confirmar contraseña</label>
-                    <input type="password" name="confirmar" class="form-control" placeholder="••••••••" required>
-                    </div>
-
-                    <!-- Checkbox -->
+                    <!-- Recordarme -->
                     <div class="form-check mb-3">
-                    <input class="form-check-input" name="terminos" type="checkbox" id="terminos" required>
-                    <label class="form-check-label" for="terminos">
-                        Acepto los términos y condiciones
-                    </label>
+                        <input class="form-check-input" type="checkbox" name="recordar" id="recordar">
+                        <label class="form-check-label" for="recordar">
+                            Recordarme
+                        </label>
                     </div>
 
                     <!-- Botón -->
                     <div class="d-grid">
-                    <button type="submit" class="boton-registrar btn-lg">
-                        Registrarme
-                    </button>
+                        <button type="submit" class="boton-registrar btn-lg">
+                            Ingresar
+                        </button>
                     </div>
 
                 </form>
 
-                <!-- Link login -->
+                <!-- Link registro -->
                 <p class="text-center mt-4 mb-0">
-                    ¿Ya tenés cuenta? <a href="#" class="text-decoration-none">Iniciar sesión</a>
+                    ¿No tenés cuenta? 
+                    <a href="{{ url('/registro') }}" class="text-decoration-none">
+                        Crear cuenta
+                    </a>
                 </p>
 
                 </div>
