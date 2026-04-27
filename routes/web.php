@@ -6,7 +6,9 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\UsuarioController;
 
-Route::get('/', [PruebaController::class, 'principal'])->name('principal');
+
+
+Route::get('/', [ProductoController::class, 'principal'])->name('principal');
 
 Route::get('/contacto', [PruebaController::class, 'contacto'])->name('contacto');
 
@@ -33,3 +35,4 @@ Route::get('/productos/{id}', [ProductoController::class, 'mostrarProducto'])
 Route::post('/contacto', [ContactoController::class, 'procesar'])->name('exito');
 
 Route::post('/nueva_cuenta', [UsuarioController::class, 'registrar']);
+ 

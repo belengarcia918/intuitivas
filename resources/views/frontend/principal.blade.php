@@ -57,25 +57,50 @@
         </div>
     </section>
 
-    <section class="py-5 text-white" style="background-color: #2d054b;">
-        <div class="container py-3">
-            <div class="row g-4 text-center">
-                <div class="col-md-4">
-                    <h1 class="display-2 fw-bold opacity-25 mb-0">01</h1>
-                    <h4 class="fw-bold">Calidad Real</h4>
-                    <p class="small opacity-75">Telas seleccionadas para el clima de nuestra ciudad.</p>
+    <section class="container py-5 my-5">
+        <div class="text-center mb-5">
+            <h6 class="text-uppercase fw-bold" style="color: #6a0dad; letter-spacing: 3px;">Lo último de Intuitivas</h6>
+            <h2 class="display-4 fw-bold" style="color: #2d054b;">Recién Llegados</h2>
+            <hr class="w-25 mx-auto border-2 opacity-100" style="color: #6a0dad;">
+        </div>
+
+        <div class="row justify-content-center g-4">
+            @foreach($ultimosProductos as $producto)
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="card h-100 border-0 shadow-sm transition-hover" style="border-radius: 15px; overflow: hidden;">
+                        
+                        <div style="height: 400px; overflow: hidden;">
+                            <a href="{{ route('productos.show', $producto['id']) }}">
+                                <img src="{{ asset($producto['imagen']) }}" 
+                                     class="w-100 h-100 object-fit-cover" 
+                                     alt="{{ $producto['nombre'] }}">
+                            </a>
+                        </div>
+
+                        <div class="card-body text-center p-4">
+                            <p class="text-uppercase mb-1 small fw-bold" style="color: #6a0dad; letter-spacing: 1px;">
+                                {{ $producto['categoria'] }}
+                            </p>
+                            <h4 class="fw-bold mb-2" style="color: #2d054b;">{{ $producto['nombre'] }}</h4>
+                            <p class="fs-5 fw-bold mb-4" style="color: #2d054b;">
+                                ${{ number_format($producto['precio'], 0, ',', '.') }}
+                            </p>
+                            
+                            <a href="{{ route('productos.show', $producto['id']) }}" 
+                               class="btn btn-dark w-100 rounded-0 text-uppercase fw-bold py-2" 
+                               style="background-color: #2d054b; border: none; font-size: 0.8rem; letter-spacing: 2px;">
+                                Ver Producto
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 border-md-start border-md-end border-white border-opacity-25">
-                    <h1 class="display-2 fw-bold opacity-25 mb-0">02</h1>
-                    <h4 class="fw-bold">Estilo Local</h4>
-                    <p class="small opacity-75">Moda urbana seleccionada para el público formoseño.</p>
-                </div>
-                <div class="col-md-4">
-                    <h1 class="display-2 fw-bold opacity-25 mb-0">03</h1>
-                    <h4 class="fw-bold">Tendencia</h4>
-                    <p class="small opacity-75">Lo último que se usa, siempre disponible para vos.</p>
-                </div>
-            </div>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ url('/productos') }}" class="btn btn-outline-dark rounded-0 px-5 fw-bold text-uppercase" style="letter-spacing: 1px;">
+                Ver todo el catálogo
+            </a>
         </div>
     </section>
 
@@ -92,3 +117,9 @@
     </section>
 
 </x-layout>
+
+<style>
+    .transition-hover { transition: all 0.3s ease; }
+    .transition-hover:hover { transform: translateY(-10px); }
+    .object-fit-cover { object-fit: cover; }
+</style>

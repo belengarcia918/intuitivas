@@ -79,5 +79,14 @@ class ProductoController extends Controller
         return view('frontend.productos.show', compact('producto'));
     }
 
+    /* MÉTODO PARA LA HOME */
+    public function principal() 
+    {
+      $productos = $this->obtenerProductos();
+      $ultimos = array_slice($productos, -2); 
+
+      // Aquí es donde le decís qué archivo abrir:
+       return view('frontend.principal', ['ultimosProductos' => $ultimos]);
+    }
 
 }
