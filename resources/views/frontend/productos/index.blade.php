@@ -9,7 +9,7 @@
             <div class="card h-100 shadow">
 
                 <a href="{{ route('productos.show', $producto['id']) }}">
-                    <img src="{{ asset($producto['imagen']) }}" class="card-img-top img-producto">
+                    <img src="{{ asset($producto['imagenes'][0]) }}" class="card-img-top img-producto">
                 </a>
 
                 <div class="card-body">

@@ -70,12 +70,12 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ route('cuenta_nueva') }}">Crear cuenta</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
+                <li><a class="dropdown-item" href="{{ route('login') }}">Iniciar sesión</a></li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{ route('carrito.index') }}">
                 <img src="{{ asset('images/iconos/carrito.png') }}" class="icono-carrito me-2">Carrito
               </a>
             </li>
