@@ -9,11 +9,11 @@ class UsuarioController extends Controller
     public function registrar(Request $request)
     {
         // Validación
-        if (!$request->nombre || !$request->apellido || !$request->email || !$request->password) {
+        if (!$request->input('nombre') || !$request->input('apellido') || !$request->input('email') || !$request->input('password')) {
             return back()->with('error', 'Completá todos los campos');
         }
 
-        if ($request->password !== $request->confirmar) {
+        if ($request->input('password') !== $request->input('confirmar')) {
             return back()->with('error', 'Las contraseñas no coinciden');
         }
 

@@ -9,13 +9,13 @@
                 <h3 class="text-center mb-5 titulo-principal">Crear Cuenta</h3>
                 
                 @if(session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success text-center">
                     {{ session('success') }}
                 </div>
                 @endif
 
                 @if(session('error'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger text-center">
                     {{ session('error') }}
                 </div>
                 @endif
