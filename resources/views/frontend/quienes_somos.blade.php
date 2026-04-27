@@ -1,7 +1,11 @@
 <x-layout title="Nuestra Historia - Intuitivas Formosa">
 
     <div class="position-relative d-flex align-items-center justify-content-center text-center text-white" 
-         style="min-height: 500px; background: linear-gradient(rgba(45, 5, 75, 0.6), rgba(45, 5, 75, 0.6)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1500'); background-size: cover; background-position: center;">
+         style="min-height: 500px; 
+                background: linear-gradient(rgba(45, 5, 75, 0.6), rgba(45, 5, 75, 0.6)), 
+                url('{{ asset('images/carousel/moda2.jpg') }}'); 
+                background-size: cover; 
+                background-position: center;">
         
         <div class="container">
             <h1 class="display-1 fw-bold text-uppercase mb-0" style="letter-spacing: 15px; text-shadow: 3px 3px 10px rgba(0,0,0,0.5);">
@@ -21,7 +25,7 @@
                 
                 <div class="p-4 border-start border-end border-4 shadow-sm" style="border-color: #6a0dad !important; background-color: #f8f9fa;">
                     <h5 class="fw-bold mb-2"><i class="bi bi-geo-alt-fill me-2" style="color: #6a0dad;"></i> Vení a visitarnos</h5>
-                    <p class="mb-0 fs-5 text-dark">Calle **[NOMBRE DE TU CALLE] [NÚMERO]**, Formosa.</p>
+                    <p class="mb-0 fs-5 text-dark">Av. Dr Nestor Kirchner 3600, Formosa.</p>
                     <small class="text-muted text-uppercase fw-bold">Tu próximo outfit favorito está acá.</small>
                 </div>
             </div>
