@@ -1,23 +1,24 @@
-<x-layout>
-    <h1 class="container-fluid px-3 mb-4 text-start titulo">Página de contacto</h1>
+<x-layout title="Contacto">
+    <h1 class="container-fluid px-3 mb-5 text-center titulo-principal">Página de contacto</h1>
     <div class="container-fluid px-3">
   <div class="row">
     
     <!-- Columna izquierda -->
     <div class="col-12 col-md-4 mb-4">
+      <p class="mb-2 text-start texto">Atención teléfono en horario comercial de Lunes a Viernes. Por IG todos los días.</p>
+
       <div class="mb-2 text-start texto">
           <i class="fa-solid fa-phone me-2 text-dark"></i> +54 9 3704-xxxxxx
       </div>
 
       <div class="mb-2 text-start texto">
-          <i class="fa-solid fa-envelope me-2 text-dark"></i> cintuitivas@gmail.com
+          <i class="fa-solid fa-envelope me-2 text-dark"></i> intuitivas@gmail.com
       </div>
 
       <div class="mb-2 text-start texto">
           <i class="fa-solid fa-location-dot me-2 text-dark"></i> Av. Dr Nestor Kirchner 3600. Formosa Capital.
       </div>
 
-      <p class="text-start texto">Este es un mensaje para avisar <br>que me voy a volver loca (mas de lo que ya estoy)</p>
     </div>
 
     <!-- Columna derecha (formulario) -->

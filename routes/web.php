@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\UsuarioController;
 
 Route::get('/', [PruebaController::class, 'principal'])->name('principal');
 
@@ -12,6 +13,10 @@ Route::get('/contacto', [PruebaController::class, 'contacto'])->name('contacto')
 Route::get('/comercializacion', [PruebaController::class, 'comercializacion'])->name('comercializacion');
 
 Route::get('/quienes-somos', [PruebaController::class, 'quienesSomos'])->name('quienes_somos');
+
+Route::get('/terminos_de_uso', [PruebaController::class, 'terminosDeUso'])->name('terminos_de_uso');
+
+Route::get('/cuenta_nueva', [PruebaController::class, 'cuentaNueva'])->name('cuenta_nueva');
 
 /* Lista de productos */
 Route::get('/productos', [ProductoController::class, 'verCatalogo'])
@@ -26,3 +31,5 @@ Route::get('/productos/{id}', [ProductoController::class, 'mostrarProducto'])
     ->name('productos.show');
 
 Route::post('/contacto', [ContactoController::class, 'procesar'])->name('exito');
+
+Route::post('/nueva_cuenta', [UsuarioController::class, 'registrar']);

@@ -22,4 +22,12 @@ class PruebaController extends Controller
         return view('frontend.comercializacion');
     }
 
+    public function terminosDeUso (){
+        return view('frontend.terminos_de_uso');
+    }
+
+    public function cuentaNueva (){
+        return view('frontend.cuenta_nueva');
+    }
+
 }

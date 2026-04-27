@@ -129,6 +129,12 @@ main {
     }
 }
 
+.titulo-principal {
+    font-family: Georgia, Georgia, serif;
+    color: rgb(109, 63, 107);
+    font-size: 42px;
+}
+
 .titulo {
     font-family: Georgia, Georgia, serif;
     color: rgb(109, 63, 107);
@@ -144,6 +150,11 @@ main {
     font-style: Arial, Helvetica, sans-serif;
 }
 
+.texto-2-n {
+    color: rgb(109, 63, 107);
+    font-style: Arial, Helvetica, sans-serif;
+}
+
 .precio {
     color: rgb(191, 89, 231);
     font-style: Arial, Helvetica, sans-serif;
@@ -156,6 +167,93 @@ main {
     font-style: Arial, Helvetica, sans-serif;
     font-size: 18px;
     font-weight: 600;
+}
+
+/* Comercializacion */
+.caja {
+    background-color: rgb(167, 78, 208);
+    /*border: 2px solid #2d054b;*/
+}
+
+.caja h1 {
+    font-family: Georgia, Georgia, serif;
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+}
+
+.caja p { 
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+.circulo {
+    width: 80px; 
+    height: 80px; 
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.card-degradado {
+  background: linear-gradient(90deg, #c583e1 0%, #8860b6 100%);
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.col-contenido {
+  padding: 2rem 3rem !important; /* Ajusta este primer valor (2rem) para achicar más la altura */
+}
+
+.titulo-asesoria {
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+.texto-asesoria {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.btn-whatsapp {
+  color: #8e54b3 !important;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.icono-fondo {
+  font-size: 12rem;
+  opacity: 0.15;
+  line-height: 1;
+  display: block;
+  transform: translateY(10%); /* Lo baja un poco para que no empuje el techo */
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #fff; /* o el color que quieras */
+    color: inherit;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.accordion-button {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto al hacer click (abierto) */
+.accordion-button:not(.collapsed) {
+    color: rgb(191, 89, 231);
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+/* Opcional: efecto hover */
+.accordion-button:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
 /* Contacto */
@@ -180,9 +278,8 @@ main {
     box-shadow: 0 0 5px rgba(107, 107, 107, 0.4);
 }
 
-.boton-enviar, 
-.boton-ver,
-.boton-carrito {
+.boton-enviar,
+.boton-registrar {
     background-color: #5f2660;   /* fondo */
     border: none;
     color: white;
@@ -193,9 +290,33 @@ main {
     transition: 0.3s;
 }
 
-.boton-enviar:hover, 
+.boton-enviar:hover,
+.boton-registrar:hover {
+    background-color: #9d4a9f;   /* fondo */
+    border: none;
+    transform: scale(1.05); 
+}
+
+.boton-ver,
+.boton-carrito {
+    background-color: #5f2660;   /* fondo */
+    border: none;
+    color: white;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    display: inline-block;    /* Esto hace que el botón actúe como un bloque sólido */
+    text-align: center;       /* Centra el texto por si acaso */
+    white-space: nowrap;      /* Evita que el texto se parta en dos líneas */
+    box-sizing: border-box;
+    
+    padding: 10px 50px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
 .boton-ver:hover, 
-.boton-carrito.boton-carrito:hover {
+.boton-carrito:hover {
     background-color: #9d4a9f;   /* fondo */
     border: none;
     transform: scale(1.05); 
@@ -215,9 +336,33 @@ main {
     }
 }
 
-.card-body a,
-.col-md-6 a {
-    text-decoration: none;
+
+/* Nueva Cuenta */
+.form-check-input {
+  border: 2px solid #000;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+.form-check-input:hover {
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.form-check-input:focus {
+  border-color: #000;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.form-check-input:checked {
+  background-color: #000;
+  border-color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.text-decoration-none {
+    color: rgb(181, 57, 230);
 }
 
 

@@ -1,12 +1,12 @@
 <x-layout title="Productos">
 
-<h1 class="container-fluid px-3 mb-4 text-start titulo">Categoría: {{ $categoria ?? 'todos' }}</h1>
+<h4 class="container-fluid px-3 mb-4 text-start titulo">Categoría: {{ $categoria ?? 'todos' }}</h4>
 
 <div class="row">
     @foreach ($productos as $producto)
         <div class="col-12 col-sm-6 col-md-3 mb-3">
 
-            <div class="card h-100">
+            <div class="card h-100 shadow">
 
                 <a href="{{ route('productos.show', $producto['id']) }}">
                     <img src="{{ asset($producto['imagen']) }}" class="card-img-top img-producto">
@@ -19,6 +19,7 @@
                     <a href="{{ route('productos.show', $producto['id']) }}" class="boton-ver">
                         Ver producto
                     </a>
+
                 </div>
 
             </div>

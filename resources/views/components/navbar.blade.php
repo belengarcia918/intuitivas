@@ -53,6 +53,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('comercializacion') }}">Comercialización</a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('terminos_de_uso') }}">Términos de Uso</a>
+            </li>
           </ul>
 
           <!-- DERECHA -->
@@ -64,7 +68,7 @@
                 <img src="{{ asset('images/iconos/cuenta.png') }}" class="icono-user me-2">Cuenta
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Crear cuenta</a></li>
+                <li><a class="dropdown-item" href="{{ route('cuenta_nueva') }}">Crear cuenta</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
               </ul>
