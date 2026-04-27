@@ -12,7 +12,7 @@
       </div>
 
       <div class="mb-2 text-start texto">
-          <i class="fa-solid fa-envelope me-2 text-dark"></i> intuitivas@gmail.com
+          <i class="fa-solid fa-envelope me-2 text-dark"></i> cintuitivas@gmail.com
       </div>
 
       <div class="mb-2 text-start texto">
@@ -40,7 +40,7 @@
           <textarea class="form-control" name="mensaje" id="mensaje" rows="4" placeholder="Escribí tu mensaje acá..."></textarea>
         </div>
 
-        <button type="submit" class="boton-enviar">Enviar</button>
+        <button type="submit" class="boton-enviar btn-lg">Enviar</button>
       </form>
     </div>
 
