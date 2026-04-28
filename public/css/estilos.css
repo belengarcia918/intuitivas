@@ -117,54 +117,195 @@
 
 
 
-
 /* MAIN */
 
 
-/* --- CARRUSEL --- */
-
-/* Controlamos la altura del carrusel para que no sea infinita */
+/* --- CONFIGURACIÓN DEL CARRUSEL --- */
 .carousel-item {
-    height: 500px; /* Tamaño amoldado a una boutique */
-    background-color: #000; /* Fondo negro por si la imagen tarda en cargar */
+    height: 550px; /* Altura controlada */
 }
 
-/* Ajustamos la imagen para que rellene el espacio sin deformarse */
 .carousel-item img {
     height: 100%;
     width: 100%;
-    object-fit: cover; /* Clave: recorta la imagen para que encaje perfecto */
-    opacity: 0.8; /* Un poquito de oscuridad para que se lea mejor el texto */
-}
-
-/* Detalles del texto sobre la imagen */
-.carousel-caption {
-    background-color: rgba(7, 5, 9, 0.4); /* Fondo color uva traslúcido */
-    padding: 2rem;
-    border-radius: 10px;
-    bottom: 20%; /* Lo subimos un poco */
+    object-fit: cover; /* Ajuste de imagen sin deformar */
 }
 
 .titulo-carrusel {
-    text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 5px;
-    font-size: 5rem;
+    text-uppercase: uppercase;
+    letter-spacing: 4px;
+    font-size: 2.8rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .subtitulo-carrusel {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+}
+
+/* Estilo base para los textos del carrusel */
+.carousel-caption {
+    background-color: rgba(45, 5, 75, 0.5); /* Fondo para que se lea bien */
+    border-radius: 10px;
+    padding: 15px;
+    bottom: 10%; /* Ajustamos la posición para que no tape todo */
+}
+
+.titulo-carrusel {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.subtitulo-carrusel {
+    font-size: 1.2rem;
+}
+
+/* Ajustes específicos para celulares (Pantallas chicas) */
+@media (max-width: 576px) {
+    .carousel-caption {
+        padding: 10px;
+        bottom: 5%;
+    }
+
+    .titulo-carrusel {
+        font-size: 1.2rem; /* Achicamos el título para que entre */
+        letter-spacing: 1px;
+    }
+
+    .subtitulo-carrusel {
+        font-size: 0.9rem; /* Achicamos el párrafo */
+        margin-bottom: 0;
+    }
+}
+
+/* --- SECCIÓN BIENVENIDA --- */
+.seccion-bienvenida {
+    padding: 80px 0;
+}
+
+.subtitulo-marca {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #6a0dad;
+    letter-spacing: 3px;
+}
+
+.titulo-principal {
+    color: #2d054b;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.texto-descripcion {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* --- TARJETAS DE PRODUCTOS (TU DISEÑO NUEVO) --- */
+.card-producto {
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.card-producto:hover {
+    transform: translateY(-5px);
+}
+
+.img-producto {
+    height: 320px;
+    object-fit: cover;
+}
+
+.titulo {
+    color: #2d054b;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.precio-2 {
+    color: #6a0dad;
+    font-size: 1.1rem;
+}
+
+.boton-ver {
+    display: block;
+    background-color: #2d054b;
+    color: rgb(187, 17, 193) !important;
+    text-decoration: none;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.boton-ver:hover {
+    background-color: #2b0645;
+}
+
+/* --- SECCIÓN TITULOS Y SEPARADORES --- */
+.titulo-seccion {
+    color: #2d054b;
+    font-weight: bold;
+}
+
+.separador-marca {
+    width: 100px;
+    margin: 0 auto;
+    border: 2px solid #6a0dad;
+    opacity: 1;
+}
+
+.btn-catalogo {
+    display: inline-block;
+    border: 1px solid #212529;
+    padding: 12px 35px;
+    text-decoration: none;
+    color: #212529;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.btn-catalogo:hover {
+    background-color: #5c278a;
+    color: white;
+}
+
+/* --- FOOTER / FRASE FINAL --- */
+.footer-frase {
+    padding: 60px 0;
+    margin-top: 40px;
+}
+
+.icono-quote {
+    font-size: 4rem;
+    color: #e2d1f0;
+}
+
+.frase-inspiracional {
+    color: #2d054b;
+    font-style: italic;
     font-weight: 300;
 }
 
-/* Responsivo: En celulares el carrusel es más bajito */
+.firma-equipo {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #6a0dad;
+    letter-spacing: 3px;
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .carousel-item {
-        height: 350px;
-    }
-    .titulo-carrusel {
-        font-size: 1.8rem;
-    }
+    .carousel-item { height: 350px; }
+    .titulo-carrusel { font-size: 1.8rem; }
+    .img-producto { height: 260px; }
 }
 
 main {

@@ -30,22 +30,22 @@
     </div>
   </div>
   
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
 
-    <section class="container py-5 my-5 text-center">
-        <div class="row justify-content-center">
+    <section class="container seccion-bienvenida">
+        <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <h6 class="text-uppercase fw-bold" style="color: #6a0dad; letter-spacing: 3px;">Bienvenidos a Intuitivas</h6>
-                <h2 class="display-4 fw-bold mb-4" style="color: #2d054b;">Sentite segura, vestí con intuición.</h2>
-                <p class="fs-5 text-muted">
+                <h6 class="subtitulo-marca">Bienvenidos a Intuitivas</h6>
+                <h2 class="titulo-principal">Sentite segura, vestí con intuición.</h2>
+                <p class="texto-descripcion">
                     Explorá nuestra selección exclusiva en Formosa Capital. 
                     Prendas elegidas para destacar tu esencia.
                 </p>
@@ -53,35 +53,67 @@
         </div>
     </section>
 
-    <section class="container py-5 my-5">
+    <section class="container py-5">
         <div class="text-center mb-5">
-            <h6 class="text-uppercase fw-bold" style="color: #6a0dad; letter-spacing: 3px;">Lo último de Intuitivas</h6>
-            <h2 class="display-4 fw-bold" style="color: #2d054b;">Recién Llegados</h2>
-            <hr class="w-25 mx-auto border-2 opacity-100" style="color: #6a0dad;">
+            <h2 class="titulo-seccion">Recién Llegados</h2>
+            <hr class="separador-marca">
         </div>
 
-        
+        <div class="row justify-content-center">
+            @foreach ($ultimosProductos as $producto)
+                <div class="col-12 col-sm-6 col-md-3 mb-3">
+                    <div class="card h-100 shadow card-producto">
+                        <a href="{{ route('productos.show', $producto['id']) }}">
+                            <img src="{{ asset($producto['imagenes'][0] ?? $producto['imagen']) }}" class="card-img-top img-producto">
+                        </a>
 
-        <div class="text-center mt-5">
-            <a href="{{ url('/productos') }}" class="btn btn-outline-dark rounded-0 px-5 fw-bold text-uppercase" style="letter-spacing: 1px;">
+                        <div class="card-body text-center">
+                            <h6 class="titulo">{{ $producto["nombre"] }}</h6>
+                            <p class="mb-2 precio-2"><strong>${{ number_format($producto["precio"], 0, ',', '.') }}</strong></p>
+
+                            <a href="{{ route('productos.show', $producto['id']) }}" class="boton-ver">
+                                Ver producto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ url('/productos') }}" class="btn-catalogo">
                 Ver todo el catálogo
             </a>
         </div>
     </section>
 
-    <section class="py-5 my-5">
+    <footer class="footer-frase">
         <div class="container text-center">
-            <i class="bi bi-quote display-1" style="color: #e2d1f0;"></i>
-            <h2 class="fst-italic fw-light mb-4" style="color: #2d054b; font-size: 2.5rem;">
+            <i class="bi bi-quote icono-quote"></i>
+            <h2 class="frase-inspiracional">
                 "La moda es la herramienta, tu intuición es el poder."
             </h2>
-            <p class="text-uppercase fw-bold mt-1" style="letter-spacing: 4px; color: #6a0dad;">
-                — Equipo Intuitivas —
-            </p>
+            <p class="firma-equipo">— Equipo Intuitivas —</p>
         </div>
-    </section>
+    </footer>
 
 </x-layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
     .transition-hover { transition: all 0.3s ease; }
