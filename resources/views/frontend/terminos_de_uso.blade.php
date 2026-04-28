@@ -55,26 +55,32 @@
             <div class="row g-4">
 
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                        <i class="bi bi-truck fs-1 mb-2"></i>
-                        <h5 class="titulo">Envíos locales</h5>
-                        <p class="texto-2">Entregas en Formosa capital en 24 a 72 hs.</p>
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                            <i class="bi bi-truck fs-1 mb-2"></i>
+                        </div>
+                        <h5 class="titulo text-center">Envíos locales</h5>
+                        <p class="texto-2 text-center">Entregas en Formosa capital en 24 a 72 hs.</p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                        <i class="bi bi-box-seam fs-1 mb-2"></i>
-                        <h5 class="titulo">Interior</h5>
-                        <p class="texto-2">Envíos a toda la provincia mediante correo o transporte.</p>
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                            <i class="bi bi-box-seam fs-1 mb-2"></i>
+                        </div>
+                        <h5 class="titulo text-center">Interior</h5>
+                        <p class="texto-2 text-center">Envíos a toda la provincia mediante correo o transporte.</p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                        <i class="bi bi-shop fs-1 mb-2"></i>
-                        <h5 class="titulo">Retiro</h5>
-                        <p class="texto-2">Retiro gratuito en nuestro local en Formosa Capital.</p>
+                    <div class="card h-100 border-0 shadow-sm p-4">
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                            <i class="bi bi-shop fs-1 mb-2"></i>
+                        </div>
+                        <h5 class="titulo text-center">Retiro</h5>
+                        <p class="texto-2 text-center">Retiro gratuito en nuestro local en Formosa Capital.</p>
                     </div>
                 </div>
 
@@ -87,15 +93,14 @@
         <h2 class="titulo fw-bold text-center mb-4">Métodos de Pago</h2>
 
         <div class="card border-0 shadow-sm p-4">
-            <p class="texto-2 mb-2">
-                Aceptamos los siguientes medios de pago:
-            </p>
-            <ul class="texto-2">
-                <li>Efectivo</li>
-                <li>Tarjetas de débito y crédito</li>
-                <li>Transferencia bancaria</li>
-                <li>Mercado Pago</li>
-            </ul>
+            
+            <div class="medios-pago-2">
+                <img src="/images/modos/efectivo.png" alt="Efectivo">
+                <img src="/images/modos/visa.png" alt="Visa">
+                <img src="/images/modos/mastercard.png" alt="MasterCard">
+                <img src="/images/modos/naranja.png" alt="NaranjaX">
+                <img src="/images/modos/mercadopago.png" alt="Mercado Pago">
+            </div>
         </div>
     </section>
 

@@ -40,7 +40,7 @@ Route::post('/contacto', [ContactoController::class, 'procesar'])->name('exito')
 Route::post('/nueva_cuenta', [UsuarioController::class, 'registrar']);
 
 Route::post('/login', [UsuarioController::class, 'ingresar']);
-
+    
 /* Carrito */
 Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
 

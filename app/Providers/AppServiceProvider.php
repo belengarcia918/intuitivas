@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             $carrito = Session::get('carrito', []);
             
             // Sumamos todas las cantidades de los productos en el carrito
-            $cantItems = array_sum(array_column($carrito, 'cantidad'));
+            $cantItems = collect($carrito)->sum('cantidad');
 
             $view->with('cantItems', $cantItems);
         });

@@ -34,7 +34,7 @@ class UsuarioController extends Controller
 
         // Simulación login
         if ($email === "mariabelengarcia.918@gmail.com" && $password === "1234") {
-            return back()->with('success', 'Inicio de sesión exitoso 🎉');
+            return redirect()->route('principal')->with('success', 'Inicio de sesión exitoso 🎉');
         }
 
         return back()->with('error', 'Credenciales incorrectas');

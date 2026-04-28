@@ -77,7 +77,7 @@
 
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm p-4 h-100">
-
+                    <img src="{{ asset('images/avatar/avatar1.png') }}" class="rounded-circle avatar d-block mx-auto mb-3">
                     <h5 class="titulo">Rodrigo Ruiz Díaz</h5>
                     <p class="texto">Dueño</p>
                     <p class="texto-2">Encargado del negocio y selección de cada colección.</p>
@@ -86,6 +86,7 @@
 
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm p-4 h-100">
+                    <img src="{{ asset('images/avatar/avatar2.png') }}" class="rounded-circle avatar d-block mx-auto mb-3">
                     <h5 class="titulo">Camila Hernández Gonzalez</h5>
                     <p class="texto">Atención al cliente</p>
                     <p class="texto-2">Te asesora en talles, estilos y disponibilidad.</p>
@@ -94,6 +95,7 @@
 
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm p-4 h-100">
+                    <img src="{{ asset('images/avatar/avatar3.png') }}" class="rounded-circle avatar d-block mx-auto mb-3">
                     <h5 class="titulo">María Belén García</h5>
                     <p class="texto">Ventas & logística</p>
                     <p class="texto-2">Coordina envíos y entregas en toda la provincia.</p>

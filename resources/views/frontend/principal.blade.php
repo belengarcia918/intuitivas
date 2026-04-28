@@ -1,5 +1,12 @@
 <x-layout title="Intuitivas - Tu estilo en Formosa">
 
+    @if(session('success'))
+        <div id="mensaje-success" data-msg="{{ session('success') }}"></div>
+    @endif
+
+    @if(session('error'))
+        <div id="mensaje-error" data-msg="{{ session('error') }}"></div>
+    @endif
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -87,7 +94,7 @@
         </div>
     </section>
 
-    <footer class="footer-frase">
+    <footer class="footer-frase shadow">
         <div class="container text-center">
             <i class="bi bi-quote icono-quote"></i>
             <h2 class="frase-inspiracional">
@@ -101,7 +108,7 @@
     <section class="container my-5 py-5">
         <div class="row g-4 text-center">
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-4">
+                <div class="card h-100 border-0 shadow p-4">
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-bag-heart fs-1"></i>
                     </div>
@@ -110,7 +117,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-4">
+                <div class="card h-100 border-0 shadow p-4">
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-credit-card fs-1"></i>
                     </div>
@@ -119,7 +126,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-4">
+                <div class="card h-100 border-0 shadow p-4">
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-truck fs-1"></i>
                     </div>
@@ -164,7 +171,7 @@
 
     <section class="container my-5 text-center">
 
-        <h2 class="titulo mb-4">Categorías</h2>
+        <h2 class="fw-bold titulo mb-4">Categorías</h2>
 
         <div class="d-flex flex-wrap justify-content-center gap-3">
 

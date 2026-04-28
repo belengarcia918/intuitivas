@@ -96,7 +96,7 @@
             if (tipo === 'success') {
                 toast.style.backgroundColor = '#ffffff';
                 toast.style.color = '#b435af';
-                toast.style.border = '2px solid #c2c2c2';
+                toast.style.border = '2px solid #c2c2c2';  
             } else {
                 toast.style.backgroundColor = '#ffffff';
                 toast.style.color = '#d12222';

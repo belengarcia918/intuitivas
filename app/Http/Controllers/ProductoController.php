@@ -18,6 +18,12 @@ class ProductoController extends Controller
                     "images/productos/sweater1.jpg",
                     "images/productos/sweater1-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Bordó', 'hex' => '#800020'],
+                    ['nombre' => 'Negro', 'hex' => '#000000'],
+                    ['nombre' => 'Marrón', 'hex' => '#6D4C41'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "sweater"
             ],
             [
@@ -28,6 +34,12 @@ class ProductoController extends Controller
                     "images/productos/sweater2.jpg",
                     "images/productos/sweater2-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Teal Oscuro', 'hex' => '#004D40'],
+                    ['nombre' => 'Azul Desaturado', 'hex' => '#5C7C99'],
+                    ['nombre' => 'Azul Apagado', 'hex' => '#4A6C8C'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "sweater"
             ],
             [
@@ -38,6 +50,11 @@ class ProductoController extends Controller
                     "images/productos/blazer1.jpg",
                     "images/productos/blazer1-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Celeste Apagado Claro', 'hex' => '#B7CBD6'],
+                    ['nombre' => 'Blanco', 'hex' => '#FAFAFA'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "blazer"
             ],
             [
@@ -48,6 +65,12 @@ class ProductoController extends Controller
                     "images/productos/blazer2.jpg",
                     "images/productos/blazer2-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Beige', 'hex' => '#F5F5DC'],
+                    ['nombre' => 'Crema', 'hex' => '#FFFDD0'],
+                    ['nombre' => 'Blanco', 'hex' => '#FFFFFF'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "blazer"
             ],
             [
@@ -58,6 +81,11 @@ class ProductoController extends Controller
                     "images/productos/pantalones1.jpg",
                     "images/productos/pantalones1-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Gris Oscuro', 'hex' => '#424242'],
+                    ['nombre' => 'Negro', 'hex' => '#000000'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "pantalones"
             ],
             [
@@ -68,6 +96,12 @@ class ProductoController extends Controller
                     "images/productos/pantalones2.jpg",
                     "images/productos/pantalones2-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Claro', 'hex' => '#A8C3D8'],
+                    ['nombre' => 'Clásico', 'hex' => '#4F6D8A'],
+                    ['nombre' => 'Oscuro', 'hex' => '#2F3E4E'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "pantalones"
             ],
             [
@@ -78,6 +112,11 @@ class ProductoController extends Controller
                     "images/productos/camisa1.jpg",
                     "images/productos/camisa1-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Blanco Frío', 'hex' => '#F5F7F8'],
+                    ['nombre' => 'Celeste Apagado Claro', 'hex' => '#B7CBD6'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "camisa"
             ],
             [
@@ -88,6 +127,12 @@ class ProductoController extends Controller
                     "images/productos/camisa2.png",
                     "images/productos/camisa2-2.png"
                 ],
+                "colores" => [
+                    ['nombre' => 'Celeste Claro', 'hex' => '#C7D9F2'],
+                    ['nombre' => 'Celeste Clásico', 'hex' => '#9FBFE5'],
+                    ['nombre' => 'Celeste Oscuro', 'hex' => '#6F95C8'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "camisa"
             ],
             [
@@ -98,6 +143,11 @@ class ProductoController extends Controller
                     "images/productos/sweater3.png",
                     "images/productos/sweater3-2.png"
                 ],
+                "colores" => [
+                    ['nombre' => 'Marrón', 'hex' => '#6D4C41'],
+                    ['nombre' => 'Blanco', 'hex' => '#FFFFFF'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "sweater"
             ],
             [
@@ -108,6 +158,11 @@ class ProductoController extends Controller
                     "images/productos/blazer3.jpg",
                     "images/productos/blazer3-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Beige Claro', 'hex' => '#E8E2D8'],
+                    ['nombre' => 'Gris Rayado', 'hex' => '#8A8178'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "blazer"
             ],
             [
@@ -118,6 +173,11 @@ class ProductoController extends Controller
                     "images/productos/pantalones3.png",
                     "images/productos/pantalones3-2.png"
                 ],
+                "colores" => [
+                    ['nombre' => 'Marrón Chocolate', 'hex' => '#5A2E1F'],
+                    ['nombre' => 'Marrón Cuero', 'hex' => '#7A3E26'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "pantalones"
             ],
             [
@@ -128,6 +188,12 @@ class ProductoController extends Controller
                     "images/productos/camisa3.jpg",
                     "images/productos/camisa3-2.jpg"
                 ],
+                "colores" => [
+                    ['nombre' => 'Azul Cielo Medio', 'hex' => '#6FA8DC'],
+                    ['nombre' => 'Azul Suave', 'hex' => '#7EAED6'],
+                    ['nombre' => 'Blanco', 'hex' => '#FFFFFF'],
+                ],
+                "talles" => ['S', 'M', 'L', 'XL'],
                 "categoria" => "camisa"
             ],
             

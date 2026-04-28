@@ -7,19 +7,29 @@
         <img class="social-media-icon" src="/images/iconos/instagram.png" alt="Instagram">
       </a>
 
-      <h6><br>MEDIOS DE PAGO</h6>
-      <img class="medios-icon" src="/images/modos/efectivo.png" alt="Efectivo">
-      <img class="medios-icon" src="/images/modos/visa.png" alt="Visa">
-      <img class="medios-icon" src="/images/modos/mastercard.png" alt="MasterCard">
-      <img class="medios-icon" src="/images/modos/naranja.png" alt="NaranjaX">
-      <img class="medios-icon" src="/images/modos/mercadopago.png" alt="MercadoPago">
+      <div class="mb-3">
+        <h6><br>MEDIOS DE PAGO</h6>
+
+        <div class="medios-pago">
+          <img class="medios-icon" src="/images/modos/efectivo.png">
+          <img class="medios-icon" src="/images/modos/visa.png">
+          <img class="medios-icon" src="/images/modos/mastercard.png">
+          <img class="medios-icon" src="/images/modos/naranja.png">
+          <img class="medios-icon" src="/images/modos/mercadopago.png">
+        </div>
+      </div>
     </div>
 
     <div class="footer-col">
       <h6>CONTACTO</h6>
-      <p>Tel: +54 9 3704-xxxxxx</p>
-      <p>intuitivas@gmail.com</p>
-      <p>Av. Dr Nestor Kirchner 3600. Formosa Capital.</p>
+      <p class="mb-3">Tel: +54 9 3704-xxxxxx <br>intuitivas@gmail.com <br>Av. Dr Nestor Kirchner 3600. Formosa Capital.</p>
+
+      <iframe 
+          src="https://www.google.com/maps?q=Av+Nestor+Kirchner+3600+Formosa&output=embed"
+          class="mapa"
+          allowfullscreen="" 
+          loading="lazy">
+      </iframe>
     </div>
 
   </div>

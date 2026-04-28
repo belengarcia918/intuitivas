@@ -18,18 +18,20 @@ class CarritoController extends Controller
     {
         $carrito = session()->get('carrito', []);
 
-        $id = $request->id;
+        // 🔥 clave única por variante
+        $key = $request->id . '-' . $request->color . '-' . $request->talle;
 
-        // Si ya existe el producto, suma cantidad
-        if(isset($carrito[$id])) {
-            $carrito[$id]['cantidad']++;
+        if(isset($carrito[$key])) {
+            $carrito[$key]['cantidad']++;
         } else {
-            // Si no existe, lo agrega
-            $carrito[$id] = [
+            $carrito[$key] = [
+                "id" => $request->id,
                 "nombre" => $request->nombre,
                 "precio" => $request->precio,
                 "imagen" => $request->imagen,
-                "cantidad" => 1
+                "cantidad" => 1,
+                "color" => $request->color,
+                "talle" => $request->talle,
             ];
         }
 
@@ -42,7 +44,7 @@ class CarritoController extends Controller
     {
         $carrito = session()->get('carrito', []);
 
-        unset($carrito[$request->id]);
+        unset($carrito[$request->key]);
 
         session()->put('carrito', $carrito);
 
@@ -53,8 +55,8 @@ class CarritoController extends Controller
     {
         $carrito = session()->get('carrito', []);
 
-        if(isset($carrito[$request->id])) {
-            $carrito[$request->id]['cantidad'] = $request->cantidad;
+        if(isset($carrito[$request->key])) {
+            $carrito[$request->key]['cantidad'] = $request->cantidad;
         }
 
         session()->put('carrito', $carrito);

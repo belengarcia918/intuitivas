@@ -93,8 +93,53 @@
                 <input type="hidden" name="precio" value="{{ $producto['precio'] }}">
                 <input type="hidden" name="imagen" value="{{ $producto['imagenes'][0] }}">
 
-                <div class="row g-2 align-items-center mb-4">
+                <div class="row mb-4">
 
+                <!-- COLOR -->
+                <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold d-block">Color</label>
+
+                    <div class="d-flex gap-2">
+                        @foreach ($producto['colores'] as $color)
+                            <input type="radio"
+                                name="color"
+                                id="color-{{ $color['nombre'] }}"
+                                value="{{ $color['nombre'] }}"
+                                class="d-none"
+                                required>
+
+                            <label for="color-{{ $color['nombre'] }}"
+                                class="color-circle"
+                                style="background-color: {{ $color['hex'] }};"
+                                title="{{ $color['nombre'] }}">
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- TALLE -->
+                <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold d-block">Talle</label>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach ($producto['talles'] as $talle)
+                            <input type="radio"
+                                name="talle"
+                                id="talle-{{ $talle }}"
+                                value="{{ $talle }}"
+                                class="d-none"
+                                required>
+
+                            <label for="talle-{{ $talle }}"
+                                class="talle-box">
+                                {{ $talle }}
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+                <div class="row g-2 align-items-center mb-4">
                     <div class="col-4 col-md-3">
                         <input type="number" name="cantidad"
                             class="form-control form-control-lg text-center"

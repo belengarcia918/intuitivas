@@ -258,14 +258,17 @@
 
 .btn-categoria {
     display: inline-block;
-    padding: 30px 50px;
-    border: 2px solid rgb(109, 63, 107);
+    padding: 18px;
+    width: 220px;
+    height: 90px;
+    border: 3px solid rgb(109, 63, 107);
     color: rgb(109, 63, 107);
     font-family: 'Trebuchet MS', Helvetica, sans-serif;
     text-decoration: none;
     border-radius: 5px;
     transition: all 0.3s ease;
     background-color: transparent;
+    font-size: 30px;
     font-weight: 600;
 }
 
@@ -332,6 +335,21 @@ main {
     font-weight: 600;
 }
 
+.precio-3 {
+    color: rgb(191, 89, 231);
+    font-style: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Quienes somos */
+.avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+
 /* Comercializacion */
 .caja {
     background-color: rgb(167, 78, 208);
@@ -354,6 +372,9 @@ main {
     width: 80px; 
     height: 80px; 
     background-color: #000000;
+}
+
+.circulo i {
     color: #ffffff;
 }
 
@@ -554,6 +575,63 @@ main {
     color: rgb(181, 57, 230);
 }
 
+.color-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.color-circle:hover {
+    transform: scale(1.1);
+}
+
+input[type="radio"]:checked + .color-circle {
+    border: 3px solid black;
+    transform: scale(1.15);
+}
+
+.talle-box {
+    min-width: 45px;
+    height: 45px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.talle-box:hover {
+    border-color: #000;
+    transform: scale(1.05);
+}
+
+input[type="radio"]:checked + .talle-box {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* Terminos de uso */
+.medios-pago-2 {
+    display: flex;
+    justify-content: center; /* centrado */
+    align-items: center;
+    gap: 25px; /* espacio entre imágenes */
+    flex-wrap: wrap; /* responsive */
+}
+
+.medios-pago-2 img {
+    height: 60px; /* tamaño uniforme */
+    object-fit: contain;
+}
+
 
 /* Carrito */
 .mensaje-carrito {
@@ -611,7 +689,7 @@ main {
 .footer {
     background-color: #7f8187;
     color: white;
-    padding: 15px 20px;
+    padding: 20px 20px;
 }
 
 .footer-container {
@@ -655,14 +733,29 @@ main {
     height: 32px;
 }
 
+.medios-pago {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
 .medios-icon {
-    width: 45px;
-    margin: 5px;
+    width: 50px;
+    margin: 12px;
 }
 
 .footer-col img {
     max-width: 100%;
     height: auto;
+}
+
+.mapa {
+    width: 100%;
+    height: 100; 
+    border:0; 
+    border-radius:10px; 
+    margin-top:10px;
+    max-width: 100%;
 }
 
 .underline a{
