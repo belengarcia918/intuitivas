@@ -82,7 +82,7 @@ class ProductoController extends Controller
     public function principal() 
     {
       $productos = $this->obtenerProductos();
-      $ultimos = array_slice($productos, -2); 
+      $ultimos = array_slice($productos, -4); 
 
       // Aquí es donde le decís qué archivo abrir:
        return view('frontend.principal', ['ultimosProductos' => $ultimos]);
