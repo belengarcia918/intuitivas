@@ -119,6 +119,54 @@
 
 
 /* MAIN */
+
+
+/* --- CARRUSEL --- */
+
+/* Controlamos la altura del carrusel para que no sea infinita */
+.carousel-item {
+    height: 500px; /* Tamaño amoldado a una boutique */
+    background-color: #000; /* Fondo negro por si la imagen tarda en cargar */
+}
+
+/* Ajustamos la imagen para que rellene el espacio sin deformarse */
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Clave: recorta la imagen para que encaje perfecto */
+    opacity: 0.8; /* Un poquito de oscuridad para que se lea mejor el texto */
+}
+
+/* Detalles del texto sobre la imagen */
+.carousel-caption {
+    background-color: rgba(7, 5, 9, 0.4); /* Fondo color uva traslúcido */
+    padding: 2rem;
+    border-radius: 10px;
+    bottom: 20%; /* Lo subimos un poco */
+}
+
+.titulo-carrusel {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 5px;
+    font-size: 5rem;
+}
+
+.subtitulo-carrusel {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+/* Responsivo: En celulares el carrusel es más bajito */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 350px;
+    }
+    .titulo-carrusel {
+        font-size: 1.8rem;
+    }
+}
+
 main {
     min-height: 60vh;
 }

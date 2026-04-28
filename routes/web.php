@@ -38,9 +38,6 @@ Route::get('/productos/{id}', [ProductoController::class, 'mostrarProducto'])
 Route::post('/contacto', [ContactoController::class, 'procesar'])->name('exito');
 
 Route::post('/nueva_cuenta', [UsuarioController::class, 'registrar']);
-<<<<<<< HEAD
- 
-=======
 
 Route::post('/login', [UsuarioController::class, 'ingresar']);
 
@@ -52,4 +49,4 @@ Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index
 Route::post('/carrito/eliminar', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
 
 Route::post('/carrito/actualizar', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
->>>>>>> 3025d90897553601da0eee5e7a2bc841a5db8a8b
+
