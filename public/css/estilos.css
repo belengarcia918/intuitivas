@@ -118,7 +118,17 @@
 
 
 /* MAIN */
+.transition-hover { 
+    transition: all 0.3s ease; 
+}
 
+.transition-hover:hover { 
+    transform: translateY(-10px); 
+}
+
+.object-fit-cover { 
+    object-fit: cover; 
+}
 
 /* --- CONFIGURACIÓN DEL CARRUSEL --- */
 .carousel-item {
@@ -215,12 +225,11 @@
     opacity: 1;
 }
 
-/* --- FOOTER / FRASE FINAL ---
+/* --- FOOTER / FRASE FINAL --- */
 .footer-frase {
     padding: 60px 0;
     margin-top: 40px;
 }
- */
 
 .icono-quote {
     font-size: 4rem;
@@ -245,6 +254,26 @@
     .carousel-item { height: 350px; }
     .titulo-carrusel { font-size: 1.8rem; }
     .img-producto { height: 260px; }
+}
+
+.btn-categoria {
+    display: inline-block;
+    padding: 30px 50px;
+    border: 2px solid rgb(109, 63, 107);
+    color: rgb(109, 63, 107);
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    font-weight: 600;
+}
+
+.btn-categoria:hover {
+    background-color: rgb(109, 63, 107);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(109, 63, 107, 0.3);
 }
 
 main {
@@ -276,6 +305,12 @@ main {
 .texto-2 {
     color: rgb(191, 89, 231);
     font-style: Arial, Helvetica, sans-serif;
+}
+
+.texto-3 {
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    color: rgb(167, 78, 208);
+    font-size: 18px;
 }
 
 .texto-2-n {
@@ -525,6 +560,43 @@ main {
     color: rgb(109, 63, 107);
     font-style: Arial, Helvetica, sans-serif;
     font-size: 18px;
+}
+
+.boton-agregar {
+    background-color: #5f2660;
+    border: none;
+    color: white;
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.boton-agregar:hover {
+    background-color: #9d4a9f; 
+    border: none; 
+}
+
+.boton-eliminar {
+    background-color: #000000;
+    border: none;
+    color: white;
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boton-eliminar:hover {
+    background-color: #5c5c5c;   /* fondo */
+    border: none; 
 }
 
 

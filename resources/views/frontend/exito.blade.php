@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="¡Éxito! - Intuitivas">
     <div class="row justify-content-center">
         <div class="col-md-8">
 

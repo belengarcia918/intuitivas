@@ -1,4 +1,4 @@
-<x-layout title="Intuitivas - Tu Estilo en Formosa">
+<x-layout title="Intuitivas - Tu estilo en Formosa">
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -43,9 +43,9 @@
     <section class="container seccion-bienvenida">
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <h6 class="subtitulo-marca">Bienvenidos a Intuitivas</h6>
-                <h2 class="titulo-principal">Sentite segura, vestí con intuición.</h2>
-                <p class="texto-descripcion">
+                <h1 class="fw-bold titulo-principal">Bienvenidos a Intuitivas</h1>
+                <h2 class="texto-3">Sentite segura, vestí con intuición.</h2>
+                <p class="texto">
                     Explorá nuestra selección exclusiva en Formosa Capital. 
                     Prendas elegidas para destacar tu esencia.
                 </p>
@@ -55,7 +55,7 @@
 
     <section class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="titulo-seccion">Recién Llegados</h2>
+            <h3 class="fw-bold titulo">Recién Llegados</h3>
             <hr class="separador-marca">
         </div>
 
@@ -81,7 +81,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ url('/productos') }}" class="btn-catalogo">
+            <a href="{{ url('/productos') }}" class="text-decoration-none">
                 Ver todo el catálogo
             </a>
         </div>
@@ -97,26 +97,84 @@
         </div>
     </footer>
 
+    <!-- PROCESO DE COMPRA -->
+    <section class="container my-5 py-5">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                        <i class="bi bi-bag-heart fs-1"></i>
+                    </div>
+                    <h4 class="titulo fw-bold">Elegí</h4>
+                    <p class="texto-2">Navegá nuestro catálogo o visitanos en el showroom de Formosa.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                        <i class="bi bi-credit-card fs-1"></i>
+                    </div>
+                    <h4 class="titulo fw-bold">Pagá</h4>
+                    <p class="texto-2">Aceptamos efectivo, tarjetas y transferencias (¡consultá cuotas!).</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
+                        <i class="bi bi-truck fs-1"></i>
+                    </div>
+                    <h4 class="titulo fw-bold">Recibí</h4>
+                    <p class="texto-2">Envíos rápidos en Formosa y despachos a toda la provincia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENVÍOS Y PAGOS -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <h4 class="fw-bold mb-3 titulo"><i class="bi bi-truck me-2 text-dark"></i> Envíos</h4>
+                        <ul class="mb-0">
+                            <li>Envíos a domicilio en Formosa capital (24/72 hs)</li>
+                            <li>Envíos al interior mediante correo</li>
+                            <li>Retiro gratuito en showroom</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <h4 class="fw-bold mb-3 titulo"><i class="bi bi-cash-coin me-2 text-dark"></i> Medios de pago</h4>
+                        <ul class="mb-0">
+                            <li>Efectivo</li>
+                            <li>Tarjetas de débito y crédito</li>
+                            <li>Transferencia bancaria</li>
+                            <li>Mercado Pago</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5 text-center">
+
+        <h2 class="titulo mb-4">Categorías</h2>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+
+            <a href="{{ route('productos.categoria', 'sweater') }}" class="btn-categoria">Sweater</a>
+            <a href="{{ route('productos.categoria', 'blazer') }}" class="btn-categoria">Blazer</a>
+            <a href="{{ route('productos.categoria', 'pantalones') }}" class="btn-categoria">Pantalones</a>
+            <a href="{{ route('productos.categoria', 'camisa') }}" class="btn-categoria">Camisa</a>
+
+        </div>
+
+    </section>
+
 </x-layout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
-    .transition-hover { transition: all 0.3s ease; }
-    .transition-hover:hover { transform: translateY(-10px); }
-    .object-fit-cover { object-fit: cover; }
-</style>

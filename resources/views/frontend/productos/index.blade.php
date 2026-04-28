@@ -1,6 +1,6 @@
-<x-layout title="Productos">
+<x-layout title="{{ $categoria ?? 'Productos - Intuitivas' }}">
 
-<h4 class="container-fluid px-3 mb-4 text-start titulo">Categoría: {{ $categoria ?? 'todos' }}</h4>
+<h4 class="container-fluid px-3 mb-4 text-start fw-bold titulo">Categoría: {{ $categoria ?? 'todos' }}</h4>
 
 <div class="row">
     @foreach ($productos as $producto)

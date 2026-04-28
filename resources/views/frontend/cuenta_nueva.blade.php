@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Crear Cuenta - Intuitivas">
     <section class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-6">

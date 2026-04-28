@@ -45,8 +45,10 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ route('productos.index') }}">Todos</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'cinto') }}">Cinto</a></li>
-                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'cartera') }}">Cartera</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'sweater') }}">Sweater</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'blazer') }}">Blazer</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'pantalones') }}">Pantalones</a></li>
+                <li><a class="dropdown-item" href="{{ route('productos.categoria', 'camisa') }}">Camisa</a></li>
               </ul>
             </li>
           
@@ -75,8 +77,12 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('carrito.index') }}">
-                <img src="{{ asset('images/iconos/carrito.png') }}" class="icono-carrito me-2">Carrito
+              <a class="nav-link" href="{{ route('carrito.index') }}"> 
+                <img src="{{ asset('images/iconos/carrito.png') }}" class="icono-user me-2">
+                    Carrito 
+                    @if($cantItems > 0)
+                        <span>({{ $cantItems }})</span>
+                    @endif
               </a>
             </li>
           </ul>

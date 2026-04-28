@@ -1,12 +1,13 @@
-<x-layout title="Comercialización">
+<x-layout title="Comercialización - Intuitivas">
 
-    <header class="py-2 shadow-sm text-center caja">
-        <div class="container py-3 texto-blanco">
-            <h1>Experiencia Intuitivas</h1>
-            <p>Comprar moda nunca fue tan fácil y seguro.</p>
+    <header class="py-2 shadow-sm text-center">
+        <div class="container py-3">
+            <h1 class="titulo-principal fw-bold fw-bold">Comercialización</h1>
+            <p class="texto-3">Todo lo que necesitás saber para comprar fácil, rápido y seguro</p>
         </div>
     </header>
 
+    <!-- PROCESO DE COMPRA -->
     <section class="container my-5 py-5">
         <div class="row g-4 text-center">
             <div class="col-md-4">
@@ -14,8 +15,8 @@
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-bag-heart fs-1"></i>
                     </div>
-                    <h4 class="fw-bold titulo">1. Elegí</h4>
-                    <p class="text-muted">Navegá nuestro catálogo o visitanos en el showroom de Formosa.</p>
+                    <h4 class="titulo fw-bold">Elegí</h4>
+                    <p class="texto-2">Navegá nuestro catálogo o visitanos en el showroom de Formosa.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -23,8 +24,8 @@
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-credit-card fs-1"></i>
                     </div>
-                    <h4 class="fw-bold titulo">2. Pagá</h4>
-                    <p class="text-muted">Aceptamos efectivo, tarjetas y transferencias (¡consultá cuotas!).</p>
+                    <h4 class="titulo fw-bold">Pagá</h4>
+                    <p class="texto-2">Aceptamos efectivo, tarjetas y transferencias (¡consultá cuotas!).</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -32,14 +33,48 @@
                     <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle circulo">
                         <i class="bi bi-truck fs-1"></i>
                     </div>
-                    <h4 class="fw-bold titulo">3. Recibí</h4>
-                    <p class="text-muted">Envíos rápidos en Formosa y despachos a toda la provincia.</p>
+                    <h4 class="titulo fw-bold">Recibí</h4>
+                    <p class="texto-2">Envíos rápidos en Formosa y despachos a toda la provincia.</p>
                 </div>
             </div>
         </div>
     </section>
 
-   <div class="container my-5">
+    <!-- ENVÍOS Y PAGOS -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <h4 class="fw-bold mb-3 titulo"><i class="bi bi-truck me-2 text-dark"></i> Envíos</h4>
+                        <ul class="mb-0">
+                            <li>Envíos a domicilio en Formosa capital (24/72 hs)</li>
+                            <li>Envíos al interior mediante correo</li>
+                            <li>Retiro gratuito en showroom</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <h4 class="fw-bold mb-3 titulo"><i class="bi bi-cash-coin me-2 text-dark"></i> Medios de pago</h4>
+                        <ul class="mb-0">
+                            <li>Efectivo</li>
+                            <li>Tarjetas de débito y crédito</li>
+                            <li>Transferencia bancaria</li>
+                            <li>Mercado Pago</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- CONTACTO -->
+    <div class="container my-5">
         <div class="card border-0 shadow text-white card-degradado">
             <div class="row g-0 align-items-center">
                 
@@ -61,10 +96,11 @@
         </div>
     </div>
 
+    <!-- CAMBIOS -->
     <section class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <h3 class="text-center fw-bold mb-5 texto-2-n">Información Útil</h3>
+                <h3 class="text-center fw-bold mb-5 titulo">Información Útil</h3>
                 <div class="accordion accordion-flush shadow-sm rounded border" id="faqComercializacion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -94,5 +130,4 @@
             </div>
         </div>
     </section>
-
 </x-layout>

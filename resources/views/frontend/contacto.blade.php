@@ -1,5 +1,5 @@
-<x-layout title="Contacto">
-    <h1 class="container-fluid px-3 mb-5 text-center titulo-principal">Página de contacto</h1>
+<x-layout title="Contacto - Intuitivas">
+    <h1 class="container-fluid px-3 mb-5 text-center titulo-principal fw-bold">Página de contacto</h1>
     <div class="container-fluid px-3">
   <div class="row">
     

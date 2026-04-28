@@ -1,4 +1,4 @@
-<x-layout title="{{ $producto['nombre'] }}">
+<x-layout title="{{ $producto['nombre'] }} - Intuitivas">
 
 <div class="container py-5">
     <div class="row g-4">

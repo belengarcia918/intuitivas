@@ -1,13 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class ProductoController extends Controller
-{
-    /* LISTA DE PRODUCTOS */
-    private function obtenerProductos()
+private function obtenerProductos()
     {
         return [
             [
@@ -133,49 +126,3 @@ class ProductoController extends Controller
             
         ];
     }
-
-    /* TODO EL CATALOGO */
-    public function verCatalogo()
-    {
-        $productos = $this->obtenerProductos();
-
-        return view('frontend.productos.index', compact('productos'));
-    }
-
-    /* POR CATEGORIA */
-    public function categoria($categoria)
-    {
-        $productos = $this->obtenerProductos();
-
-        $filtrados = collect($productos)
-            ->where('categoria', $categoria)
-            ->values()
-            ->all();
-
-        return view('frontend.productos.index', [
-            'productos' => $filtrados,
-            'categoria' => $categoria
-        ]);
-    }
-
-    /* DETALLE DEL PRODUCTO */
-    public function mostrarProducto($id)
-    {
-        $productos = $this->obtenerProductos();
-
-        $producto = collect($productos)->firstWhere('id', $id);
-
-        return view('frontend.productos.show', compact('producto'));
-    }
-
-    /* MÉTODO PARA LA HOME */
-    public function principal() 
-    {
-      $productos = $this->obtenerProductos();
-      $ultimos = array_slice($productos, -4); 
-
-      // Aquí es donde le decís qué archivo abrir:
-       return view('frontend.principal', ['ultimosProductos' => $ultimos]);
-    }
-
-}

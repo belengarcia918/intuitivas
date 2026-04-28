@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Carrito - Intuitivas">
     @php
     $total = 0;
     @endphp
@@ -23,8 +23,8 @@
 
                 <!-- INFO -->
                 <div class="flex-grow-1">
-                    <h5 class="mb-1">{{ $item['nombre'] }}</h5>
-                    <p class="mb-1 text-muted small">
+                    <h5 class="mb-1 texto-2-n">{{ $item['nombre'] }}</h5>
+                    <p class="mb-1 small precio-2">
                         ${{ number_format($item['precio'], 0, ',', '.') }}
                     </p>
                 </div>
@@ -35,7 +35,7 @@
                     <input type="hidden" name="id" value="{{ $id }}">
                     <input type="number" name="cantidad" value="{{ $item['cantidad'] }}" min="1" 
                         class="form-control me-2 text-center" style="width: 70px;">
-                    <button class="btn btn-dark btn-sm">✔</button>
+                    <button class="btn btn-sm boton-agregar"><i class="bi bi-check-lg"></i></button>
                 </form>
 
                 <!-- SUBTOTAL -->
@@ -49,7 +49,7 @@
                 <form action="{{ route('carrito.eliminar') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="{{ $id }}">
-                    <button class="btn btn-danger btn-sm">✖</button>
+                    <button class="btn btn-sm boton-eliminar"><i class="bi bi-x-lg"></i></button>
                 </form>
 
             </div>
