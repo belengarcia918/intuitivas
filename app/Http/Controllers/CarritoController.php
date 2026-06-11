@@ -8,6 +8,7 @@ class CarritoController extends Controller
 {
     public function index()
     {
+    
         $carrito = session()->get('carrito', []);
         $total = 0;
 
@@ -16,20 +17,33 @@ class CarritoController extends Controller
 
     public function agregar(Request $request)
     {
+
+        $request->validate([
+        'id' => 'required',
+        'nombre' => 'required',
+        'precio' => 'required|numeric',
+        'imagen' => 'required',
+        'cantidad' => 'required|integer|min:1',
+        'color' => 'required',
+        'talle' => 'required',
+        ]);
+        
         $carrito = session()->get('carrito', []);
 
-        // 🔥 clave única por variante
+        $cantidad = max(1, (int) $request->cantidad);
+
+        // clave única por variante
         $key = $request->id . '-' . $request->color . '-' . $request->talle;
 
         if(isset($carrito[$key])) {
-            $carrito[$key]['cantidad']++;
+            $carrito[$key]['cantidad'] += $cantidad;
         } else {
             $carrito[$key] = [
                 "id" => $request->id,
                 "nombre" => $request->nombre,
                 "precio" => $request->precio,
                 "imagen" => $request->imagen,
-                "cantidad" => 1,
+                "cantidad" => $request->cantidad,
                 "color" => $request->color,
                 "talle" => $request->talle,
             ];

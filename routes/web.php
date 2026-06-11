@@ -35,7 +35,7 @@ Route::get('/productos/categoria/{categoria}', [ProductoController::class, 'cate
 Route::get('/productos/{id}', [ProductoController::class, 'mostrarProducto'])
     ->name('productos.show');
 
-Route::post('/contacto', [ContactoController::class, 'procesar'])->name('exito');
+Route::post('/contacto', [ContactoController::class, 'store_contacto']);
 
 Route::post('/nueva_cuenta', [UsuarioController::class, 'registrar']);
 

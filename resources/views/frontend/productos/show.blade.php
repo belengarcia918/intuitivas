@@ -100,12 +100,13 @@
                     <label class="form-label fw-bold d-block">Color</label>
 
                     <div class="d-flex gap-2">
-                        @foreach ($producto['colores'] as $color)
+                        @foreach ($producto['colores'] as $index => $color)
                             <input type="radio"
                                 name="color"
                                 id="color-{{ $color['nombre'] }}"
                                 value="{{ $color['nombre'] }}"
                                 class="d-none"
+                                {{ $index === 0 ? 'checked' : '' }}
                                 required>
 
                             <label for="color-{{ $color['nombre'] }}"
@@ -122,12 +123,13 @@
                     <label class="form-label fw-bold d-block">Talle</label>
 
                     <div class="d-flex flex-wrap gap-2">
-                        @foreach ($producto['talles'] as $talle)
+                        @foreach ($producto['talles'] as $index => $talle)
                             <input type="radio"
                                 name="talle"
                                 id="talle-{{ $talle }}"
                                 value="{{ $talle }}"
                                 class="d-none"
+                                {{ $index === 0 ? 'checked' : '' }}
                                 required>
 
                             <label for="talle-{{ $talle }}"

@@ -506,6 +506,43 @@ main {
     transform: scale(1.05); 
 }
 
+.card-exito {
+    max-width: 600px; 
+    border-radius: 15px;
+}
+
+.check-circle {
+    width: 100px;
+    height: 100px;
+    background-color: transparent; /* sin fondo */
+    color: rgb(50, 210, 119);
+    font-size: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.check-circle i {
+    animation: popIcon 0.4s ease;
+}
+
+@keyframes popIcon {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 /* Catalago */
 .img-producto {
     height: 200px;       /* tamaño fijo */

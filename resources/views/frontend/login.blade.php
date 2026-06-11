@@ -100,7 +100,7 @@
             } else {
                 toast.style.backgroundColor = '#ffffff';
                 toast.style.color = '#d12222';
-                toast.style.border = '2px solid #c2c2c2;';
+                toast.style.border = '2px solid #c2c2c2';
             }
 
             document.body.appendChild(toast);

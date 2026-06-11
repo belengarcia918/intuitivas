@@ -1,20 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ContactoRequest;
 
 use Illuminate\Http\Request;
 
 class ContactoController extends Controller
 {
-    public function procesar (Request $request){
-        $nombre = $request->input('nombre');
-        $email = $request->input('email');
-        $mensaje = $request->input('mesaje');
+    public function store_contacto (ContactoRequest $request){
+        $datos = $request->validated();
 
-        return view ('frontend.exito', [
-            'nombre'=>$nombre,
-            'email'=>$email,
-            'mensaje'=>$mensaje
-            ]);
+        $nombre = $datos['nombre'];
+        $email = $datos['email'];
+        $motivo = $datos['motivo'];
+        $consulta = $datos['consulta'];
+
+        //guardar en BD
+
+        return redirect()->back()->with([
+            'success_message' => 'Tu consulta ha sido enviada correctamente',
+            'nombre' => $nombre,
+            'email' => $email
+        ]);
     }
 }

@@ -21,7 +21,7 @@ class UsuarioController extends Controller
         }
 
         // Simulación éxito
-        return back()->with('success', 'Usuario registrado correctamente 🎉');
+        return back()->with('success', 'Usuario registrado correctamente');
     }
 
     public function ingresar(Request $request) {
