@@ -1,4 +1,4 @@
-<x-layout title="Agregar Nuevo Producto - Panel Admin">
+<x-layout title="Editar Producto - Panel Admin">
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -12,22 +12,24 @@
 
             <div class="card border-0 shadow-sm rounded-3 overflow-hidden bg-white">
 
-                <div class="py-3 px-4 text-white fw-bold" style="background-color:#1A5276;">
-                    <i class="bi bi-plus-circle me-2"></i> Cargar Nuevo Producto
+                <div class="py-3 px-4 text-white fw-bold" style="background-color:#D35400;">
+                    <i class="bi bi-pencil-square me-2"></i> Editar Producto
                 </div>
 
                 <div class="p-4">
 
-                    <form action="{{ route('admin.productos.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
 
                         {{-- NOMBRE --}}
                         <div class="mb-3">
-                            <label class="form-label">Nombre del producto</label>
+                            <label class="form-label fw-semibold text-muted">Nombre</label>
+
                             <input type="text"
                                    name="nombre_producto"
                                    class="form-control @error('nombre_producto') is-invalid @enderror"
-                                   value="{{ old('nombre_producto') }}">
+                                   value="{{ old('nombre_producto', $producto->nombre_producto) }}">
 
                             @error('nombre_producto')
                                 <small class="text-danger">{{ $message }}</small>
@@ -36,10 +38,11 @@
 
                         {{-- DESCRIPCIÓN --}}
                         <div class="mb-3">
-                            <label class="form-label">Descripción</label>
+                            <label class="form-label fw-semibold text-muted">Descripción</label>
+
                             <textarea name="descripcion_producto"
                                       class="form-control @error('descripcion_producto') is-invalid @enderror"
-                                      rows="3">{{ old('descripcion_producto') }}</textarea>
+                                      rows="3">{{ old('descripcion_producto', $producto->descripcion_producto) }}</textarea>
 
                             @error('descripcion_producto')
                                 <small class="text-danger">{{ $message }}</small>
@@ -50,12 +53,13 @@
                         <div class="row">
 
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Precio</label>
+                                <label class="form-label fw-semibold text-muted">Precio</label>
+
                                 <input type="number"
                                        step="0.01"
                                        name="precio_producto"
                                        class="form-control @error('precio_producto') is-invalid @enderror"
-                                       value="{{ old('precio_producto') }}">
+                                       value="{{ old('precio_producto', $producto->precio_producto) }}">
 
                                 @error('precio_producto')
                                     <small class="text-danger">{{ $message }}</small>
@@ -63,11 +67,12 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Stock</label>
+                                <label class="form-label fw-semibold text-muted">Stock</label>
+
                                 <input type="number"
                                        name="stock_producto"
                                        class="form-control @error('stock_producto') is-invalid @enderror"
-                                       value="{{ old('stock_producto') }}">
+                                       value="{{ old('stock_producto', $producto->stock_producto) }}">
 
                                 @error('stock_producto')
                                     <small class="text-danger">{{ $message }}</small>
@@ -78,11 +83,12 @@
 
                         {{-- COLOR --}}
                         <div class="mb-3">
-                            <label class="form-label">Color</label>
+                            <label class="form-label fw-semibold text-muted">Color</label>
+
                             <input type="text"
                                    name="color"
                                    class="form-control @error('color') is-invalid @enderror"
-                                   value="{{ old('color') }}"
+                                   value="{{ old('color', $producto->color) }}"
                                    placeholder="Ej: Negro, Blanco, Azul">
 
                             @error('color')
@@ -92,17 +98,19 @@
 
                         {{-- TALLE --}}
                         <div class="mb-3">
-                            <label class="form-label">Talle</label>
+                            <label class="form-label fw-semibold text-muted">Talle</label>
 
                             <select name="talle"
                                     class="form-select @error('talle') is-invalid @enderror">
 
                                 <option value="">Seleccionar talle</option>
-                                <option value="XS" @selected(old('talle')=='XS')>XS</option>
-                                <option value="S"  @selected(old('talle')=='S')>S</option>
-                                <option value="M"  @selected(old('talle')=='M')>M</option>
-                                <option value="L"  @selected(old('talle')=='L')>L</option>
-                                <option value="XL" @selected(old('talle')=='XL')>XL</option>
+
+                                @foreach(['XS','S','M','L','XL'] as $t)
+                                    <option value="{{ $t }}"
+                                        {{ old('talle', $producto->talle) == $t ? 'selected' : '' }}>
+                                        {{ $t }}
+                                    </option>
+                                @endforeach
 
                             </select>
 
@@ -113,16 +121,14 @@
 
                         {{-- CATEGORÍA --}}
                         <div class="mb-3">
-                            <label class="form-label">Categoría</label>
+                            <label class="form-label fw-semibold text-muted">Categoría</label>
 
                             <select name="categoria_id"
                                     class="form-select @error('categoria_id') is-invalid @enderror">
 
-                                <option value="">Seleccionar categoría</option>
-
                                 @foreach($categorias as $categoria)
                                     <option value="{{ $categoria->id }}"
-                                        @selected(old('categoria_id') == $categoria->id)>
+                                        {{ old('categoria_id', $producto->categoria_id) == $categoria->id ? 'selected' : '' }}>
                                         {{ $categoria->nombre }}
                                     </option>
                                 @endforeach
@@ -134,14 +140,32 @@
                             @enderror
                         </div>
 
-                        {{-- IMÁGENES --}}
-                        <div class="mb-3">
-                            <label class="form-label">Imágenes del producto</label>
+                        {{-- IMÁGENES ACTUALES --}}
+                        @if($producto->imagenes->count())
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted d-block">
+                                    Imágenes actuales
+                                </label>
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    @foreach($producto->imagenes as $img)
+                                        <img src="{{ asset('storage/' . $img->ruta) }}"
+                                             style="width:100px;height:100px;object-fit:cover"
+                                             class="rounded shadow-sm">
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        {{-- NUEVAS IMÁGENES --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-muted">
+                                Agregar más imágenes
+                            </label>
 
                             <input type="file"
                                    name="imagenes[]"
                                    multiple
-                                   accept="image/*"
                                    class="form-control @error('imagenes.*') is-invalid @enderror">
 
                             @error('imagenes.*')
@@ -152,11 +176,14 @@
                         {{-- BOTONES --}}
                         <div class="d-flex gap-2 border-top pt-3">
 
-                            <button class="btn text-white px-4" style="background:#1A5276;">
-                                Guardar producto
+                            <button type="submit"
+                                    class="btn text-white px-4"
+                                    style="background:#1A5276;">
+                                Actualizar Producto
                             </button>
 
-                            <a href="{{ route('admin.productos') }}" class="btn btn-secondary px-4">
+                            <a href="{{ route('admin.productos') }}"
+                               class="btn btn-secondary px-4">
                                 Cancelar
                             </a>
 

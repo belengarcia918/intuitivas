@@ -15,7 +15,6 @@ class Producto extends Model
         'precio_producto',
         'stock_producto',
         'categoria_id',
-        'imagen_producto',
         'activo',
     ];
 
@@ -25,8 +24,21 @@ class Producto extends Model
         'activo' => 'boolean',
     ];
 
+    // RELACIONES
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function imagenes()
+    {
+        return $this->hasMany(ProductoImagen::class);
+    }
+
+    // (si usás variantes)
+    public function variantes()
+    {
+        return $this->hasMany(ProductoVariante::class);
     }
 }

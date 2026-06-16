@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View; 
 use Illuminate\Support\Facades\Session;
+use App\Models\Categoria; // <-- ¡No te olvides de agregar este use aquí arriba!
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,14 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // El View Composer debe ir aquí adentro
+        // View Composer unificado para todo el sitio
         View::composer('*', function ($view) {
+            // 1. LÓGICA DEL CARRITO (La tuya que ya funciona impecable)
             $carrito = Session::get('carrito', []);
-            
-            // Sumamos todas las cantidades de los productos en el carrito
             $cantItems = collect($carrito)->sum('cantidad');
 
-            $view->with('cantItems', $cantItems);
+            // 2. LÓGICA DE CATEGORÍAS DINÁMICAS (Ordenadas alfabéticamente)
+            $categoriasMenu = Categoria::orderBy('nombre', 'asc')->get();
+
+            // Inyectamos ambas variables a las vistas al mismo tiempo
+            $view->with([
+                'cantItems' => $cantItems,
+                'categoriasMenu' => $categoriasMenu
+            ]);
         });
     }
 }

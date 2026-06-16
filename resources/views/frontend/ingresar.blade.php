@@ -18,7 +18,7 @@
                 @endif
 
                 <!-- FORM -->
-                <form action="{{ url('/login') }}" method="POST">
+                <form action="{{ url('/ingresar') }}" method="POST">
                     @csrf
 
                     <!-- Email -->

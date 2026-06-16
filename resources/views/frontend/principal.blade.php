@@ -70,15 +70,20 @@
             @foreach ($ultimosProductos as $producto)
                 <div class="col-12 col-sm-6 col-md-3 mb-3">
                     <div class="card h-100 shadow card-producto">
-                        <a href="{{ route('productos.show', $producto['id']) }}">
-                            <img src="{{ asset($producto['imagenes'][0] ?? $producto['imagen']) }}" class="card-img-top img-producto">
+
+                        <a href="{{ route('productos.show', $producto->id) }}">
+                            <img src="{{ asset($producto->imagen_producto ?? 'images/default.png') }}" 
+                                class="card-img-top img-producto">
                         </a>
 
                         <div class="card-body text-center">
-                            <h6 class="titulo">{{ $producto["nombre"] }}</h6>
-                            <p class="mb-2 precio-2"><strong>${{ number_format($producto["precio"], 0, ',', '.') }}</strong></p>
+                            <h6 class="titulo">{{ $producto->nombre_producto }}</h6>
 
-                            <a href="{{ route('productos.show', $producto['id']) }}" class="boton-ver">
+                            <p class="mb-2 precio-2">
+                                <strong>${{ number_format($producto->precio_producto, 0, ',', '.') }}</strong>
+                            </p>
+
+                            <a href="{{ route('productos.show', $producto->id) }}" class="boton-ver">
                                 Ver producto
                             </a>
                         </div>

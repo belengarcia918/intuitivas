@@ -30,7 +30,7 @@
         @csrf
         <div class="mb-3">
           <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Tu nombre completo">
+          <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Tu nombre completo" value="{{ old('nombre') }}">
           @error('nombre')
             <small class="text-danger">{{ $message }}</small>
           @enderror
@@ -38,7 +38,7 @@
 
         <div class="mb-3">
           <label for="email" class="form-label">Correo electrónico</label>
-          <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@email.com">
+          <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@email.com" value="{{ old('email') }}">
           @error('email')
             <small class="text-danger">{{ $message }}</small>
           @enderror
@@ -46,7 +46,7 @@
 
         <div class="mb-3">
           <label for="motivo" class="form-label">Motivo</label>
-          <input type="text" name="motivo" class="form-control" id="motivo" placeholder="Motivo de tu consulta">
+          <input type="text" name="motivo" class="form-control" id="motivo" placeholder="Motivo de tu consulta" value="{{ old('motivo') }}">
           @error('motivo')
             <small class="text-danger">{{ $message }}</small>
           @enderror
@@ -54,7 +54,7 @@
 
         <div class="mb-3">
           <label for="consulta" class="form-label">Mensaje</label>
-          <textarea class="form-control" name="consulta" id="consulta" rows="4" placeholder="Escribí tu mensaje acá..."></textarea>
+          <textarea class="form-control" name="consulta" id="consulta" rows="4" placeholder="Escribí tu mensaje acá...">{{ old('consulta') }}</textarea>
           @error('consulta')
             <small class="text-danger">{{ $message }}</small>
           @enderror

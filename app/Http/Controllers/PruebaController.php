@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class PruebaController extends Controller
 {
-    public function principal (){
-        return view('frontend.principal');
-    }
-
     public function contacto (){
         return view('frontend.contacto');
     }
@@ -30,8 +26,8 @@ class PruebaController extends Controller
         return view('frontend.cuenta_nueva');
     }
 
-    public function login (){
-        return view('frontend.login');
+    public function ingresar (){
+        return view('frontend.ingresar');
     }
 
 }

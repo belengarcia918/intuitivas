@@ -7,11 +7,11 @@
         <a class="navbar-brand" href="{{ route('principal') }}">INTUITIVAS</a>
 
         <form class="d-flex" role="search">
-        <input class="form-control buscador" type="search" placeholder="¿Qué estás buscando?">
-        <button class="btn boton-buscar" type="submit">
-          <img src="{{ asset('images/iconos/lupa.png') }}" class="icono-lupa">
-        </button>
-      </form>
+          <input class="form-control buscador" type="search" placeholder="¿Qué estás buscando?">
+          <button class="btn boton-buscar" type="submit">
+            <img src="{{ asset('images/iconos/lupa.png') }}" class="icono-lupa">
+          </button>
+        </form>
       </div>
 
       <!-- BOTÓN HAMBURGUESA -->
@@ -27,7 +27,7 @@
           <!-- IZQUIERDA -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
+              <a class="nav-link" href="{{ route('admin.dashboard') }}">Home</a>
             </li>
 
             <li class="nav-item">
@@ -41,34 +41,40 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ route('ventas') }}">Ventas</a>
             </li>
-          
+
             <li class="nav-item">
-              <a class="nav-link" href="{{route('agregar_producto') }}">Agregar productos</a>
+              <a class="nav-link" href="{{ route('agregar_producto') }}">Agregar productos</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{{route('gestionar_productos') }}">Gestor de productos</a>
+              <a class="nav-link" href="{{ route('gestionar_productos') }}">Gestor de productos</a>
             </li>
           </ul>
 
           <!-- DERECHA -->
           <ul class="navbar-nav">
             
-
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <img src="{{ asset('images/iconos/cuenta.png') }}" class="icono-user me-2">Cuenta
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ route('cuenta_nueva') }}">Crear cuenta</a></li>
+              <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown">
+                <img src="{{ asset('images/iconos/cuenta.png') }}" class="icono-user me-2">
+                {{ Auth::user()->name }} </a>
+              
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><span class="dropdown-item-text text-muted">Modo: {{ ucfirst(Auth::user()->rol) }}</span></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ route('login') }}">Iniciar sesión</a></li>
+                <li>
+                  <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger" style="border: none; background: none; width: 100%; text-align: left; margin: 0; padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);">
+                      Cerrar sesión
+                    </button>
+                  </form>
+                </li>
               </ul>
             </li>
           </ul>
 
         </div>
-
       </div>
 
     </div>

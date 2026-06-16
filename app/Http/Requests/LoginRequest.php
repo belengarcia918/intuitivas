@@ -12,7 +12,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Habilitado para que cualquier visitante pueda intentar loguearse
     }
 
     /**
@@ -23,14 +23,20 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email'    => 'required|email',
+            'password' => 'required'
         ];
     }
 
+    /**
+     * Get the custom messages for validation errors.
+     */
     public function messages(): array
     {
         return [
-            //
+            'email.required'    => 'El correo electrónico es obligatorio',
+            'email.email'       => 'Ingresá un correo electrónico válido',
+            'password.required' => 'La contraseña es obligatoria'
         ];
     }
 }

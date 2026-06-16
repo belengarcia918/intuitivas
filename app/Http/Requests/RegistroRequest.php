@@ -12,7 +12,7 @@ class RegistroRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Permitimos que cualquier visitante pueda registrarse
     }
 
     /**
@@ -23,14 +23,44 @@ class RegistroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'      => 'required|min:3|max:50', // Sincronizado con la columna 'name' de tu migración
+            'apellido'  => 'required|min:3|max:50',
+            'email'     => 'required|email|unique:usuarios,email', // Valida formato y que no esté repetido
+            'telefono'  => 'nullable|min:8|max:20',
+            'direccion' => 'nullable|max:255',
+            'password'  => 'required|min:8|confirmed', // 'confirmed' exige un campo llamado password_confirmation
+            'terminos'  => 'required' // Obliga a tildar el checkbox de TyC
         ];
     }
 
+    /**
+     * Get the custom messages for validation errors.
+     */
     public function messages(): array
     {
         return [
-            //
+            'name.required'       => 'El nombre es obligatorio',
+            'name.min'            => 'El nombre debe tener al menos 3 caracteres',
+            'name.max'            => 'El nombre no puede superar los 50 caracteres',
+
+            'apellido.required'   => 'El apellido es obligatorio',
+            'apellido.min'        => 'El apellido debe tener al menos 3 caracteres',
+            'apellido.max'        => 'El apellido no puede superar los 50 caracteres',
+
+            'email.required'      => 'El correo electrónico es obligatorio',
+            'email.email'         => 'Ingresá un correo electrónico válido',
+            'email.unique'        => 'Ese correo electrónico ya está registrado',
+
+            'telefono.min'        => 'El teléfono debe tener al menos 8 caracteres',
+            'telefono.max'        => 'El teléfono no puede superar los 20 caracteres',
+            
+            'direccion.max'       => 'La dirección de envío es demasiado larga',
+
+            'password.required'   => 'La contraseña es obligatoria',
+            'password.min'        => 'La contraseña debe tener al menos 8 caracteres',
+            'password.confirmed'  => 'Las contraseñas ingresadas no coinciden',
+
+            'terminos.required'   => 'Debés aceptar los términos y condiciones de uso para registrarte'
         ];
     }
 }
