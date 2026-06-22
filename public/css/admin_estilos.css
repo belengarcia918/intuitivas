@@ -201,9 +201,68 @@
     transform: scale(1.03);
 }
 
+.btn-admin-warning {
+    background: #ffc107;
+    color: #212529;
+    border: none;
+
+    min-width: 110px;
+    height: 38px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border-radius: 6px;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    transition: all .25s ease;
+}
+
+.btn-admin-warning:hover {
+    background: #ffca2c;
+    transform: scale(1.03);
+}
+
+.btn-admin-success {
+    background: #198754;
+    color: white;
+    border: none;
+
+    min-width: 110px;
+    height: 38px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border-radius: 6px;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    transition: all .25s ease;
+}
+
+.btn-admin-success:hover {
+    background: #157347;
+    color: white;
+    transform: scale(1.03);
+}
+
 .btn-admin,
 .boton-peligro-2,
-.btn-admin-outline {
+.btn-admin-outline,
+.btn-admin-warning,
+.btn-admin-success {
     min-width: 110px;
     height: 38px;
 

@@ -237,7 +237,7 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <button class="btn btn-sm btn-danger">
+                                            <button class="boton-peligro-2">
                                                 <i class="bi bi-trash me-1"></i>
                                                 {{ $user->trashed() ? 'Restaurar' : 'Eliminar' }}
                                             </button>

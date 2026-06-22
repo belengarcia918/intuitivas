@@ -10,9 +10,15 @@
 
     </div>
 
-    @if(session('success-message'))
-        <div class="alert alert-success border-0 shadow-sm">
-            {{ session('success-message') }}
+    @if(session('success'))
+        <div id="mensaje-success"
+            data-msg="{{ session('success') }}">
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div id="mensaje-error"
+            data-msg="{{ session('error') }}">
         </div>
     @endif
 
@@ -104,7 +110,8 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" class="btn btn-warning">
+                                        <button type="submit" class="btn-admin-warning">
+                                            <i class="bi bi-pause-circle"></i>
                                             Inactivar
                                         </button>
                                     </form>
@@ -116,7 +123,8 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" class="btn btn-success">
+                                        <button type="submit" class="btn-admin-success">
+                                            <i class="bi bi-play-circle"></i>
                                             Activar
                                         </button>
                                     </form>
