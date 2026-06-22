@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Color extends Model
 {
-    protected $fillable = [
-        'nombre',
-        'hex',
-    ];
+    protected $table = 'colores';
+    
+    protected $fillable = ['nombre', 'hex'];
 
-    public function productos()
+    public function variantes()
     {
-        return $this->belongsToMany(Producto::class, 'producto_variantes');
+        return $this->hasMany(ProductoVariante::class);
     }
 }

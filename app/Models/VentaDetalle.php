@@ -12,13 +12,16 @@ class VentaDetalle extends Model
     // Vinculación exacta a tu tabla migrada
     protected $table = 'venta_detalles'; 
 
-    protected $fillable = [ 
-        'venta_id', 
-        'producto_id', 
-        'cantidad', 
-        'precio_unitario', 
-        'subtotal' 
-    ];
+    protected $fillable = [
+    'venta_id',
+    'producto_id',
+    'nombre_producto',
+    'color',
+    'talle',
+    'cantidad',
+    'precio_unitario',
+    'subtotal'
+];
 
     protected $casts = [
         'precio_unitario' => 'decimal:2',

@@ -10,21 +10,17 @@ class Producto extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'nombre_producto',
-        'descripcion_producto',
-        'precio_producto',
-        'stock_producto',
+        'nombre',
+        'descripcion',
+        'precio',
         'categoria_id',
         'activo',
     ];
 
     protected $casts = [
-        'precio_producto' => 'decimal:2',
-        'stock_producto' => 'integer',
+        'precio' => 'decimal:2',
         'activo' => 'boolean',
     ];
-
-    // RELACIONES
 
     public function categoria()
     {
@@ -36,9 +32,33 @@ class Producto extends Model
         return $this->hasMany(ProductoImagen::class);
     }
 
-    // (si usás variantes)
     public function variantes()
     {
         return $this->hasMany(ProductoVariante::class);
+    }
+
+    public function colores()
+    {
+        return $this->belongsToMany(Color::class, 'producto_variantes');
+    }
+
+    public function talles()
+    {
+        return $this->belongsToMany(Talle::class, 'producto_variantes');
+    }
+
+    public function getImagenPrincipalAttribute()
+    {
+        $principal = $this->imagenes
+            ->where('principal', true)
+            ->first();
+
+        if ($principal) {
+            return $principal->path;
+        }
+
+        return $this->imagenes
+            ->sortBy('orden')
+            ->first()?->path;
     }
 }

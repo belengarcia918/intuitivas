@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class ProductoImagen extends Model
 {
     protected $table = 'producto_imagenes';
-
+    
     protected $fillable = [
         'producto_id',
-        'ruta',
+        'path',
+        'orden',
+        'principal',
     ];
 
     public function producto()

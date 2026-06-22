@@ -37,5 +37,15 @@ class DatabaseSeeder extends Seeder
             'telefono'  => '3794000000',
             'direccion' => 'Calle Falsa 123'
         ]);
+
+        Usuario::create([
+            'name'      => 'Camila',
+            'apellido'  => 'Hernandez',
+            'email'     => 'camilahernandez@gmail.com',
+            'password'  => Hash::make('cami123'), // La que usabas en tu simulación original
+            'rol'       => 'cliente', // Entra directo a tu catálogo como cliente logueado
+            'telefono'  => '3794000001',
+            'direccion' => 'Calle Falsa 124'
+        ]);
     }
 }

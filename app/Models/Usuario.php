@@ -11,10 +11,8 @@ class Usuario extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    // Vinculación a tu tabla en MariaDB
     protected $table = 'usuarios';
 
-    // Campos autorizados para la asignación masiva
     protected $fillable = [
         'name',
         'apellido',
@@ -22,7 +20,7 @@ class Usuario extends Authenticatable
         'telefono',
         'direccion',
         'password',
-        'rol', // 'admin' o 'cliente'
+        'rol',
     ];
 
     protected $hidden = [
@@ -32,10 +30,11 @@ class Usuario extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        // Quitamos 'password' => 'hashed' para no duplicar la encriptación con tu Hash::make en el controlador
+        'password' => 'hashed',
     ];
 
-    public function ventas() {
+    public function ventas()
+    {
         return $this->hasMany(VentaCabecera::class, 'usuario_id');
     }
 
@@ -44,8 +43,22 @@ class Usuario extends Authenticatable
         return $this->hasManyThrough(
             VentaDetalle::class,
             VentaCabecera::class,
-            'usuario_id',
-            'venta_id'
+            'usuario_id', // FK en cabecera
+            'venta_id',   // FK en detalle
+            'id',         // PK usuario
+            'id'          // PK cabecera
         );
+    }
+
+    
+    /* Helpers */
+    public function esAdmin(): bool
+    {
+        return $this->rol === 'admin';
+    }
+
+    public function esCliente(): bool
+    {
+        return $this->rol === 'cliente';
     }
 }

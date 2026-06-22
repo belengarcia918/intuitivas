@@ -8,18 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('talles', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
-            $table->id();
-            $table->string('nombre'); // S, M, L, XL
-
-            $table->timestamps();
+        Schema::table('colores', function (Blueprint $table) {
+            $table->unique(['nombre', 'hex']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('talles');
+        Schema::table('colores', function (Blueprint $table) {
+            $table->dropUnique(['nombre', 'hex']);
+        });
     }
 };

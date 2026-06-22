@@ -9,12 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('colores', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->id();
             $table->string('nombre');
-            $table->string('hex')->nullable(); // ejemplo: #000000
-
+            $table->string('hex')->nullable();
             $table->timestamps();
         });
     }

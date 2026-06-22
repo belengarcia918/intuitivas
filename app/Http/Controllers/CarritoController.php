@@ -3,70 +3,145 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Carrito;
+use App\Models\CarritoItem;
+use App\Models\Producto;
+use App\Models\ProductoVariante;
+use App\Services\CarritoService;
 
 class CarritoController extends Controller
 {
-    public function index()
+    private function carrito()
     {
-        $carrito = session('carrito', []);
-        return view('frontend.carrito.index', compact('carrito'));
+        return CarritoService::obtener();
+    }
+
+    public function index(CarritoService $service)
+    {
+        $carrito = $service->obtener();
+        $data = $service->obtenerItemsConTotales($carrito);
+
+        return view('frontend.carrito.index', $data);
     }
 
     public function agregar(Request $request)
     {
         $request->validate([
-            'id' => 'required',
-            'nombre' => 'required',
-            'precio' => 'required|numeric',
-            'imagen' => 'required',
-            'cantidad' => 'required|integer|min:1',
-            'color' => 'required',
-            'talle' => 'required',
+            'producto_id' => 'required|exists:productos,id',
+            'cantidad'    => 'required|integer|min:1',
+            'color'       => 'required',
+            'talle'       => 'required',
         ]);
 
-        $carrito = session('carrito', []);
+        $carrito = $this->carrito();
 
-        $key = $request->id . '-' . $request->color . '-' . $request->talle;
+        $producto = Producto::findOrFail(
+            $request->producto_id
+        );
 
-        if (isset($carrito[$key])) {
-            $carrito[$key]['cantidad'] += $request->cantidad;
+        $variante = ProductoVariante::where(
+            'producto_id',
+            $producto->id
+        )
+        ->whereHas('color', function ($q) use ($request) {
+            $q->where('nombre', $request->color);
+        })
+        ->whereHas('talle', function ($q) use ($request) {
+            $q->where('nombre', $request->talle);
+        })
+        ->first();
+
+        if (!$variante) {
+            return back()->with(
+                'error',
+                'La variante seleccionada no existe.'
+            );
+        }
+
+        $item = $carrito->items()
+            ->where('producto_id', $producto->id)
+            ->where('color', $request->color)
+            ->where('talle', $request->talle)
+            ->first();
+
+        $cantidadTotal =
+            ($item?->cantidad ?? 0)
+            + $request->cantidad;
+
+        if ($cantidadTotal > $variante->stock) {
+
+            return back()->with(
+                'error',
+                'Stock insuficiente.'
+            );
+        }
+
+        if ($item) {
+
+            $item->cantidad = $cantidadTotal;
+            $item->save();
+
         } else {
-            $carrito[$key] = [
-                'id' => $request->id,
-                'nombre' => $request->nombre,
-                'precio' => $request->precio,
-                'imagen' => $request->imagen,
-                'cantidad' => $request->cantidad,
-                'color' => $request->color,
-                'talle' => $request->talle,
-            ];
-        }
 
-        session()->put('carrito', $carrito);
+            $carrito->items()->create([
+                'producto_id' => $producto->id,
+                'cantidad'    => $request->cantidad,
+                'precio'      => $producto->precio,
+                'color'       => $request->color,
+                'talle'       => $request->talle,
+            ]);
+        }
 
         return back()->with('open_cart', true);
     }
 
-    public function eliminar(Request $request)
+    public function actualizar(Request $request, $id)
     {
-        $carrito = session('carrito', []);
+        $item = CarritoItem::findOrFail($id);
 
-        unset($carrito[$request->key]);
+        $cantidad = max(
+            1,
+            (int) $request->cantidad
+        );
 
-        session()->put('carrito', $carrito);
+        $variante = ProductoVariante::where(
+            'producto_id',
+            $item->producto_id
+        )
+        ->whereHas('color', function ($q) use ($item) {
+            $q->where('nombre', $item->color);
+        })
+        ->whereHas('talle', function ($q) use ($item) {
+            $q->where('nombre', $item->talle);
+        })
+        ->first();
+
+        if ($variante && $cantidad > $variante->stock) {
+
+            return back()->with(
+                'error',
+                'Stock insuficiente.'
+            );
+        }
+
+        $item->cantidad = $cantidad;
+        $item->save();
 
         return back()->with('open_cart', true);
     }
 
-    public function actualizar(Request $request)
+    public function eliminar($id)
     {
-        $carrito = session('carrito', []);
+        CarritoItem::findOrFail($id)->delete();
 
-        if (isset($carrito[$request->key])) {
-            $carrito[$request->key]['cantidad'] = $request->cantidad;
-        }
+        return back()->with('open_cart', true);
+    }
 
-        session()->put('carrito', $carrito);
+    public function vaciar()
+    {
+        $carrito = $this->carrito();
+
+        $carrito->items()->delete();
 
         return back()->with('open_cart', true);
     }

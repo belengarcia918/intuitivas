@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Talle extends Model
 {
-    protected $fillable = [
-        'nombre',
-    ];
+    protected $table = 'talles';
+    
+    protected $fillable = ['nombre'];
 
-    public function productos()
+    public function variantes()
     {
-        return $this->belongsToMany(Producto::class, 'producto_variantes');
+        return $this->hasMany(ProductoVariante::class);
     }
 }

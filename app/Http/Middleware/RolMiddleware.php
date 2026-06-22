@@ -4,27 +4,27 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class RolMiddleware
 {
-    /**
-     * El parámetro $rol recibe el valor del grupo de rutas (ej: 'admin' o 'cliente')
-     */
-    public function handle(Request $request, Closure $next, string $rol): Response
+    public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        // 1. Si no está logueado, lo manda directo al Login
-        if (!Auth::check()) {
+        $user = Auth::user();
+
+        if (!$user) {
             return redirect()->route('login');
         }
 
-        // 2. Compara el rol del usuario con el exigido por la ruta
-        if (Auth::user()->rol === $rol) {
-            return $next($request); // Rol correcto, lo deja pasar al controlador
+        $rol = trim(strtolower($user->rol ?? ''));
+
+        $roles = array_map(fn($r) => trim(strtolower($r)), $roles);
+
+        if (!in_array($rol, $roles, true)) {
+            abort(403, 'No autorizado');
         }
 
-        // Si el rol no coincide (ej: un cliente intentando vulnerar /admin), frena con 403
-        abort(403, 'Acceso no autorizado. Se requiere el rol de ' . $rol);
+        return $next($request);
     }
 }

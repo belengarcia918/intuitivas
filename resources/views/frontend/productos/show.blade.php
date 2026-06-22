@@ -1,190 +1,335 @@
-<x-layout title="{{ $producto['nombre'] }} - Intuitivas">
+<x-layout title="{{ $producto->nombre }} - Intuitivas">
 
 <div class="container py-5">
-    <div class="row g-4">
 
-        <!-- GALERÍA -->
-        <div class="col-12 col-md-7">
+    <div class="row g-5">
 
-            <div class="row g-2">
+        {{-- GALERÍA --}}
+        <div class="col-lg-7">
 
-                <!-- MINIATURAS -->
-                <div class="col-12 col-md-2 order-2 order-md-1">
+            <div class="row">
 
-                    <div class="d-flex flex-md-column flex-row gap-2 overflow-auto">
+                {{-- MINIATURAS --}}
+                <div class="col-2">
 
-                        @foreach ($producto['imagenes'] as $key => $img)
-                            <img 
-                                src="{{ asset($img) }}" 
-                                class="img-thumbnail thumb-img flex-shrink-0"
-                                style="width: 80px; height: 80px; object-fit: cover;"
-                                data-bs-target="#carousel-{{ $producto['id'] }}"
-                                data-bs-slide-to="{{ $key }}"
-                            >
-                        @endforeach
-
-                    </div>
+                    @foreach($producto->imagenes as $key => $img)
+                        <img
+                            src="{{ asset('storage/' . $img->path) }}"
+                            class="img-fluid mb-2 thumb-img"
+                            data-bs-target="#carouselProducto"
+                            data-bs-slide-to="{{ $key }}">
+                    @endforeach
 
                 </div>
 
-                <!-- CARRUSEL -->
-                <div class="col-12 col-md-10 order-1 order-md-2">
+                {{-- IMAGEN PRINCIPAL --}}
+                <div class="col-10">
 
-                    <div id="carousel-{{ $producto['id'] }}" class="carousel slide">
+                    <div id="carouselProducto" class="carousel slide">
 
                         <div class="carousel-inner">
 
-                            @foreach ($producto['imagenes'] as $key => $img)
+                            @foreach($producto->imagenes as $key => $img)
+
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset($img) }}"
-                                        class="d-block w-100 img-fluid rounded img-principal-producto">
+
+                                    <img
+                                        src="{{ asset('storage/' . $img->path) }}"
+                                        class="d-block w-100 img-producto-2">
+
                                 </div>
+
                             @endforeach
 
                         </div>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $producto['id'] }}" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
+                        @if($producto->imagenes->count() > 1)
 
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $producto['id'] }}" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
+                            <button
+                                class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#carouselProducto"
+                                data-bs-slide="prev">
+
+                                <span class="carousel-control-prev-icon"></span>
+
+                            </button>
+
+                            <button
+                                class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#carouselProducto"
+                                data-bs-slide="next">
+
+                                <span class="carousel-control-next-icon"></span>
+
+                            </button>
+
+                        @endif
 
                     </div>
 
                 </div>
 
             </div>
+
         </div>
 
-        <!-- INFO PRODUCTO -->
-        <div class="col-12 col-md-5">
+        {{-- INFORMACIÓN --}}
+        <div class="col-lg-5">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-2">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('productos.index') }}" class="text-decoration-none texto-2-n">
-                            Productos
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active text-capitalize texto-2-n">
-                        {{ $producto['categoria'] ?? 'General' }}
-                    </li>
-                </ol>
-            </nav>
+            <p class="texto mb-1">
+                {{ $producto->categoria->nombre }}
+            </p>
 
-            <h1 class="titulo-principal mb-2 fs-3 fs-md-2">
-                {{ $producto['nombre'] }}
+            <h1 class="titulo mb-2">
+                {{ $producto->nombre }}
             </h1>
 
-            <h2 class="precio mb-4">
-                ${{ number_format($producto['precio'], 0, ',', '.') }}
-            </h2>
+            <div class="precio mb-4">
+                ${{ number_format($producto->precio, 0, ',', '.') }}
+            </div>
 
-            <hr class="my-4 opacity-25">
+            @if($producto->descripcion)
+                <p class="texto-3 mb-4">
+                    {{ $producto->descripcion }}
+                </p>
+            @endif
 
-            <!-- FORM -->
+            <hr>
+
             <form action="{{ route('carrito.agregar') }}" method="POST">
+
                 @csrf
 
-                <input type="hidden" name="id" value="{{ $producto['id'] }}">
-                <input type="hidden" name="nombre" value="{{ $producto['nombre'] }}">
-                <input type="hidden" name="precio" value="{{ $producto['precio'] }}">
-                <input type="hidden" name="imagen" value="{{ $producto['imagenes'][0] }}">
+                <input type="hidden"
+                        name="producto_id"
+                        value="{{ $producto->id }}">
+                <input type="hidden" name="nombre" value="{{ $producto->nombre }}">
+                <input type="hidden" name="precio" value="{{ $producto->precio }}">
+                <input type="hidden"
+                       name="imagen"
+                       value="{{ $producto->imagenes->first()->path ?? '' }}">
 
-                <div class="row mb-4">
+                {{-- COLORES --}}
+                <div class="mb-4">
 
-                <!-- COLOR -->
-                <div class="col-12 col-md-6">
-                    <label class="form-label fw-bold d-block">Color</label>
-
-                    <div class="d-flex gap-2">
-                        @foreach ($producto['colores'] as $index => $color)
-                            <input type="radio"
-                                name="color"
-                                id="color-{{ $color['nombre'] }}"
-                                value="{{ $color['nombre'] }}"
-                                class="d-none"
-                                {{ $index === 0 ? 'checked' : '' }}
-                                required>
-
-                            <label for="color-{{ $color['nombre'] }}"
-                                class="color-circle"
-                                style="background-color: {{ $color['hex'] }};"
-                                title="{{ $color['nombre'] }}">
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- TALLE -->
-                <div class="col-12 col-md-6">
-                    <label class="form-label fw-bold d-block">Talle</label>
+                    <label class="fw-bold texto-2-n d-block mb-2">
+                        Color
+                    </label>
 
                     <div class="d-flex flex-wrap gap-2">
-                        @foreach ($producto['talles'] as $index => $talle)
-                            <input type="radio"
-                                name="talle"
-                                id="talle-{{ $talle }}"
-                                value="{{ $talle }}"
+
+                        @php
+                            $colores = $producto->variantes
+                                ->unique('color_id')
+                                ->values();
+                        @endphp
+
+                        <input
+                            type="hidden"
+                            id="color_nombre"
+                            name="color"
+                            value="{{ $colores->first()->color->nombre ?? '' }}">
+
+                        @foreach($colores as $index => $variante)
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="color_id"
+                                value="{{ $variante->color_id }}"
                                 class="d-none"
-                                {{ $index === 0 ? 'checked' : '' }}
-                                required>
+                                {{ $index == 0 ? 'checked' : '' }}>
 
-                            <label for="talle-{{ $talle }}"
-                                class="talle-box">
-                                {{ $talle }}
-                            </label>
+                            <span
+                                class="color-circle"
+                                data-nombre="{{ $variante->color->nombre }}"
+                                title="{{ $variante->color->nombre }}"
+                                style="background-color: {{ $variante->color->hex }}">
+                            </span>
+
+                        </label>
+
                         @endforeach
+
                     </div>
+
                 </div>
 
-            </div>
-                <div class="row g-2 align-items-center mb-4">
-                    <div class="col-4 col-md-3">
-                        <input type="number" name="cantidad"
-                            class="form-control form-control-lg text-center"
-                            value="1" min="1">
+                {{-- TALLES --}}
+                <div class="mb-4">
+
+                    <label class="fw-bold texto-2-n d-block mb-2">
+                        Talle
+                    </label>
+
+                    <div
+                        id="contenedor-talles"
+                        class="d-flex flex-wrap gap-2">
                     </div>
 
-                    <div class="col-8 col-md-9">
-                        <button type="submit"
-                            class="btn btn-lg w-100 text-white fw-bold boton-carrito">
+                </div>
+
+                {{-- CANTIDAD --}}
+                <div class="row g-2 mb-4">
+
+                    <div class="col-4">
+
+                        <input
+                            type="number"
+                            name="cantidad"
+                            value="1"
+                            min="1"
+                            class="form-control text-center">
+
+                    </div>
+
+                    <div class="col-8">
+
+                        <button
+                            type="submit"
+                            class="btn boton-carrito w-100">
+
                             Agregar al carrito
+
                         </button>
+
                     </div>
 
                 </div>
+
             </form>
 
-            <!-- INFO BOX -->
-            <div class="card bg-light border-0">
-                <div class="card-body p-3">
-                    <ul class="list-unstyled mb-0 small">
-                        <li class="mb-2">
-                            <i class="bi bi-truck me-2"></i>
-                            <strong>Envío gratis</strong> en compras superiores a $50.000
-                        </li>
-                        <li>
-                            <i class="bi bi-credit-card me-2"></i>
-                            <strong>3 cuotas sin interés</strong>
-                        </li>
-                    </ul>
+            <div class="bg-light rounded shadow-sm p-4 mt-4">
+
+                <h5 class="titulo mb-3">
+                    Información de compra
+                </h5>
+
+                <div class="mb-3">
+                    <i class="bi bi-truck me-2"></i>
+                    Envíos a domicilio en Formosa capital (24/72 hs)
                 </div>
+
+                <div class="mb-3">
+                    <i class="bi bi-box-seam me-2"></i>
+                    Envíos al interior mediante correo
+                </div>
+
+                <div class="mb-3">
+                    <i class="bi bi-shop me-2"></i>
+                    Retiro gratuito en showroom
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
+                    <i class="bi bi-cash-coin me-2"></i>
+                    Efectivo
+                </div>
+
+                <div class="mb-3">
+                    <i class="bi bi-credit-card me-2"></i>
+                    Tarjetas de débito y crédito
+                </div>
+
+                <div class="mb-3">
+                    <i class="bi bi-bank me-2"></i>
+                    Transferencia bancaria
+                </div>
+
+                <div>
+                    <i class="bi bi-wallet2 me-2"></i>
+                    Mercado Pago
+                </div>
+
             </div>
 
-            <!-- VOLVER -->
-            <div class="mt-4">
-                <a href="{{ route('productos.index') }}"
-                   class="btn btn-link text-decoration-none p-0 texto-2-n">
-                    <i class="bi bi-arrow-left"></i> Volver al listado
-                </a>
-            </div>
+            <a href="{{ route('productos.index') }}"
+               class="text-decoration-none">
+
+                ← Volver al catálogo
+
+            </a>
 
         </div>
 
     </div>
+
 </div>
+
+<script>
+
+const variantes = @json($variantesData);
+
+const contenedorTalles =
+    document.getElementById('contenedor-talles');
+
+function renderizarTalles(colorId)
+{
+    contenedorTalles.innerHTML = '';
+
+    const tallesDisponibles =
+        variantes.filter(
+            variante => variante.color_id == colorId
+        );
+
+    tallesDisponibles.forEach((talle, index) => {
+
+        contenedorTalles.innerHTML += `
+            <label>
+
+                <input
+                    type="radio"
+                    name="talle"
+                    value="${talle.talle}"
+                    class="d-none"
+                    ${index === 0 ? 'checked' : ''}>
+
+                <span class="talle-box">
+
+                    ${talle.talle}
+
+                </span>
+
+            </label>
+        `;
+    });
+}
+
+document
+.querySelectorAll('input[name="color_id"]')
+.forEach(radio => {
+
+    radio.addEventListener('change', function() {
+
+        const nombreColor =
+            this.parentElement
+                .querySelector('.color-circle')
+                .dataset.nombre;
+
+        document.getElementById('color_nombre').value =
+            nombreColor;
+
+        renderizarTalles(this.value);
+    });
+
+});
+
+const primerColor =
+    document.querySelector(
+        'input[name="color_id"]:checked'
+    );
+
+if (primerColor) {
+
+    renderizarTalles(primerColor.value);
+
+}
+
+</script>
+
 
 </x-layout>

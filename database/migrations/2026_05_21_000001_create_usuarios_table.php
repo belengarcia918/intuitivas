@@ -6,37 +6,34 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id(); // ID autoincremental (Llave primaria)
-            
-            // Datos obligatorios del registro
-            $table->string('name');      // Mapeado con el input name="name"
-            $table->string('apellido');  // Mapeado con el input name="apellido"
-            $table->string('email')->unique(); // El correo debe ser único en la BD
-            $table->string('password');  // Contraseña (guardará el Hash encriptado)
-            
-            // Datos opcionales (Llevan ->nullable() para que HeidiSQL permita vacíos)
-            $table->string('telefono')->nullable();   // Teléfono del cliente
-            $table->string('direccion')->nullable();  // Dirección de envío
-            
-            // Sistema de Roles para el Middleware
-            // Por defecto, cualquiera que se registre desde la web será 'cliente'
-            $table->string('rol')->default('cliente'); 
-            
-            $table->rememberToken(); // Requerido por Laravel si usan el checkbox "Recordarme"
+            $table->id();
+
+            // DATOS PERSONALES
+            $table->string('name', 100);
+            $table->string('apellido', 100);
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+
+            // SEGURIDAD
+            $table->string('password');
+
+            // OPCIONALES
+            $table->string('telefono', 30)->nullable();
+            $table->string('direccion', 255)->nullable();
+
+            // ROLES CONTROLADOS
+            $table->enum('rol', ['admin', 'cliente'])->default('cliente');
+
+            // LARAVEL
+            $table->rememberToken();
             $table->softDeletes();
-            $table->timestamps();    // Crea automáticamente las columnas created_at y updated_at
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('usuarios');

@@ -1,122 +1,93 @@
-<x-layout title="Listado de Productos - Panel Admin">
-    <div class="container py-4">
+<x-admin_layout title="Listado de Productos">
 
-        <!-- ENCABEZADO -->
-        <div class="row mb-4 align-items-center">
-            <div class="col-md-6">
-                <h2 class="fw-bold text-dark m-0" style="font-size: 1.8rem;">
-                    Productos
-                </h2>
-            </div>
+<div class="container-fluid py-4 admin-body">
 
-            <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <form action="{{ route('ver_productos') }}" method="GET" class="d-inline-block">
-                    <div class="input-group">
-                        <input type="text" 
-                               name="buscar" 
-                               class="form-control form-control-sm rounded-start" 
-                               placeholder="Buscar producto..." 
-                               value="{{ request('buscar') }}">
+    {{-- HEADER --}}
+    <div class="mb-4">
 
-                        <button class="btn btn-sm text-white px-3" type="submit" style="background-color: #1A5276;">
-                            <i class="bi bi-search"></i>
-                        </button>
+        <h2 class="admin-title mb-0">
+            <i class="bi bi-box-seam me-2"></i>
+            Productos
+        </h2>
 
-                        @if(request('buscar'))
-                            <a href="{{ route('ver_productos') }}" class="btn btn-sm btn-secondary">
-                                Limpiar
-                            </a>
-                        @endif
-                    </div>
-                </form>
-            </div>
+        <small class="text-muted">
+            Gestión del catálogo de productos
+        </small>
+
+    </div>
+
+    {{-- CARD --}}
+    <div class="admin-card shadow-sm">
+
+        <div class="p-3 border-bottom">
+            <strong class="admin-label">
+                Listado de productos
+            </strong>
         </div>
 
-        <!-- TABLA -->
-        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    
-                    <!-- HEADER -->
-                    <thead class="text-white text-center" style="background-color: #0B1B3D;">
+        <div class="table-responsive">
+
+            <table class="table admin-table mb-0 align-middle">
+
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th class="text-start">Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                    </tr>
+                </thead>
+
+                <tbody class="text-center">
+
+                    @forelse($productos as $producto)
+
+                        @php
+                            $stock = $producto->variantes->sum('stock') ?? 0;
+                        @endphp
+
                         <tr>
-                            <th style="width: 60px;">ID</th>
-                            <th class="text-start">Nombre</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Categoría</th>
-                            <th>Color</th> 
-                            <th>Talle</th> 
+
+                            <td>{{ $producto->id }}</td>
+
+                            <td class="text-start fw-semibold">
+                                {{ $producto->nombre }}
+                            </td>
+
+                            <td>
+                                ${{ number_format($producto->precio ?? 0, 0, ',', '.') }}
+                            </td>
+
+                            <td>
+                                {{ $stock }}
+                            </td>
+
+                            <td>
+                                {{ optional($producto->categoria)->nombre ?? '-' }}
+                            </td>
+
                         </tr>
-                    </thead>
-                    
-                    <!-- BODY -->
-                    <tbody class="text-center">
 
-                        @forelse($productos as $producto)
-                            <tr class="{{ $producto->trashed() ? 'bg-light text-muted opacity-75' : '' }}">
-                                
-                                <!-- ID -->
-                                <td class="fw-bold text-secondary">
-                                    {{ $producto->id }}
-                                </td>
-                                
-                                <!-- NOMBRE -->
-                                <td class="text-start fw-semibold">
-                                    {{ $producto->nombre_producto }}
-                                    @if($producto->trashed())
-                                        <span class="badge bg-secondary ms-1" style="font-size: 0.7rem;">
-                                            Inactivo
-                                        </span>
-                                    @endif
-                                </td>
-                                
-                                <!-- PRECIO -->
-                                <td class="fw-bold text-dark">
-                                    ${{ number_format($producto->precio_producto, 2, ',', '.') }}
-                                </td>
-                                
-                                <!-- STOCK -->
-                                <td>
-                                    <span class="badge {{ $producto->stock_producto > 0 ? 'bg-light text-dark border' : 'bg-danger-subtle text-danger' }}">
-                                        {{ $producto->stock_producto }} u.
-                                    </span>
-                                </td>
-                                
-                                <!-- CATEGORÍA -->
-                                <td>
-                                    {{ $producto->categoria ? $producto->categoria->nombre : 'Sin categoría' }}
-                                </td>
+                    @empty
 
-                                <!-- COLOR -->
-                                <td>
-                                    <span class="badge bg-info-subtle text-dark">
-                                        {{ $producto->color ?? '-' }}
-                                    </span>
-                                </td>
+                        <tr>
+                            <td colspan="5" class="py-5 text-muted text-center">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                No hay productos
+                            </td>
+                        </tr>
 
-                                <!-- TALLE -->
-                                <td>
-                                    <span class="badge bg-secondary">
-                                        {{ $producto->talle ?? '-' }}
-                                    </span>
-                                </td>
+                    @endforelse
 
-                            </tr>
+                </tbody>
 
-                        @empty
-                            <tr>
-                                <td colspan="7" class="py-4 text-muted">
-                                    <i class="bi bi-info-circle me-1"></i> No hay productos para mostrar.
-                                </td>
-                            </tr>
-                        @endforelse
+            </table>
 
-                    </tbody>
-
-                </table>
-            </div>
         </div>
 
     </div>
-</x-layout>
+
+</div>
+
+</x-admin_layout>

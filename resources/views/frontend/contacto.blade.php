@@ -26,41 +26,40 @@
 
     <!-- Columna derecha (formulario) -->
     <div class="col-12 col-md-8">
-      <form action="{{ url('/contacto') }}" method="POST" >
+      <form action="{{ route('contacto.store') }}" method="POST">
         @csrf
+
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Tu nombre completo" value="{{ old('nombre') }}">
-          @error('nombre')
-            <small class="text-danger">{{ $message }}</small>
-          @enderror
+          <label class="form-label">Nombre</label>
+          <input type="text" name="nombre" class="form-control"
+                 value="{{ old('nombre') }}">
+          @error('nombre') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label">Correo electrónico</label>
-          <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@email.com" value="{{ old('email') }}">
-          @error('email')
-            <small class="text-danger">{{ $message }}</small>
-          @enderror
+          <label class="form-label">Correo electrónico</label>
+          <input type="email" name="email" class="form-control"
+                 value="{{ old('email') }}">
+          @error('email') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-          <label for="motivo" class="form-label">Motivo</label>
-          <input type="text" name="motivo" class="form-control" id="motivo" placeholder="Motivo de tu consulta" value="{{ old('motivo') }}">
-          @error('motivo')
-            <small class="text-danger">{{ $message }}</small>
-          @enderror
+          <label class="form-label">Motivo</label>
+          <input type="text" name="motivo" class="form-control"
+                 value="{{ old('motivo') }}">
+          @error('motivo') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-          <label for="consulta" class="form-label">Mensaje</label>
-          <textarea class="form-control" name="consulta" id="consulta" rows="4" placeholder="Escribí tu mensaje acá...">{{ old('consulta') }}</textarea>
-          @error('consulta')
-            <small class="text-danger">{{ $message }}</small>
-          @enderror
+          <label class="form-label">Mensaje</label>
+          <textarea name="consulta" class="form-control" rows="4">{{ old('consulta') }}</textarea>
+          @error('consulta') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
-        <button type="submit" class="boton-enviar btn-lg">Enviar</button>
+        <button type="submit" class="boton-enviar btn-lg">
+            Enviar
+        </button>
+
       </form>
     </div>
 

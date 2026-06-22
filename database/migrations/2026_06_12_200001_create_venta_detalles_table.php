@@ -10,10 +10,9 @@ return new class extends Migration
     {
         Schema::create('venta_detalles', function (Blueprint $table) {
             $table->id();
-            // Clave foránea que vincula a la cabecera
+            
             $table->foreignId('venta_id')->constrained('venta_cabeceras')->onDelete('cascade');
-            // Clave foránea que vincula al producto
-            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
+            $table->foreignId('producto_id')->nullable()->constrained('productos')->nullOnDelete();
             
             $table->integer('cantidad');
             $table->decimal('precio_unitario', 10, 2);

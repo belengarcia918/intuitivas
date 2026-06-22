@@ -11,25 +11,17 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nombre_producto', 100);
-            $table->text('descripcion_producto')->nullable();
+            $table->string('nombre', 100);
+            $table->text('descripcion')->nullable();
+            $table->decimal('precio', 10, 2);
 
-            $table->decimal('precio_producto', 10, 2);
-            $table->integer('stock_producto')->default(0);
-            $table->string('color', 50)->nullable();
-            $table->string('talle', 10)->nullable();
-
-            // Relación con categorías
             $table->foreignId('categoria_id')
-                ->constrained('categorias')
-                ->onDelete('cascade');
+                ->constrained()
+                ->cascadeOnDelete();
 
-            // Estado del producto
             $table->boolean('activo')->default(true);
 
             $table->timestamps();
-
-            // Soft deletes (para "eliminar sin borrar")
             $table->softDeletes();
         });
     }

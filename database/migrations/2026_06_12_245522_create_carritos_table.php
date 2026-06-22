@@ -7,16 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('producto_imagenes', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
+        Schema::create('carritos', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('producto_id')
-                ->constrained('productos')
-                ->cascadeOnDelete();
+            $table->foreignId('usuario_id')
+                ->nullable()
+                ->constrained('usuarios')
+                ->nullOnDelete();
 
-            $table->string('ruta');
+            $table->string('session_id')->nullable()->index();
 
             $table->timestamps();
         });
@@ -24,6 +23,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('producto_imagenes');
+        Schema::dropIfExists('carritos');
     }
 };

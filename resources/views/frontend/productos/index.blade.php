@@ -1,60 +1,88 @@
 <x-layout title="{{ $categoria->nombre ?? 'Productos - Intuitivas' }}">
 
-<div class="container py-4">
+<div class="container py-5">
 
-    <!-- TITULO -->
-    <h4 class="mb-4 fw-bold">
-        Categoría: {{ $categoria->nombre ?? 'Todos' }}
-    </h4>
+    {{-- TÍTULO --}}
+    <header>
+        <div class="container pt-2 pb-3">
 
-    <div class="row">
-        @forelse ($productos as $producto)
+            <h1 class="titulo-principal fw-bold mb-1">
+                Categoría: {{ isset($categoria) ? $categoria->nombre : 'Todos los productos' }}
+            </h1>
 
-            <div class="col-12 col-sm-6 col-md-3 mb-4">
+            <p class="texto-3 mb-2">
+                {{ isset($categoria)
+                    ? 'Explorá todos los productos disponibles en esta categoría.'
+                    : 'Explorá todo nuestro catálogo de productos.'
+                }}
+            </p>
 
-                <div class="card h-100 shadow-sm border-0">
+            <hr>
 
-                    <!-- IMAGEN (PRIMERA O DEFAULT) -->
-                    <a href="{{ route('productos.show', $producto->id) }}">
-                        @if($producto->imagenes->count())
-                            <img src="{{ asset('storage/' . $producto->imagenes->first()->ruta) }}"
-                                 class="card-img-top"
-                                 style="height:220px; object-fit:cover;">
-                        @else
-                            <img src="{{ asset('images/default.png') }}"
-                                 class="card-img-top"
-                                 style="height:220px; object-fit:cover;">
-                        @endif
+        </div>
+    </header>
+
+    <div class="row g-4">
+
+        @forelse($productos as $producto)
+
+            @php
+
+                $imagenPrincipal =
+                    $producto->imagenes->first();
+
+                $imagen = $imagenPrincipal
+                    ? asset('storage/' . $imagenPrincipal->path)
+                    : asset('images/default.png');
+
+            @endphp
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+
+                <div class="card h-100 border-0 shadow-sm producto-card">
+
+                    <a
+                        href="{{ route('productos.show', $producto->id) }}"
+                        class="text-decoration-none">
+
+                        <img
+                            src="{{ $imagen }}"
+                            alt="{{ $producto->nombre }}"
+                            class="card-img-top img-producto-catalogo">
+
                     </a>
 
-                    <div class="card-body text-center">
+                    <div class="card-body d-flex flex-column text-center">
 
-                        <!-- NOMBRE -->
-                        <h6 class="fw-semibold">
-                            {{ $producto->nombre_producto }}
-                        </h6>
+                        <div class="mb-2 text-muted small">
 
-                        <!-- PRECIO -->
-                        <p class="mb-2 fw-bold text-dark">
-                            ${{ number_format($producto->precio_producto, 0, ',', '.') }}
-                        </p>
+                            {{ $producto->categoria->nombre }}
 
-                        <!-- COLOR -->
-                        <p class="mb-1 small text-muted">
-                            Color: {{ $producto->color ?? '-' }}
-                        </p>
+                        </div>
 
-                        <!-- TALLE -->
-                        <p class="mb-2 small text-muted">
-                            Talle: {{ $producto->talle ?? '-' }}
-                        </p>
+                        <h5 class="texto-2-n mb-3">
 
-                        <!-- BOTÓN -->
-                        <a href="{{ route('productos.show', $producto->id) }}"
-                           class="btn btn-sm text-white"
-                           style="background-color:#1A5276;">
-                            Ver producto
-                        </a>
+                            {{ $producto->nombre }}
+
+                        </h5>
+
+                        <div class="precio-2 mb-4">
+
+                            ${{ number_format($producto->precio, 0, ',', '.') }}
+
+                        </div>
+
+                        <div class="mt-auto">
+
+                            <a
+                                href="{{ route('productos.show', $producto->id) }}"
+                                class="btn boton-carrito w-100">
+
+                                Ver producto
+
+                            </a>
+
+                        </div>
 
                     </div>
 
@@ -63,10 +91,31 @@
             </div>
 
         @empty
-            <div class="col-12 text-center text-muted py-5">
-                No hay productos en esta categoría
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-bag-x fs-1 d-block mb-3"></i>
+
+                    <h4 class="titulo">
+
+                        No hay productos disponibles
+
+                    </h4>
+
+                    <p class="texto mb-0">
+
+                        Esta categoría todavía no tiene productos cargados.
+
+                    </p>
+
+                </div>
+
             </div>
+
         @endforelse
+
     </div>
 
 </div>

@@ -11,19 +11,11 @@ return new class extends Migration
         Schema::create('producto_variantes', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('producto_id')
-                ->constrained('productos')
-                ->cascadeOnDelete();
+            $table->foreignId('producto_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('color_id')->constrained('colores')->cascadeOnDelete();
+            $table->foreignId('talle_id')->constrained('talles')->cascadeOnDelete();
 
-            $table->foreignId('color_id')
-                ->constrained('colores')
-                ->cascadeOnDelete();
-
-            $table->foreignId('talle_id')
-                ->constrained('talles')
-                ->cascadeOnDelete();
-
-            $table->integer('stock')->default(0);
+            $table->unsignedInteger('stock')->default(0);
 
             $table->timestamps();
 

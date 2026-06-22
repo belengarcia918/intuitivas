@@ -39,10 +39,11 @@ class ContactoController extends Controller
      */
     public function indexAdmin()
     {
-        // Trae todas las consultas ordenadas para que las más recientes figuren arriba
-        $consultas = Contacto::orderBy('created_at', 'desc')->get();
-        
-        return view('backend.ver_contactos', compact('consultas'));
+        $consultas = Contacto::latest()->get();
+
+        $usuarios = \App\Models\Usuario::latest()->get();
+
+        return view('backend.ver_contactos', compact('consultas', 'usuarios'));
     }
 
     /**
@@ -55,5 +56,16 @@ class ContactoController extends Controller
         $contacto->save();
 
         return redirect()->back()->with('success', 'La consulta ha sido marcada como leída 👍');
+    }
+
+    public function show($id)
+    {
+        $consulta = Contacto::findOrFail($id);
+
+        if (!$consulta->leido) {
+            $consulta->update(['leido' => true]);
+        }
+
+        return view('backend.contactos.show', compact('consulta'));
     }
 }

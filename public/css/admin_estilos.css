@@ -1,0 +1,405 @@
+:root {
+    --admin-primary: #5f2660;
+    --admin-primary-soft: #9d4a9f;
+    --admin-bg: #f8f9fa;
+    --admin-card: #ffffff;
+    --admin-border: #e0e0e0;
+    --admin-text: #2d054b;
+}
+
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DEL NAVBAR DEL ADMINISTRADOR
+   ========================================================================== */
+
+.mi-navbar-admin {
+    background-color: var(--admin-primary); /* Color morado principal #5f2660 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Usamos exactamente tu misma clase de contenedor y ancho que el del cliente */
+.container-navbar {
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* Marca en Georgia, simulando el estilo Times de la tienda pública */
+.navbar-brand-admin {
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 35px;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-brand-admin:hover {
+    color: #f0b3f3; /* Destello sutil al pasar el mouse */
+}
+
+/* Nombre del usuario */
+.admin-user-name {
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/* Botón de Logout adaptado al esquema de botones claros */
+.btn-logout-admin {
+    background-color: #ffffff;
+    color: var(--admin-primary);
+    border: 1px solid #ffffff;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.btn-logout-admin:hover {
+    background-color: var(--admin-primary-soft);
+    border-color: var(--admin-primary-soft);
+    color: #ffffff;
+}
+
+/* Enlaces del Menú Inferior */
+.nav-link-admin {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 8px 0; /* Espaciado lateral respetando el flujo izquierdo */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-link-admin:hover,
+.nav-link-admin.active {
+    color: #f0b3f3 !important; /* Mismo tono lila/rosa que el placeholder del buscador del cliente */
+}
+
+/* Ajuste del botón hamburguesa en entornos de administración */
+.mi-navbar-admin .navbar-toggler {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mi-navbar-admin .navbar-toggler:focus {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+
+/*Bases del Panel*/
+.admin-body {
+    background-color: var(--admin-bg);
+}
+
+.card-admin {
+    border-radius: 14px;
+}
+
+.icon-admin {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-card {
+    background: var(--admin-card);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+}
+
+.admin-title {
+    font-family: Georgia, serif;
+    color: var(--admin-primary);
+    font-weight: bold;
+}
+
+.admin-label {
+    font-family: 'Trebuchet MS', sans-serif;
+    color: var(--admin-primary);
+    font-weight: 600;
+}
+
+
+/*Botones Admin*/
+.btn-admin {
+    background-color: var(--admin-primary);
+    color: white;
+    border: none;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    padding: 8px 14px;
+    border-radius: 6px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    text-decoration: none;
+
+    transition: all .25s ease;
+}
+
+.btn-admin:hover {
+    background-color: var(--admin-primary-soft);
+    color: white;
+    transform: scale(1.03);
+}
+
+.btn-admin:hover {
+    background-color: var(--admin-primary-soft);
+    transform: scale(1.03);
+}
+
+.btn-admin-outline {
+    border: 2px solid var(--admin-primary);
+    color: var(--admin-primary);
+    background: transparent;
+}
+
+.btn-admin-outline:hover {
+    background: var(--admin-primary);
+    color: white;
+}
+
+.boton-peligro-2 {
+    background: #dc3545;
+    color: white;
+    border: none;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    padding: 8px 14px;
+    border-radius: 6px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    transition: all .25s ease;
+}
+
+.boton-peligro-2:hover {
+    background: #bb2d3b;
+    color: white;
+    transform: scale(1.03);
+}
+
+.btn-admin,
+.boton-peligro-2,
+.btn-admin-outline {
+    min-width: 110px;
+    height: 38px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border-radius: 6px;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all .25s ease;
+}
+
+/*Inputs*/
+.admin-input {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.admin-input:focus {
+    border-color: var(--admin-primary-soft);
+    box-shadow: 0 0 5px rgba(157, 74, 159, 0.4);
+}
+
+.boton-admin-principal {
+    background-color: var(--admin-primary);
+    color: white;
+    border: none;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    padding: 2px 14px;
+    border-radius: 6px;
+
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all .25s ease;
+}
+
+.boton-admin-principal:hover {
+    background-color: var(--admin-primary-soft);
+    color: white;
+    transform: scale(1.05);
+}
+
+.boton-peligro-2 {
+    background: transparent;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    padding: 2px 14px;
+    border-radius: 6px;
+
+    transition: all .25s ease;
+}
+
+.boton-peligro-2:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/*Imagenes Admin*/
+.admin-img-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+
+/*Tablas*/
+.admin-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.admin-table th {
+    background-color: #5f2660;
+    color: white;
+    font-weight: 600;
+}
+
+.admin-table td {
+    vertical-align: middle;
+}
+
+.admin-table thead tr {
+    text-align: center;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f5f0f7;
+}
+
+/* Tarjeta imagenes*/
+
+.admin-imagen-card {
+    width: 220px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transition: .25s ease;
+}
+
+.admin-imagen-preview {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+/* Boton eliminar imagen */
+
+.admin-imagen-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.admin-imagen-delete {
+    min-width: 60px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 12px;
+}
+
+.admin-imagen-card:hover {
+    transform: translateY(-4px);
+}
+
+.boton-peligro-imagen {
+    background: transparent;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+    width: auto;
+    min-width: 50px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 12px;
+    line-height: 1;
+}
+
+.boton-peligro-imagen:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Mensajes */
+.admin-badge-revisada {
+    background: var(--admin-primary-soft);
+    color: white;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}

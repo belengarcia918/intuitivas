@@ -23,13 +23,13 @@ class RegistroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'required|min:3|max:50', // Sincronizado con la columna 'name' de tu migración
+            'name'      => 'required|min:3|max:50',
             'apellido'  => 'required|min:3|max:50',
-            'email'     => 'required|email|unique:usuarios,email', // Valida formato y que no esté repetido
+            'email'     => 'required|email|unique:usuarios,email',
             'telefono'  => 'nullable|min:8|max:20',
             'direccion' => 'nullable|max:255',
-            'password'  => 'required|min:8|confirmed', // 'confirmed' exige un campo llamado password_confirmation
-            'terminos'  => 'required' // Obliga a tildar el checkbox de TyC
+            'password'  => 'required|min:8|confirmed',
+            'terminos'  => 'required'
         ];
     }
 
