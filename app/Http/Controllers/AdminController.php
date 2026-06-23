@@ -85,14 +85,18 @@ class AdminController extends Controller
         $usuarios = Usuario::withTrashed()
             ->when($buscar, function ($query) use ($buscar) {
                 $query->where('name', 'like', "%{$buscar}%")
-                      ->orWhere('email', 'like', "%{$buscar}%");
+                    ->orWhere('email', 'like', "%{$buscar}%");
             })
             ->get()
             ->groupBy('rol');
 
+        $cantidadAdmins = Usuario::where('rol', 'admin')
+            ->count();
+
         return view('backend.admin.vistaUsuarios', [
             'administradores' => $usuarios->get('admin', collect()),
             'clientes'        => $usuarios->get('cliente', collect()),
+            'cantidadAdmins'  => $cantidadAdmins,
         ]);
     }
 

@@ -16,9 +16,7 @@ use App\Http\Requests\AgregarProductoRequest;
 
 class ProductoController extends Controller
 {
-    /* =========================
-    | FRONTEND
-    ========================= */
+    /* FRONTEND */
 
     public function principal()
     {
@@ -109,9 +107,7 @@ class ProductoController extends Controller
         );
     }
 
-    /* =========================
-    | ADMIN - LISTADO
-    ========================= */
+    /* ADMIN - LISTADO */
 
     public function listarProductos()
     {
@@ -133,9 +129,7 @@ class ProductoController extends Controller
         return view('backend.productos.gestionar_productos', compact('productos'));
     }
 
-    /* =========================
-    | CREATE
-    ========================= */
+    /* CREATE */
 
     public function create()
     {
@@ -146,9 +140,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    /* ==========================================================================
-    MÉTODOS DE CREACIÓN RÁPIDA
-    ========================================================================== */
+    /* MÉTODOS DE CREACIÓN RÁPIDA */
 
     public function storeCategoriaRapida(Request $request)
     {
@@ -195,9 +187,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    /* =========================
-    | STORE
-    ========================= */
+    /* STORE */
 
     public function store(AgregarProductoRequest $request)
     {
@@ -280,9 +270,7 @@ class ProductoController extends Controller
         }
     }
 
-    /* =========================
-    | EDIT
-    ========================= */
+    /* EDIT */
 
     public function edit($id)
     {
@@ -320,9 +308,7 @@ class ProductoController extends Controller
         );
     }
 
-    /* =========================
-    | UPDATE
-    ========================= */
+    /* UPDATE */
 
     public function update(EditarProductoRequest $request, $id)
     {
@@ -367,9 +353,7 @@ class ProductoController extends Controller
             ->with('success', 'Producto actualizado correctamente');
     }
 
-    /* =========================
-    | DELETE / RESTORE
-    ========================= */
+    /* DELETE / RESTORE */
 
     public function destroy(Producto $producto)
     {

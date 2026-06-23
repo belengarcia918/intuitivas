@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactoRequest;
 use App\Models\Contacto;
+use App\Models\Usuario;
 
 class ContactoController extends Controller
 {
@@ -41,9 +42,11 @@ class ContactoController extends Controller
     {
         $consultas = Contacto::latest()->get();
 
-        $usuarios = \App\Models\Usuario::latest()->get();
+        $usuarios = Usuario::latest()->get();
 
-        return view('backend.ver_contactos', compact('consultas', 'usuarios'));
+        $cantidadAdmins = Usuario::where('rol', 'admin')->count();
+
+        return view('backend.ver_contactos', compact('consultas', 'usuarios', 'cantidadAdmins'));
     }
 
     /**

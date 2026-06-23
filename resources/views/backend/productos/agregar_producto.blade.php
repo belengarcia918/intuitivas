@@ -12,19 +12,18 @@
     </div>
 @endif
 
-<div class="container py-5 admin-body">
+<div class="container py-4 admin-body">
 
-    <div class="mb-3">
-        <a href="{{ route('admin.productos') }}" class="text-decoration-none">
-            <i class="bi bi-arrow-left"></i> Volver
-        </a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="admin-title m-0">
+            <i class="bi bi-plus-circle m-2"></i> Nuevo Producto
+        </h2>
+
     </div>
 
-    <div class="admin-card p-4 shadow-sm">
+    <div class="admin-card p-4 shadow-sm mb-4">
 
-        <h3 class="admin-title mb-4">
-            <i class="bi bi-plus-circle"></i> Nuevo Producto
-        </h3>
 
         <form action="{{ route('admin.productos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -212,7 +211,7 @@
                     <i class="bi bi-save"></i> Guardar
                 </button>
 
-                <a href="{{ route('admin.productos') }}" class="btn btn-secondary px-4">
+                <a href="{{ route('admin.productos.listado') }}" class="btn btn-secondary px-4">
                     Cancelar
                 </a>
             </div>

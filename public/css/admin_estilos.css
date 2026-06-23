@@ -283,6 +283,27 @@
     transition: all .25s ease;
 }
 
+.btn-admin-outline:disabled {
+    border: 2px solid #adb5bd;
+    color: #adb5bd;
+    background: transparent;
+    cursor: not-allowed;
+    opacity: .7;
+}
+
+.btn-admin-outline:disabled:hover {
+    border: 2px solid #adb5bd;
+    color: #adb5bd;
+    background: transparent;
+    transform: none;
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
 /*Inputs*/
 .admin-input {
     border-radius: 6px;

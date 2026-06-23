@@ -1,5 +1,17 @@
 <x-admin_layout title="Gestión de Productos">
 
+@if(session('success'))
+    <div id="mensaje-success"
+        data-msg="{{ session('success') }}">
+    </div>
+@endif
+
+@if(session('error'))
+    <div id="mensaje-error"
+        data-msg="{{ session('error') }}">
+    </div>
+@endif
+
 <div class="container py-4 admin-body">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -10,23 +22,19 @@
 
     </div>
 
-    @if(session('success'))
-        <div id="mensaje-success"
-            data-msg="{{ session('success') }}">
-        </div>
-    @endif
+    <div class="admin-card shadow-sm">
 
-    @if(session('error'))
-        <div id="mensaje-error"
-            data-msg="{{ session('error') }}">
-        </div>
-    @endif
+    <div class="p-3 border-bottom">
+        <strong class="admin-label">
+            Productos registrados
+        </strong>
+    </div>
 
-    <div class="admin-card">
+    <div class="table-responsive">
 
-        <table class="table table-hover align-middle mb-0">
+        <table class="table admin-table mb-0">
 
-            <thead class="admin-table-head text-center">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th class="text-start">Nombre</th>
@@ -34,7 +42,7 @@
                     <th>Categoría</th>
                     <th>Stock</th>
                     <th>Estado</th>
-                    <th style="width:160px;">Acciones</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 

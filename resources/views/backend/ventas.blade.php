@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="text-center">
                     @forelse($ventas as $venta)
 
                     <tr>
@@ -129,12 +129,12 @@ MODALES (DETALLE DE VENTA)
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach($venta->detalles as $detalle)
                             <tr>
-                                <td>{{ $detalle->producto->nombre }}</td>
+                                <td>{{ $detalle->nombre_producto }}</td>
                                 <td>{{ $detalle->cantidad }}</td>
-                                <td>${{ number_format($detalle->precio, 2) }}</td>
+                                <td>${{ number_format($detalle->precio_unitario, 2) }}</td>
                                 <td class="fw-bold">
                                     ${{ number_format($detalle->subtotal, 2) }}
                                 </td>

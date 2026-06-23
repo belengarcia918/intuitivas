@@ -11,21 +11,15 @@ use App\Http\Controllers\ContactoController;
 use Illuminate\Support\Facades\Route;
 
 
-/* =========================
-   HOME
-========================= */
+/* HOME */
 Route::get('/', [ProductoController::class, 'principal'])->name('principal');
 
-/* =========================
-   PÁGINAS INFORMATIVAS
-========================= */
+/*  PÁGINAS INFORMATIVAS */
 Route::get('/quienes-somos', [PruebaController::class, 'quienesSomos'])->name('quienes_somos');
 Route::get('/comercializacion', [PruebaController::class, 'comercializacion'])->name('comercializacion');
 Route::get('/terminos-de-uso', [PruebaController::class, 'terminosDeUso'])->name('terminos_de_uso');
 
-/* =========================
-   PRODUCTOS
-========================= */
+/* PRODUCTOS */
 Route::get('/productos', [ProductoController::class, 'catalogo'])->name('productos.index');
 Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
 Route::get('/categorias/{categoriaId}', [ProductoController::class, 'categoria'])->name('productos.categoria');
@@ -48,9 +42,7 @@ Route::prefix('carrito')->group(function () {
         ->name('carrito.vaciar');
 });
 
-/* =========================
-   AUTH
-========================= */
+/* AUTH */
 Route::get('/login', [UsuarioController::class, 'formularioLogin'])->name('login');
 Route::post('/login', [UsuarioController::class, 'ingresar'])->name('login.post');
 
@@ -60,9 +52,7 @@ Route::post('/registro', [UsuarioController::class, 'registrar'])->name('registr
 // Cambiamos Route::post por Route::match para que acepte tanto POST como GET
 Route::match(['get', 'post'], '/logout', [UsuarioController::class, 'logout'])->name('logout');
 
-/* =========================
-   CLIENTE (SOLO LOGUEADOS)
-========================= */
+/* CLIENTE (SOLO LOGUEADOS) */
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/cliente', [ClienteController::class, 'dashboard'])
@@ -79,9 +69,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-/* =========================
-   ADMIN (SOLO ADMIN)
-========================= */
+/* ADMIN (SOLO ADMIN) */
 Route::prefix('admin')
     ->middleware(['auth', 'rol:admin'])
     ->group(function () {
@@ -120,8 +108,6 @@ Route::prefix('admin')
         Route::delete('/usuarios/{id}', [AdminController::class, 'destroy'])->name('admin.usuarios.destroy');
     });
 
-/* =========================
-   CONTACTO (PÚBLICO)
-========================= */
+/* CONTACTO (PÚBLICO) */
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::post('/contacto', [ContactoController::class, 'store_contacto'])->name('contacto.store');

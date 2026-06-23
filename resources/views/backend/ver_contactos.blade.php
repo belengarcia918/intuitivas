@@ -53,7 +53,7 @@
                 <thead>
                     <tr>
                         <th class="ps-4">#</th>
-                        <th>Cliente</th>
+                        <th class="text-start">Cliente</th>
                         <th>Email</th>
                         <th>Motivo</th>
                         <th>Mensaje</th>
@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="text-center">
 
                     @forelse($consultas as $consulta)
 
@@ -72,7 +72,7 @@
                                 {{ $consulta->id }}
                             </td>
 
-                            <td class="fw-semibold">
+                            <td class="text-start fw-semibold">
                                 {{ $consulta->nombre }}
                             </td>
 
@@ -187,10 +187,34 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <button class="btn btn-sm btn-admin-outline"
-                                                {{ $usuarios->where('rol','admin')->count() <= 1 ? 'disabled' : '' }}>
-                                                
-                                                <i class="bi bi-trash me-1"></i>
+                                            @php
+                                                $deshabilitado =
+                                                    !$user->trashed() &&
+                                                    $user->rol === 'admin' &&
+                                                    $cantidadAdmins <= 1;
+                                            @endphp
+
+                                            <button
+                                                class="
+                                                    @if($user->trashed())
+                                                        btn-admin-success
+                                                    @elseif($deshabilitado)
+                                                        btn-admin-outline
+                                                    @else
+                                                        boton-peligro-2
+                                                    @endif
+                                                "
+                                                {{ $deshabilitado ? 'disabled' : '' }}
+                                            >
+                                                <i class="
+                                                    @if($user->trashed())
+                                                        bi bi-arrow-clockwise
+                                                    @else
+                                                        bi bi-trash
+                                                    @endif
+                                                    me-1
+                                                "></i>
+
                                                 {{ $user->trashed() ? 'Restaurar' : 'Eliminar' }}
                                             </button>
                                         </form>
@@ -216,7 +240,7 @@
                     Clientes
                 </h5>
 
-                <div class="table-responsive">
+                <div class="table-responsive mb-4">
                     <table class="table admin-table">
                         <thead>
                             <tr>
@@ -237,10 +261,21 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <button class="boton-peligro-2">
-                                                <i class="bi bi-trash me-1"></i>
-                                                {{ $user->trashed() ? 'Restaurar' : 'Eliminar' }}
-                                            </button>
+                                            @if($user->trashed())
+
+                                                <button type="submit" class="btn-admin-success">
+                                                    <i class="bi bi-arrow-clockwise me-1"></i>
+                                                    Restaurar
+                                                </button>
+
+                                            @else
+
+                                                <button type="submit" class="boton-peligro-2">
+                                                    <i class="bi bi-trash me-1"></i>
+                                                    Eliminar
+                                                </button>
+
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>

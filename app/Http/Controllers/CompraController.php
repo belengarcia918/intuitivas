@@ -6,15 +6,14 @@ use App\Models\Carrito;
 use App\Models\CarritoItem;
 use App\Models\VentaCabecera;
 use App\Models\VentaDetalle;
+use App\Services\CarritoService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 public function confirmar_compra(Request $request)
 {
-    $carrito = Carrito::with('items')
-        ->where('usuario_id', Auth::id())
-        ->first();
+    $carrito = CarritoService::obtener();
 
     if (!$carrito || $carrito->items->isEmpty()) {
         return back()->with('error-message', 'El carrito está vacío.');
