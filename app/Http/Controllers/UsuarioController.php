@@ -42,8 +42,8 @@ class UsuarioController extends Controller
         Auth::login($user);
 
         return redirect()
-            ->route('cliente.dashboard')
-            ->with('success', 'Registro exitoso 🎉');
+            ->route('perfil')
+            ->with('success', 'Registro exitoso');
     }
 
     /* LOGIN */
@@ -65,8 +65,12 @@ class UsuarioController extends Controller
         $user = Auth::user();
 
         return $user->rol === 'admin'
-            ? redirect()->route('admin.dashboard')
-            : redirect()->route('cliente.dashboard');
+            ? redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'Inicio de sesión exitoso')
+            : redirect()
+                ->route('perfil')
+                ->with('success', 'Inicio de sesión exitoso');
     }
 
     /* LOGOUT */

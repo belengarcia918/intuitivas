@@ -51,6 +51,10 @@ class EditarProductoRequest extends FormRequest
             'categoria_id.required' => 'Debes seleccionar una categoría.',
             'categoria_id.exists' => 'La categoría seleccionada no existe.',
 
+            'variantes.required' => 'El producto debe tener al menos una variante.',
+            'variantes.array' => 'Formato de variantes inválido.',
+            'variantes.min' => 'El producto debe tener al menos una variante.',
+
             'variantes.*.color_id.required' => 'Debes seleccionar un color.',
             'variantes.*.color_id.exists' => 'El color seleccionado no existe.',
 

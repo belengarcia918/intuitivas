@@ -42,7 +42,9 @@ class ContactoController extends Controller
     {
         $consultas = Contacto::latest()->get();
 
-        $usuarios = Usuario::latest()->get();
+        $usuarios = Usuario::withTrashed()
+            ->latest()
+            ->get();
 
         $cantidadAdmins = Usuario::where('rol', 'admin')->count();
 

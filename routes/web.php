@@ -56,7 +56,16 @@ Route::match(['get', 'post'], '/logout', [UsuarioController::class, 'logout'])->
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/cliente', [ClienteController::class, 'dashboard'])
-        ->name('cliente.dashboard');
+        ->name('perfil');
+
+    Route::get('/perfil/editar', [ClienteController::class, 'editar'])
+        ->name('perfil.editar');
+
+    Route::put('/perfil/update', [ClienteController::class, 'update'])
+        ->name('perfil.update');
+
+    Route::get('/perfil/compras', [ClienteController::class, 'compras'])
+        ->name('perfil.compras');
 
     Route::get('/checkout', [VentaController::class, 'checkout'])
         ->name('checkout');
@@ -88,6 +97,10 @@ Route::prefix('admin')
         Route::get('/productos/listado', [ProductoController::class, 'listarProductos'])->name('admin.productos.listado');
         Route::put('/admin/productos/{id}/activar', [ProductoController::class, 'activar'])->name('admin.productos.activar');
         Route::put('/admin/productos/{id}/desactivar', [ProductoController::class, 'desactivar'])->name('admin.productos.desactivar');
+        Route::get('/productos/{id}/imagenes', [ProductoController::class, 'imagenes'])->name('admin.productos.imagenes');
+        Route::post('/productos/{id}/imagenes', [ProductoController::class, 'storeImagenes'])->name('admin.productos.imagen.store');
+        Route::delete('/admin/variantes/{id}', [ProductoController::class, 'desactivarVariante'])->name('admin.variantes.destroy');
+        Route::post('/admin/variantes/{id}/restore', [ProductoController::class, 'restoreVariante'])->name('admin.variantes.restore');
 
         Route::post('/categorias/rapida', [ProductoController::class, 'storeCategoriaRapida'])->name('admin.categorias.rapida');
         Route::post('/colores/rapida', [ProductoController::class, 'storeColorRapida'])->name('admin.colores.rapida');

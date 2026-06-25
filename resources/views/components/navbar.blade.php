@@ -95,7 +95,7 @@
 
                 @auth
                     <li>
-                      <a class="dropdown-item" href="{{ route('cliente.dashboard') }}">
+                      <a class="dropdown-item" href="{{ route('perfil') }}">
                         Mi perfil
                       </a>
                     </li>

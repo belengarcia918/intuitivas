@@ -31,29 +31,57 @@
 
         <div class="mb-3">
           <label class="form-label">Nombre</label>
-          <input type="text" name="nombre" class="form-control"
-                 value="{{ old('nombre') }}">
-          @error('nombre') <small class="text-danger">{{ $message }}</small> @enderror
+          <input type="text"
+              name="nombre"
+              class="form-control @error('nombre') is-invalid @enderror"
+              value="{{ old('nombre') }}">
+          @error('nombre')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+          @enderror
         </div>
 
         <div class="mb-3">
           <label class="form-label">Correo electrónico</label>
-          <input type="email" name="email" class="form-control"
-                 value="{{ old('email') }}">
-          @error('email') <small class="text-danger">{{ $message }}</small> @enderror
+          <input type="email"
+                name="email"
+                class="form-control @error('email') is-invalid @enderror"
+                value="{{ old('email') }}">
+
+          @error('email')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+          @enderror
         </div>
 
         <div class="mb-3">
           <label class="form-label">Motivo</label>
-          <input type="text" name="motivo" class="form-control"
-                 value="{{ old('motivo') }}">
-          @error('motivo') <small class="text-danger">{{ $message }}</small> @enderror
+          <input type="text"
+                name="motivo"
+                class="form-control @error('motivo') is-invalid @enderror"
+                value="{{ old('motivo') }}">
+
+          @error('motivo')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+          @enderror
         </div>
 
         <div class="mb-3">
           <label class="form-label">Mensaje</label>
-          <textarea name="consulta" class="form-control" rows="4">{{ old('consulta') }}</textarea>
-          @error('consulta') <small class="text-danger">{{ $message }}</small> @enderror
+          <textarea
+              name="consulta"
+              class="form-control @error('consulta') is-invalid @enderror"
+              rows="4">{{ old('consulta') }}</textarea>
+
+          @error('consulta')
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div>
+          @enderror
         </div>
 
         <button type="submit" class="boton-enviar btn-lg">

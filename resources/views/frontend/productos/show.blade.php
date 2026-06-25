@@ -130,7 +130,7 @@
                             type="hidden"
                             id="color_nombre"
                             name="color"
-                            value="{{ $colores->first()->color->nombre ?? '' }}">
+                            value="{{ \Illuminate\Support\Str::title($colores->first()->color->nombre ?? '') }}">
 
                         @foreach($colores as $index => $variante)
 
@@ -145,8 +145,8 @@
 
                             <span
                                 class="color-circle"
-                                data-nombre="{{ $variante->color->nombre }}"
-                                title="{{ $variante->color->nombre }}"
+                                data-nombre="{{ \Illuminate\Support\Str::title($variante->color->nombre) }}"
+                                title="{{ \Illuminate\Support\Str::title($variante->color->nombre) }}"
                                 style="background-color: {{ $variante->color->hex }}">
                             </span>
 
@@ -172,12 +172,19 @@
 
                 </div>
 
+                <div class="mb-4">
+
+                        <div id="mensaje-stock" class="mt-3"></div>
+
+                    </div>
+
                 {{-- CANTIDAD --}}
                 <div class="row g-2 mb-4">
 
                     <div class="col-4">
 
                         <input
+                            id="cantidad"
                             type="number"
                             name="cantidad"
                             value="1"
@@ -189,6 +196,7 @@
                     <div class="col-8">
 
                         <button
+                            id="btn-carrito"
                             type="submit"
                             class="btn boton-carrito w-100">
 
@@ -297,6 +305,94 @@ function renderizarTalles(colorId)
             </label>
         `;
     });
+
+    actualizarStock();
+}
+
+function actualizarStock() {
+
+    const colorSeleccionado =
+        document.querySelector(
+            'input[name="color_id"]:checked'
+        );
+
+    const talleSeleccionado =
+        document.querySelector(
+            'input[name="talle"]:checked'
+        );
+
+    if (!colorSeleccionado || !talleSeleccionado) {
+        return;
+    }
+
+    const variante = variantes.find(v =>
+        v.color_id == colorSeleccionado.value &&
+        v.talle == talleSeleccionado.value
+    );
+
+    const mensaje =
+        document.getElementById('mensaje-stock');
+
+    const boton =
+        document.getElementById('btn-carrito');
+
+    const cantidad =
+        document.getElementById('cantidad');
+
+    if (!variante) {
+        return;
+    }
+
+    cantidad.max = variante.stock;
+
+    if (parseInt(cantidad.value) > variante.stock) {
+
+        cantidad.value =
+            variante.stock > 0
+                ? variante.stock
+                : 1;
+    }
+
+    if (variante.stock <= 0) {
+
+        mensaje.innerHTML = `
+            <span class="texto-4 fw-semibold">
+                <i class="bi bi-x-circle-fill"></i>
+                Sin stock
+            </span>
+        `;
+
+        boton.disabled = true;
+        cantidad.disabled = true;
+
+    } else {
+
+        boton.disabled = false;
+        cantidad.disabled = false;
+
+        if (variante.stock === 1) {
+
+            mensaje.innerHTML = `
+                <span class="texto-4 fw-semibold">
+                    <i class="bi bi-fire"></i>
+                    ¡Última unidad disponible!
+                </span>
+            `;
+
+        } else if (variante.stock <= 5) {
+
+            mensaje.innerHTML = `
+                <span class="texto-4 fw-semibold">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    ¡Últimas ${variante.stock} unidades!
+                </span>
+            `;
+
+        } else {
+
+            mensaje.innerHTML = '';
+        }
+    }
 }
 
 document
@@ -318,6 +414,16 @@ document
 
 });
 
+document.addEventListener('change', function(e){
+
+    if(e.target.name === 'talle'){
+
+        actualizarStock();
+
+    }
+
+});
+
 const primerColor =
     document.querySelector(
         'input[name="color_id"]:checked'
@@ -328,6 +434,21 @@ if (primerColor) {
     renderizarTalles(primerColor.value);
 
 }
+
+document
+.getElementById('cantidad')
+.addEventListener('input', function() {
+
+    const max = parseInt(this.max);
+
+    if (this.value > max) {
+        this.value = max;
+    }
+
+    if (this.value < 1) {
+        this.value = 1;
+    }
+});
 
 </script>
 

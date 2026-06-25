@@ -95,87 +95,160 @@
 
             <hr class="my-4">
 
-            <h5 class="mb-3">Variante inicial</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
 
-            <div class="row">
+                    <h5 class="mb-0">
+                        Variantes
+                    </h5>
 
-                {{-- COLOR (CREADO DINÁMICAMENTE) --}}
-                <div class="col-md-4 mb-3">
-                    <label class="admin-label">Color</label>
+                    <button
+                        type="button"
+                        id="agregar-variante"
+                        class="btn boton-secundario">
 
-                    <div class="d-flex gap-2 align-items-center">
+                        <i class="bi bi-plus-circle"></i>
+                        Agregar variante
 
-                        {{-- HEX visual --}}
-                        <input type="color" name="color_hex"
-                            value="{{ old('color_hex', '#000000') }}"
-                            class="form-control form-control-color">
+                    </button>
 
-                            @error('color_hex')
+                </div>
+
+                @php
+                $variantes = old('variantes', [
+                    [
+                        'color_nombre' => '',
+                        'color_hex' => '#000000',
+                        'talle_id' => '',
+                        'stock' => 0,
+                    ]
+                ]);
+                @endphp
+
+                <div id="variantes-container">
+
+                    @foreach($variantes as $i => $variante)
+
+                        <div class="row mb-3 variante-row">
+
+                            {{-- COLOR --}}
+                            <div class="col-md-3">
+
+                                <label class="admin-label">
+                                    Color
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="variantes[{{ $i }}][color_nombre]"
+                                    value="{{ $variante['color_nombre'] ?? '' }}"
+                                    class="form-control admin-input
+                                        @error("variantes.$i.color_nombre") is-invalid @enderror">
+
+                                @error("variantes.$i.color_nombre")
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                            </div>
+
+                            {{-- HEX --}}
+                            <div class="col-md-2">
+
+                                <label class="admin-label">
+                                    HEX
+                                </label>
+
+                                <input
+                                    type="color"
+                                    name="variantes[{{ $i }}][color_hex]"
+                                    value="{{ $variante['color_hex'] ?? '#000000' }}"
+                                    class="form-control form-control-color">
+
+                            </div>
+
+                            @error("variantes.$i.color_hex")
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
                             @enderror
-                            
-                        {{-- INPUT REAL --}}
-                        <input type="text"
-                            name="color_nombre"
-                            placeholder="Ej: Rojo, Negro..."
-                            list="colores"
-                            class="form-control admin-input @error('color_nombre') is-invalid @enderror"
-                            value="{{ old('color_nombre') }}">
 
-                        <datalist id="colores">
-                            @foreach($colores as $color)
-                                <option value="{{ $color->nombre }}">
-                            @endforeach
-                        </datalist>
+                            {{-- TALLE --}}
+                            <div class="col-md-3">
 
-                    </div>
+                                <label class="admin-label">
+                                    Talle
+                                </label>
 
-                    @error('color_nombre')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+                                <select
+                                    name="variantes[{{ $i }}][talle_id]"
+                                    class="form-control admin-input
+                                        @error("variantes.$i.talle_id") is-invalid @enderror">
+
+                                    <option value="">
+                                        Seleccionar
+                                    </option>
+
+                                    @foreach($talles as $talle)
+                                        <option
+                                            value="{{ $talle->id }}"
+                                            @selected(($variante['talle_id'] ?? '') == $talle->id)>
+
+                                            {{ $talle->nombre }}
+
+                                        </option>
+                                    @endforeach
+
+                                </select>
+
+                                @error("variantes.$i.talle_id")
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                            </div>
+
+                            {{-- STOCK --}}
+                            <div class="col-md-2">
+
+                                <label class="admin-label">
+                                    Stock
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="variantes[{{ $i }}][stock]"
+                                    value="{{ $variante['stock'] ?? 0 }}"
+                                    class="form-control admin-input
+                                        @error("variantes.$i.stock") is-invalid @enderror">
+
+                                @error("variantes.$i.stock")
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                            </div>
+
+                            {{-- ELIMINAR --}}
+                            <div class="col-md-2 d-flex align-items-end">
+
+                                <button
+                                    type="button"
+                                    class="btn boton-peligro btn-eliminar-variante w-100">
+
+                                    Eliminar
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    @endforeach
+
                 </div>
-
-                {{-- TALLE --}}
-                <div class="col-md-4 mb-3">
-                    <label class="admin-label">Talle</label>
-
-                    <select name="talle_id"
-                        class="form-control admin-input @error('talle_id') is-invalid @enderror">
-
-                        <option value="">Seleccionar</option>
-
-                        @foreach($talles as $talle)
-                            <option value="{{ $talle->id }}"
-                                {{ old('talle_id') == $talle->id ? 'selected' : '' }}>
-                                {{ $talle->nombre }}
-                            </option>
-                        @endforeach
-
-                    </select>
-
-                    @error('talle_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- STOCK --}}
-                <div class="col-md-4 mb-3">
-                    <label class="admin-label">Stock</label>
-
-                    <input type="number"
-                        name="stock"
-                        placeholder="Cantidad disponible"
-                        class="form-control admin-input @error('stock') is-invalid @enderror"
-                        value="{{ old('stock') }}">
-
-                    @error('stock')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-            </div>
 
             <hr class="my-4">
 
@@ -220,6 +293,127 @@
 
     </div>
 </div>
+
+<script>
+
+let indice = {{ count($variantes) }};
+
+document
+.getElementById('agregar-variante')
+.addEventListener('click', function () {
+
+    const ultimaFila =
+        document.querySelector(
+            '#variantes-container .variante-row:last-child'
+        );
+
+    const ultimoColor =
+        ultimaFila.querySelector(
+            'input[name*="[color_nombre]"]'
+        ).value;
+
+    const ultimoHex =
+        ultimaFila.querySelector(
+            'input[type="color"]'
+        ).value;
+
+    const html = `
+    <div class="row mb-3 variante-row">
+
+        <div class="col-md-3">
+
+            <input
+                type="text"
+                name="variantes[${indice}][color_nombre]"
+                value="${ultimoColor}"
+                class="form-control admin-input">
+
+        </div>
+
+        <div class="col-md-2">
+
+            <input
+                type="color"
+                name="variantes[${indice}][color_hex]"
+                value="${ultimoHex}"
+                class="form-control form-control-color">
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select
+                name="variantes[${indice}][talle_id]"
+                class="form-control admin-input">
+
+                <option value="">
+                    Seleccionar
+                </option>
+
+                @foreach($talles as $talle)
+                    <option value="{{ $talle->id }}">
+                        {{ $talle->nombre }}
+                    </option>
+                @endforeach
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <input
+                type="number"
+                name="variantes[${indice}][stock]"
+                value="0"
+                class="form-control admin-input">
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button
+                type="button"
+                class="btn boton-peligro btn-eliminar-variante w-100">
+
+                Eliminar
+
+            </button>
+
+        </div>
+
+    </div>
+    `;
+
+    document
+        .getElementById('variantes-container')
+        .insertAdjacentHTML('beforeend', html);
+
+    indice++;
+});
+
+document.addEventListener('click', function(e){
+
+    const boton = e.target.closest('.btn-eliminar-variante');
+
+    if(!boton){
+        return;
+    }
+
+    const filas = document.querySelectorAll('.variante-row');
+
+    if(filas.length <= 1){
+
+        alert('El producto debe tener al menos una variante.');
+
+        return;
+    }
+
+    boton.closest('.variante-row').remove();
+
+});
+
+</script>
 
 <script>
 document.querySelector('input[name="imagenes[]"]').addEventListener('change', function(e) {
@@ -279,12 +473,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.display = 'flex';
         toast.style.alignItems = 'center';
         toast.style.gap = '8px';
-        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,.15)';
+        toast.style.boxShadow = '0 12px 24px rgba(0,0,0,.18), 0 4px 8px rgba(0,0,0,.12)';
         toast.style.backgroundColor = '#fff';
 
         if (tipo === 'success') {
-            toast.style.color = '#5f2660';
-            toast.style.border = '2px solid #9d4a9f';
+            toast.style.color = '#110f11';
+            toast.style.border = '2px solid #e178cf';
         } else {
             toast.style.color = '#dc3545';
             toast.style.border = '2px solid #dc3545';

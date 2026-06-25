@@ -16,32 +16,36 @@ class AgregarProductoRequest extends FormRequest
     protected function prepareForValidation()
     {
         // COLOR
-        if ($this->color_nombre) {
+        $variantes = $this->input('variantes');
 
-            $nombreColor = strtolower(trim($this->color_nombre));
+        if (!$variantes) {
+            $variantes = [];
+        }
+
+        foreach ($variantes as $i => $variante) {
+
+            $nombreColor = strtolower(trim($variante['color_nombre']));
 
             $color = Color::firstOrCreate(
                 [
                     'nombre' => $nombreColor
                 ],
                 [
-                    'hex' => $this->color_hex
+                    'hex' => $variante['color_hex']
                 ]
             );
 
-            $this->merge([
-                'color_id' => $color->id
-            ]);
+            $variantes[$i]['color_id'] = $color->id;
         }
 
-        // CATEGORÍA
+        $this->merge([
+            'variantes' => $variantes
+        ]);
+
+        // CATEGORÍA (igual)
         if ($this->categoria_nombre) {
 
-            $nombreCategoria = ucwords(
-                strtolower(
-                    trim($this->categoria_nombre)
-                )
-            );
+            $nombreCategoria = ucwords(strtolower(trim($this->categoria_nombre)));
 
             $categoria = Categoria::firstOrCreate([
                 'nombre' => $nombreCategoria
@@ -67,19 +71,42 @@ class AgregarProductoRequest extends FormRequest
             'categoria_id' => 'required|exists:categorias,id',
 
             // COLOR
-            'color_nombre' => 'required|string|max:50',
-            'color_hex' => [
+            'variantes' => [
+                'required',
+                'array',
+                'min:1'
+            ],
+
+            'variantes.*.color_nombre' => [
+                'required',
+                'string',
+                'max:50'
+            ],
+
+            'variantes.*.color_hex' => [
                 'required',
                 'regex:/^#[A-Fa-f0-9]{6}$/'
             ],
-            'color_id' => 'required|exists:colores,id',
 
-            // VARIANTE
-            'talle_id' => 'required|exists:talles,id',
-            'stock' => 'required|integer|min:0',
+            'variantes.*.color_id' => [
+                'required',
+                'exists:colores,id'
+            ],
+
+            // TALLE
+            'variantes.*.talle_id' => [
+                'required',
+                'exists:talles,id'
+            ],
+
+            'variantes.*.stock' => [
+                'required',
+                'integer',
+                'min:1'
+            ],
 
             // IMÁGENES
-            'imagenes' => 'nullable|array',
+            'imagenes' => 'required|array|min:1',
             'imagenes.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
@@ -107,25 +134,30 @@ class AgregarProductoRequest extends FormRequest
             // CATEGORÍA
             'categoria_nombre.required' => 'Debes ingresar una categoría.',
             'categoria_id.exists' => 'La categoría seleccionada no existe.',
+            'categoria_nombre.string' => 'La categoría debe ser texto.',
+            'categoria_nombre.max' => 'La categoría no puede superar los 100 caracteres.',
+
+            // VARIANTES
+            'variantes.required' => 'Debes agregar al menos una variante.',
+            'variantes.array' => 'Las variantes enviadas no son válidas.',
+            'variantes.min' => 'Debes agregar al menos una variante.',
 
             // COLOR
-            'color_nombre.required' => 'Debes ingresar un color.',
-            'color_nombre.string' => 'El color debe ser texto.',
-            'color_nombre.max' => 'El color no puede superar los 50 caracteres.',
+            'variantes.*.color_nombre.required' => 'Debes ingresar un color.',
+            'variantes.*.color_nombre.string' => 'El color debe ser texto.',
+            'variantes.*.color_nombre.max' => 'El color no puede superar los 50 caracteres.',
 
-            'color_hex.required' => 'Debes seleccionar un color.',
-            'color_hex.regex' => 'El color hexadecimal no es válido.',
-
-            'color_id.exists' => 'El color seleccionado no existe.',
+            'variantes.*.color_hex.required' => 'Debes seleccionar un color.',
+            'variantes.*.color_hex.regex' => 'El color hexadecimal no es válido.',
 
             // TALLE
-            'talle_id.required' => 'Debes seleccionar un talle.',
-            'talle_id.exists' => 'El talle seleccionado no existe.',
+            'variantes.*.talle_id.required' => 'Debes seleccionar un talle.',
+            'variantes.*.talle_id.exists' => 'El talle seleccionado no existe.',
 
             // STOCK
-            'stock.required' => 'El stock es obligatorio.',
-            'stock.integer' => 'El stock debe ser un número entero.',
-            'stock.min' => 'El stock no puede ser negativo.',
+            'variantes.*.stock.required' => 'El stock es obligatorio.',
+            'variantes.*.stock.integer' => 'El stock debe ser un número entero.',
+            'variantes.*.stock.min' => 'El stock debe ser al menos 1.',
 
             // IMÁGENES
             'imagenes.required' => 'Debes subir al menos una imagen.',

@@ -138,13 +138,15 @@ class AdminController extends Controller
         }
 
         if ($usuario->trashed()) {
+
             $usuario->restore();
-            return back()->with('success', 'Usuario restaurado');
+
+            return back()->with('success', 'Usuario reactivado correctamente.');
         }
 
         $usuario->delete();
 
-        return back()->with('success', 'Usuario desactivado');
+        return back()->with('success', 'Usuario desactivado correctamente.');
     }
 
     /* PROTECCIÓN */

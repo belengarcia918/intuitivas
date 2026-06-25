@@ -185,7 +185,7 @@
 
 <div class="text-center mt-4">
 
-    <a href="{{ url('/productos') }}" class="btn-catalogo">
+    <a href="{{ url('/productos') }}" class="text-decoration-none">
         Ver todo el catálogo
     </a>
 

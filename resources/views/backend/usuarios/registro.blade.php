@@ -1,5 +1,17 @@
 <x-layout title="Crear Cuenta - Intuitivas">
 
+@if(session('success'))
+    <div id="mensaje-success"
+         data-msg="{{ session('success') }}">
+    </div>
+@endif
+
+@if(session('error'))
+    <div id="mensaje-error"
+         data-msg="{{ session('error') }}">
+    </div>
+@endif
+
 <section class="container py-5">
 
     <div class="row justify-content-center">
@@ -30,30 +42,30 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Nombre</label>
                                 <input type="text"
-                                       name="name"
-                                       class="form-control"
-                                       placeholder="Tu nombre"
-                                       value="{{ old('name') }}">
+                                    name="name"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Tu nombre"
+                                    value="{{ old('name') }}">
 
                                 @error('name')
-                                    <small class="text-danger d-block mt-1">
+                                    <div class="invalid-feedback">
                                         {{ $message }}
-                                    </small>
+                                    </div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Apellido</label>
                                 <input type="text"
-                                       name="apellido"
-                                       class="form-control"
-                                       placeholder="Tu apellido"
-                                       value="{{ old('apellido') }}">
+                                    name="apellido"
+                                    class="form-control @error('apellido') is-invalid @enderror"
+                                    placeholder="Tu apellido"
+                                    value="{{ old('apellido') }}">
 
                                 @error('apellido')
-                                    <small class="text-danger d-block mt-1">
+                                    <div class="invalid-feedback">
                                         {{ $message }}
-                                    </small>
+                                    </div>
                                 @enderror
                             </div>
 
@@ -62,59 +74,59 @@
                         <div class="mb-3">
                             <label class="form-label">Correo electrónico</label>
                             <input type="email"
-                                   name="email"
-                                   class="form-control"
-                                   placeholder="ejemplo@mail.com"
-                                   value="{{ old('email') }}">
+                                name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                placeholder="ejemplo@mail.com"
+                                value="{{ old('email') }}">
 
                             @error('email')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Teléfono</label>
                             <input type="tel"
-                                   name="telefono"
-                                   class="form-control"
-                                   placeholder="Ej: 3794 123456"
-                                   value="{{ old('telefono') }}">
+                                name="telefono"
+                                class="form-control @error('telefono') is-invalid @enderror"
+                                placeholder="Ej: 3794 123456"
+                                value="{{ old('telefono') }}">
 
                             @error('telefono')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Dirección</label>
                             <input type="text"
-                                   name="direccion"
-                                   class="form-control"
-                                   placeholder="Calle, número, ciudad"
-                                   value="{{ old('direccion') }}">
+                                name="direccion"
+                                class="form-control @error('direccion') is-invalid @enderror"
+                                placeholder="Calle, número, ciudad"
+                                value="{{ old('direccion') }}">
 
                             @error('direccion')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="••••••••">
+                                name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="••••••••">
 
                             @error('password')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
@@ -168,6 +180,7 @@
 
 </section>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -185,7 +198,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function mostrarToast(mensaje, tipo) {
 
         let toast = document.createElement('div');
-        toast.innerText = mensaje;
+        toast.innerHTML =
+            (tipo === 'success'
+                ? '<i class="bi bi-check-circle-fill me-2"></i>'
+                : '<i class="bi bi-x-circle-fill me-2"></i>')
+            + mensaje;
 
         toast.style.position = 'fixed';
         toast.style.top = '20px';
@@ -195,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.borderRadius = '5px';
         toast.style.zIndex = '9999';
         toast.style.fontWeight = '500';
-        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+        toast.style.boxShadow = '0 12px 24px rgba(0,0,0,.18), 0 4px 8px rgba(0,0,0,.12)';
         toast.style.backgroundColor = '#ffffff';
         toast.style.border = '2px solid #c2c2c2';
 

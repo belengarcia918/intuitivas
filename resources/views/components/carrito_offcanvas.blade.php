@@ -2,6 +2,21 @@
      tabindex="-1"
      id="offcanvasCarrito">
 
+     @if(session('open_cart'))
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const carrito = document.getElementById('offcanvasCarrito');
+
+        if (carrito) {
+            const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(carrito);
+            offcanvas.show();
+        }
+
+    });
+    </script>
+    @endif
+
     <div class="offcanvas-header border-bottom">
 
         <h5 class="offcanvas-title titulo">
@@ -32,10 +47,32 @@
 
             @php
                 $subtotal = $item->precio * $item->cantidad;
-
                 $total += $subtotal;
 
                 $imagen = $item->producto->imagen_principal;
+
+                // VARIANTE + STOCK
+                $variante = $item->producto->variantes
+                    ->first(function ($v) use ($item) {
+                        return strtolower($v->color->nombre) === strtolower($item->color)
+                            && $v->talle->nombre === $item->talle;
+                    });
+
+                $stock = $variante->stock ?? 0;
+
+                // MENSAJE POR ITEM
+                $mensajeDisponibilidad = null;
+
+                if (!$item->producto || !$item->producto->activo) {
+
+                    $mensajeDisponibilidad = 'Producto retirado del catálogo';
+
+                } else {
+
+                    if (!$variante || $stock <= 0) {
+                        $mensajeDisponibilidad = 'Sin stock disponible';
+                    }
+                }
             @endphp
 
             <div class="card shadow-sm border-0 mb-3">
@@ -53,11 +90,7 @@
                                     : asset('images/no-image.png') }}"
                                 alt="{{ $item->producto->nombre }}"
                                 class="rounded"
-                                style="
-                                    width:80px;
-                                    height:80px;
-                                    object-fit:cover;
-                                ">
+                                style="width:80px;height:80px;object-fit:cover;">
 
                         </div>
 
@@ -68,27 +101,31 @@
                                 {{ $item->producto->nombre }}
                             </h6>
 
+                            {{-- MENSAJES POR ITEM --}}
+                            @if(!$item->producto || !$item->producto->activo)
+
+                                <div class="estado-producto-no-disponible">
+                                    <i class="bi bi-eye-slash me-2"></i>
+                                    Producto retirado del catálogo
+                                </div>
+
+                            @elseif(!$variante || $stock <= 0)
+
+                                <div class="estado-producto-no-disponible">
+                                    <i class="bi bi-box-seam me-2"></i>
+                                    Sin stock disponible
+                                </div>
+
+                            @endif
+
                             <div class="small text-muted mb-2">
-
-                                Color:
-                                {{ $item->color ?? '-' }}
-
+                                Color: {{ $item->color ?? '-' }}
                                 |
-
-                                Talle:
-                                {{ $item->talle ?? '-' }}
-
+                                Talle: {{ $item->talle ?? '-' }}
                             </div>
 
                             <div class="precio-2 small mb-2">
-
-                                ${{ number_format(
-                                    $item->precio,
-                                    0,
-                                    ',',
-                                    '.'
-                                ) }}
-
+                                ${{ number_format($item->precio, 0, ',', '.') }}
                             </div>
 
                             {{-- CANTIDAD --}}
@@ -104,10 +141,14 @@
                                     name="cantidad"
                                     value="{{ $item->cantidad }}"
                                     min="1"
+                                    max="{{ $stock }}"
                                     class="form-control form-control-sm text-center me-2"
-                                    style="width:70px;">
+                                    style="width:70px;"
+                                    @disabled($mensajeDisponibilidad)>
 
-                                <button class="btn btn-sm boton-agregar">
+                                <button
+                                    class="btn btn-sm boton-agregar"
+                                    @disabled($mensajeDisponibilidad)>
                                     <i class="bi bi-check-lg"></i>
                                 </button>
 
@@ -124,11 +165,8 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button
-                                    class="btn btn-sm boton-eliminar">
-
+                                <button class="btn btn-sm boton-eliminar">
                                     <i class="bi bi-x-lg"></i>
-
                                 </button>
 
                             </form>
@@ -141,14 +179,7 @@
                     <div class="text-end mt-3">
 
                         <strong class="precio-3">
-
-                            ${{ number_format(
-                                $subtotal,
-                                0,
-                                ',',
-                                '.'
-                            ) }}
-
+                            ${{ number_format($subtotal, 0, ',', '.') }}
                         </strong>
 
                     </div>
@@ -171,6 +202,30 @@
 
         @endforelse
 
+        {{-- VALIDACIÓN CHECKOUT --}}
+        @php
+            $tieneProductosInvalidos = false;
+
+            foreach ($items as $item) {
+
+                if (!$item->producto || !$item->producto->activo) {
+                    $tieneProductosInvalidos = true;
+                    break;
+                }
+
+                $variante = $item->producto->variantes
+                    ->first(function ($v) use ($item) {
+                        return strtolower($v->color->nombre) === strtolower($item->color)
+                            && $v->talle->nombre === $item->talle;
+                    });
+
+                if (!$variante || $variante->stock <= 0) {
+                    $tieneProductosInvalidos = true;
+                    break;
+                }
+            }
+        @endphp
+
         @if($items->count())
 
             <div class="card shadow-sm mt-4">
@@ -184,14 +239,7 @@
                         </span>
 
                         <span class="precio-3 fw-bold">
-
-                            ${{ number_format(
-                                $total,
-                                0,
-                                ',',
-                                '.'
-                            ) }}
-
+                            ${{ number_format($total, 0, ',', '.') }}
                         </span>
 
                     </div>
@@ -202,10 +250,23 @@
 
             <div class="mt-3">
 
+                @if($tieneProductosInvalidos)
+
+                    <div class="mensaje-carrito-error mb-3">
+
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                        Debes eliminar los productos no disponibles
+                        antes de continuar con la compra.
+
+                    </div>
+
+                @endif
+
                 @auth
 
                     <a href="{{ route('checkout') }}"
-                    class="btn boton-carrito w-100 mb-2">
+                       class="btn boton-carrito w-100 mb-2 {{ $tieneProductosInvalidos ? 'disabled' : '' }}">
 
                         Finalizar compra
 
@@ -214,7 +275,7 @@
                 @else
 
                     <a href="{{ route('login') }}"
-                    class="btn boton-carrito w-100 mb-2">
+                       class="btn boton-carrito w-100 mb-2">
 
                         Continuar con la compra
 
@@ -223,14 +284,13 @@
                 @endauth
 
                 <form method="POST"
-                    action="{{ route('carrito.vaciar') }}">
+                      action="{{ route('carrito.vaciar') }}">
 
                     @csrf
                     @method('DELETE')
 
-                    <button
-                        type="submit"
-                        class="btn boton-peligro w-100">
+                    <button type="submit"
+                            class="btn boton-peligro w-100">
 
                         Vaciar carrito
 
@@ -246,22 +306,3 @@
 
 </div>
 
-
-@if(session('open_cart'))
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    const carrito = document.getElementById(
-        'offcanvasCarrito'
-    );
-
-    if (carrito) {
-
-        const offcanvas =
-            new bootstrap.Offcanvas(carrito);
-
-        offcanvas.show();
-    }
-});
-</script>
-@endif

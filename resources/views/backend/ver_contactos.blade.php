@@ -29,14 +29,6 @@
 
     </div>
 
-    {{-- ALERT --}}
-    @if(session('success'))
-        <div class="alert alert-success shadow-sm border-0">
-            <i class="bi bi-check-circle me-2"></i>
-            {{ session('success') }}
-        </div>
-    @endif
-
     {{-- CARD --}}
     <div class="admin-card shadow-sm">
 
@@ -48,14 +40,14 @@
 
         <div class="table-responsive">
 
-            <table class="table admin-table mb-0">
+            <table class="table admin-table tabla-consultas mb-0">
 
                 <thead>
                     <tr>
                         <th class="ps-4">#</th>
                         <th class="text-start">Cliente</th>
-                        <th>Email</th>
-                        <th>Motivo</th>
+                        <th class="d-none d-md-table-cell">Email</th>
+                        <th class="d-none d-lg-table-cell">Motivo</th>
                         <th>Mensaje</th>
                         <th>Estado</th>
                         <th class="text-center pe-4">Acciones</th>
@@ -76,18 +68,18 @@
                                 {{ $consulta->nombre }}
                             </td>
 
-                            <td>
+                            <td class="d-none d-md-table-cell">
                                 <small>{{ $consulta->email }}</small>
                             </td>
 
-                            <td>
+                            <td class="d-none d-lg-table-cell">
                                 <span class="badge bg-secondary-subtle text-dark">
                                     {{ $consulta->motivo }}
                                 </span>
                             </td>
 
-                            <td style="max-width: 300px;">
-                                <span class="text-truncate d-inline-block w-100">
+                            <td class="mensaje-columna">
+                                <span class="mensaje-preview">
                                     {{ $consulta->consulta }}
                                 </span>
                             </td>
@@ -107,7 +99,7 @@
 
                             <td class="text-center pe-4">
 
-                                <div class="d-flex gap-2 justify-content-center">
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
 
                                     {{-- VER MENSAJE --}}
                                     <a href="{{ route('admin.contactos.show', $consulta->id) }}"
@@ -144,6 +136,8 @@
                 </tbody>
 
             </table>
+
+        </div>
 
             <hr class="my-5">
 
@@ -194,29 +188,21 @@
                                                     $cantidadAdmins <= 1;
                                             @endphp
 
-                                            <button
-                                                class="
-                                                    @if($user->trashed())
-                                                        btn-admin-success
-                                                    @elseif($deshabilitado)
-                                                        btn-admin-outline
-                                                    @else
-                                                        boton-peligro-2
-                                                    @endif
-                                                "
-                                                {{ $deshabilitado ? 'disabled' : '' }}
-                                            >
-                                                <i class="
-                                                    @if($user->trashed())
-                                                        bi bi-arrow-clockwise
-                                                    @else
-                                                        bi bi-trash
-                                                    @endif
-                                                    me-1
-                                                "></i>
-
-                                                {{ $user->trashed() ? 'Restaurar' : 'Eliminar' }}
-                                            </button>
+                                            @if($user->trashed())
+                                                <button type="submit" class="btn-admin-success">
+                                                    <i class="bi bi-arrow-clockwise me-1"></i>
+                                                    Reactivar
+                                                </button>
+                                            @else
+                                                <button
+                                                    type="submit"
+                                                    class="{{ $deshabilitado ? 'btn-admin-outline' : 'boton-peligro-2' }}"
+                                                    {{ $deshabilitado ? 'disabled' : '' }}
+                                                >
+                                                    <i class="bi bi-person-x me-1"></i>
+                                                    Desactivar
+                                                </button>
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -265,14 +251,14 @@
 
                                                 <button type="submit" class="btn-admin-success">
                                                     <i class="bi bi-arrow-clockwise me-1"></i>
-                                                    Restaurar
+                                                    Reactivar
                                                 </button>
 
                                             @else
 
                                                 <button type="submit" class="boton-peligro-2">
-                                                    <i class="bi bi-trash me-1"></i>
-                                                    Eliminar
+                                                    <i class="bi bi-person-x me-1"></i>
+                                                    Desactivar
                                                 </button>
 
                                             @endif
@@ -291,7 +277,6 @@
                 </div>
             </div>
 
-        </div>
 
     </div>
 
@@ -332,12 +317,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.display = 'flex';
         toast.style.alignItems = 'center';
         toast.style.gap = '8px';
-        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,.15)';
+        toast.style.boxShadow = '0 12px 24px rgba(0,0,0,.18), 0 4px 8px rgba(0,0,0,.12)';
         toast.style.backgroundColor = '#fff';
 
         if (tipo === 'success') {
-            toast.style.color = '#5f2660';
-            toast.style.border = '2px solid #9d4a9f';
+            toast.style.color = '#110f11';
+            toast.style.border = '2px solid #e178cf';
         } else {
             toast.style.color = '#dc3545';
             toast.style.border = '2px solid #dc3545';

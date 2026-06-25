@@ -79,13 +79,7 @@
                     </td>
 
                     <td>
-                        @if($producto->trashed())
-
-                            <span class="badge bg-danger">
-                                Eliminado
-                            </span>
-
-                        @elseif($producto->activo)
+                        @if($producto->activo)
 
                             <span class="badge bg-success">
                                 Activo
@@ -138,16 +132,6 @@
                                     </form>
 
                                 @endif
-
-                                <form method="POST"
-                                    action="{{ route('admin.productos.destroy', $producto->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="boton-peligro-2">
-                                        Eliminar
-                                    </button>
-                                </form>
 
                             @else
 
@@ -224,8 +208,8 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.backgroundColor = '#fff';
 
         if (tipo === 'success') {
-            toast.style.color = '#5f2660';
-            toast.style.border = '2px solid #9d4a9f';
+            toast.style.color = '#110f11';
+            toast.style.border = '2px solid #e178cf';
         } else {
             toast.style.color = '#dc3545';
             toast.style.border = '2px solid #dc3545';

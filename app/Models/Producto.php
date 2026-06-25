@@ -34,7 +34,8 @@ class Producto extends Model
 
     public function variantes()
     {
-        return $this->hasMany(ProductoVariante::class);
+        return $this->hasMany(ProductoVariante::class)
+            ->withTrashed();
     }
 
     public function colores()

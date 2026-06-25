@@ -34,11 +34,13 @@ class VentaCabecera extends Model
     // Relación: Una venta pertenece a un Usuario
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id')->withDefault([
-            'name' => 'Usuario eliminado',
-            'email' => '-',
-        ]);
-    } 
+        return $this->belongsTo(Usuario::class, 'usuario_id')
+            ->withTrashed()
+            ->withDefault([
+                'name' => 'Usuario eliminado',
+                'email' => '-',
+            ]);
+    }
 
     // Relación: Una venta tiene muchos detalles
     public function detalles() { 

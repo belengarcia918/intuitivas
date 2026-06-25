@@ -394,6 +394,25 @@
     background-color: #f5f0f7;
 }
 
+.mensaje-columna {
+    max-width: 220px;
+}
+
+.mensaje-preview {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.tabla-consultas {
+    min-width: 900px;
+}
+
 /* Tarjeta imagenes*/
 
 .admin-imagen-card {

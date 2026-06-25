@@ -104,11 +104,21 @@
 
             <h5 class="mb-3">Variantes</h5>
 
+            @error('variantes')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+            @enderror
+            
             <div id="variantes-container">
 
                 @foreach($producto->variantes as $i => $variante)
 
                     <div class="row mb-3 variante-row">
+
+                        <input type="hidden"
+                            name="variantes[{{ $i }}][id]"
+                            value="{{ $variante->id }}">
 
                         <div class="col-md-4">
 
@@ -126,7 +136,7 @@
                                         value="{{ $color->id }}"
                                         @selected($variante->color_id == $color->id)>
 
-                                        {{ $color->nombre }}
+                                        {{ Str::title($color->nombre) }}
 
                                     </option>
 
@@ -178,13 +188,31 @@
 
                         <div class="col-md-2 d-flex align-items-end">
 
-                            <button
-                                type="button"
-                                class="btn boton-peligro btn-eliminar-variante w-100">
+                            @if($variante->trashed())
 
-                                Eliminar
+                                <button
+                                    type="submit"
+                                    form="restore-variante-{{ $variante->id }}"
+                                    class="btn-admin-success w-100">
 
-                            </button>
+                                    <i class="bi bi-arrow-clockwise me-1"></i>
+                                    Reactivar
+
+                                </button>
+
+                            @else
+
+                                <button
+                                    type="submit"
+                                    form="delete-variante-{{ $variante->id }}"
+                                    class="boton-peligro-2 w-100">
+
+                                    <i class="bi bi-person-x me-1"></i>
+                                    Desactivar
+
+                                </button>
+
+                            @endif
 
                         </div>
 
@@ -220,80 +248,15 @@
                 @enderror
             </div>
 
-            {{-- IMÁGENES ACTUALES --}}
-            @if($producto->imagenes->count())
+            <div class="mb-4">
 
-                <div class="mb-3">
+                <a href="{{ route('admin.productos.imagenes', $producto->id) }}"
+                class="btn boton-secundario">
 
-                    <label class="form-label">
-                        Imágenes actuales
-                    </label>
+                    <i class="bi bi-images"></i>
+                    Gestionar imágenes
 
-                    <div class="d-flex flex-wrap gap-4 justify-content-center">
-
-                        @foreach($producto->imagenes as $imagen)
-
-                            <div class="admin-imagen-card">
-
-                                <img
-                                    src="{{ asset('storage/' . $imagen->path) }}"
-                                    alt="Imagen producto"
-                                    class="admin-imagen-preview">
-
-                                <form
-                                    action="{{ route('admin.productos.imagen.destroy', $imagen->id) }}"
-                                    method="POST"
-                                    class="admin-imagen-form">
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button
-                                        type="submit"
-                                        class="btn btn-sm boton-peligro-imagen admin-imagen-delete"
-                                        onclick="return confirm('¿Eliminar esta imagen?')">
-
-                                        <i class="bi bi-trash"></i>
-
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                        @endforeach
-
-                    </div>
-
-                </div>
-
-            @endif
-
-            {{-- NUEVAS IMÁGENES --}}
-            <div class="mb-3">
-
-                <label class="form-label">
-                    Agregar nuevas imágenes (opcional)
-                </label>
-
-                <input type="file"
-                    name="imagenes[]"
-                    multiple
-                    class="form-control admin-input @if($errors->has('imagenes') || $errors->has('imagenes.*')) is-invalid @endif">
-
-                @if ($errors->has('imagenes'))
-                    <div class="invalid-feedback d-block">
-                        {{ $errors->first('imagenes') }}
-                    </div>
-                @endif
-
-                @foreach ($errors->get('imagenes.*') as $errores)
-                    @foreach ($errores as $error)
-                        <div class="invalid-feedback d-block">
-                            {{ $error }}
-                        </div>
-                    @endforeach
-                @endforeach
+                </a>
 
             </div>
 
@@ -304,12 +267,41 @@
 
         </form>
 
+        @foreach($producto->variantes as $variante)
+
+            @if($variante->trashed())
+
+                <form
+                    id="restore-variante-{{ $variante->id }}"
+                    action="{{ route('admin.variantes.restore', $variante->id) }}"
+                    method="POST">
+
+                    @csrf
+
+                </form>
+
+            @else
+
+                <form
+                    id="delete-variante-{{ $variante->id }}"
+                    action="{{ route('admin.variantes.destroy', $variante->id) }}"
+                    method="POST">
+
+                    @csrf
+                    @method('DELETE')
+
+                </form>
+
+            @endif
+
+        @endforeach
+
     </div>
 </div>
 
 <script>
 
-let indice = {{ $producto->variantes->count() }};
+let indice = 0;
 
 document
 .getElementById('agregar-variante')
@@ -429,12 +421,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.display = 'flex';
         toast.style.alignItems = 'center';
         toast.style.gap = '8px';
-        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,.15)';
+        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
         toast.style.backgroundColor = '#fff';
 
         if (tipo === 'success') {
-            toast.style.color = '#5f2660';
-            toast.style.border = '2px solid #9d4a9f';
+            toast.style.color = '#110f11';
+            toast.style.border = '2px solid #e178cf';
         } else {
             toast.style.color = '#dc3545';
             toast.style.border = '2px solid #dc3545';

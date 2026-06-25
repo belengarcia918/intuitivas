@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EditarProductoRequest;
 use App\Http\Requests\AgregarProductoRequest;
+use App\Http\Requests\GestionarImagenesProductoRequest;
 
 class ProductoController extends Controller
 {
@@ -85,6 +86,9 @@ class ProductoController extends Controller
         $producto = Producto::with([
             'categoria',
             'imagenes',
+            'variantes' => function ($q) {
+                $q->withoutTrashed();
+            },
             'variantes.color',
             'variantes.talle'
         ])->findOrFail($id);
@@ -111,7 +115,14 @@ class ProductoController extends Controller
 
     public function listarProductos()
     {
-        $productos = Producto::with(['categoria', 'variantes.color', 'variantes.talle'])
+        $productos = Producto::with([
+            'categoria',
+            'variantes' => function ($q) {
+                $q->withoutTrashed();
+            },
+            'variantes.color',
+            'variantes.talle'
+        ])
             ->where('activo', true)
             ->latest()
             ->get();
@@ -220,23 +231,58 @@ class ProductoController extends Controller
                 ]);
             }
 
+            $combinaciones = [];
+
+            foreach ($request->variantes as $variante) {
+
+                $clave =
+                    strtolower(trim($variante['color_nombre']))
+                    . '-'
+                    . $variante['talle_id'];
+
+                if (in_array($clave, $combinaciones)) {
+
+                    return back()
+                        ->withInput()
+                        ->withErrors([
+                            'variantes' =>
+                                'No puede haber variantes repetidas.'
+                        ]);
+                }
+
+                $combinaciones[] = $clave;
+            }
+
             // Variante inicial
-            $varianteExiste = $producto->variantes()
-                ->where('color_id', $request->color_id)
-                ->where('talle_id', $request->talle_id)
-                ->first();
+            foreach ($request->variantes as $variante) {
 
-            if ($varianteExiste) {
+                $varianteExiste = $producto->variantes()
+                    ->where('color_id', $variante['color_id'])
+                    ->where('talle_id', $variante['talle_id'])
+                    ->first();
 
-                $varianteExiste->increment('stock', $request->stock);
+                if ($varianteExiste) {
 
-            } else {
+                    // Si estaba desactivada, la reactivo
+                    if ($varianteExiste->trashed()) {
+                        $varianteExiste->restore();
+                    }
 
-                $producto->variantes()->create([
-                    'color_id' => $request->color_id,
-                    'talle_id' => $request->talle_id,
-                    'stock'    => $request->stock,
-                ]);
+                    // Sumo el stock
+                    $varianteExiste->increment(
+                        'stock',
+                        $variante['stock']
+                    );
+
+                } else {
+
+                    // Si no existe, la creo
+                    $producto->variantes()->create([
+                        'color_id' => $variante['color_id'],
+                        'talle_id' => $variante['talle_id'],
+                        'stock'    => $variante['stock'],
+                    ]);
+                }
             }
 
             // Imágenes
@@ -257,7 +303,7 @@ class ProductoController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('admin.productos.index')
+                ->route('admin.productos.listado')
                 ->with('success', 'Producto creado correctamente');
 
         } catch (\Exception $e) {
@@ -292,10 +338,9 @@ class ProductoController extends Controller
 
         if ($producto->imagenes()->count() <= 1) {
 
-            return back()->with(
-                'error-message',
-                'El producto debe tener al menos una imagen.'
-            );
+            return back()->withErrors([
+                'imagenes' => 'El producto debe tener al menos una imagen.'
+            ]);
         }
 
         Storage::disk('public')->delete($imagen->path);
@@ -308,11 +353,66 @@ class ProductoController extends Controller
         );
     }
 
+    public function imagenes($id)
+    {
+        $producto = Producto::with('imagenes')
+            ->withTrashed()
+            ->findOrFail($id);
+
+        return view(
+            'backend.productos.gestionar_imagenes',
+            compact('producto')
+        );
+    }
+
+    public function storeImagenes(GestionarImagenesProductoRequest $request, $id)
+    {
+        $producto = Producto::withTrashed()
+            ->findOrFail($id);
+
+        $ultimoOrden = $producto->imagenes()->max('orden') ?? 0;
+
+        foreach ($request->file('imagenes') as $indice => $archivo) {
+
+            $ruta = $archivo->store('productos', 'public');
+
+            $producto->imagenes()->create([
+                'path'      => $ruta,
+                'orden'     => $ultimoOrden + $indice + 1,
+                'principal' => false,
+            ]);
+        }
+
+        return back()->with(
+            'success',
+            'Imágenes agregadas correctamente.'
+        );
+    }
+
     /* UPDATE */
 
     public function update(EditarProductoRequest $request, $id)
-    {
+{
+
         $producto = Producto::withTrashed()->findOrFail($id);
+
+        $combinaciones = [];
+
+        foreach ($request->variantes as $variante) {
+
+            $clave = $variante['color_id'] . '-' . $variante['talle_id'];
+
+            if (in_array($clave, $combinaciones)) {
+
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'variantes' => 'No puede haber dos variantes con el mismo color y talle.'
+                    ]);
+            }
+
+            $combinaciones[] = $clave;
+        }
 
         DB::transaction(function () use ($request, $producto) {
 
@@ -323,35 +423,49 @@ class ProductoController extends Controller
                 'categoria_id' => $request->categoria_id,
             ]);
 
-            $producto->variantes()->delete();
+            $idsProcesados = [];
 
             foreach ($request->variantes as $variante) {
-                $producto->variantes()->create([
-                    'color_id' => $variante['color_id'],
-                    'talle_id' => $variante['talle_id'],
-                    'stock'    => $variante['stock'],
-                ]);
-            }
 
-            if ($request->hasFile('imagenes')) {
+                // EXISTE → actualizar
+                if (!empty($variante['id'])) {
 
-                foreach ($request->file('imagenes') as $indice => $img) {
+                    $v = ProductoVariante::withTrashed()->find($variante['id']);
 
-                    $ruta = $img->store('productos', 'public');
+                    if ($v) {
 
-                    $producto->imagenes()->create([
-                        'path'      => $ruta,
-                        'orden'     => $indice,
-                        'principal' => false,
+                        if ($v->trashed()) {
+                            $v->restore();
+                        }
+
+                        $v->update([
+                            'color_id' => $variante['color_id'],
+                            'talle_id' => $variante['talle_id'],
+                            'stock'    => $variante['stock'],
+                        ]);
+
+                        $idsProcesados[] = $v->id;
+                    }
+
+                }
+                // NUEVA → crear
+                else {
+
+                    $nuevo = $producto->variantes()->create([
+                        'color_id' => $variante['color_id'],
+                        'talle_id' => $variante['talle_id'],
+                        'stock'    => $variante['stock'],
                     ]);
+
+                    $idsProcesados[] = $nuevo->id;
                 }
             }
         });
 
         return redirect()
-            ->route('admin.productos.index')
+            ->route('admin.productos')
             ->with('success', 'Producto actualizado correctamente');
-    }
+}
 
     /* DELETE / RESTORE */
 
@@ -390,6 +504,38 @@ class ProductoController extends Controller
         ]);
 
         return back()->with('success', 'Producto desactivado');
+    }
+
+    public function desactivarVariante($id)
+    {
+        $variante = ProductoVariante::findOrFail($id);
+
+        if (
+            $variante->producto
+                ->variantes()
+                ->withoutTrashed()
+                ->count() <= 1
+        ) {
+            return back()->with(
+                'error',
+                'El producto debe tener al menos una variante activa.'
+            );
+        }
+
+        $variante->delete();
+
+        return back()->with(
+            'success',
+            'Variante desactivada correctamente.'
+        );
+    }
+
+    public function restoreVariante($id)
+    {
+        $variante = ProductoVariante::withTrashed()->findOrFail($id);
+        $variante->restore();
+
+        return back()->with('success', 'Variante reactivada');
     }
 }
 

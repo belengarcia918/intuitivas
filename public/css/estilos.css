@@ -227,8 +227,9 @@
 
 /* --- FOOTER / FRASE FINAL --- */
 .footer-frase {
-    padding: 60px 0;
-    margin-top: 40px;
+    padding-top: 0;
+    padding-bottom: 40px;
+    margin-top: 0;
 }
 
 .icono-quote {
@@ -320,6 +321,10 @@ main {
     font-family: 'Trebuchet MS', Helvetica, sans-serif;
     color: rgb(167, 78, 208);
     font-size: 18px;
+}
+
+.texto-4 { 
+    color: rgb(185, 80, 189);
 }
 
 .texto-2-n {
@@ -469,7 +474,8 @@ main {
 }
 
 .boton-enviar,
-.boton-registrar {
+.boton-registrar,
+.boton-editar {
     background-color: #5f2660;   /* fondo */
     border: none;
     color: white;
@@ -481,7 +487,8 @@ main {
 }
 
 .boton-enviar:hover,
-.boton-registrar:hover {
+.boton-registrar:hover,
+.boton-editar:hover {
     background-color: #9d4a9f;   /* fondo */
     border: none;
     transform: scale(1.05); 
@@ -546,6 +553,36 @@ main {
     100% {
         transform: scale(1);
     }
+}
+
+.estado-producto-no-disponible{
+    margin-top: .5rem;
+    padding: .6rem .8rem;
+
+    border-left: 4px solid #e178cf;
+
+    background: rgba(225,120,207,.08);
+
+    color: #5f2660;
+
+    border-radius: 6px;
+
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.mensaje-carrito-error{
+    padding: .8rem;
+
+    border-radius: 8px;
+
+    background: rgba(225,120,207,.1);
+
+    border: 1px solid #e178cf;
+
+    color: #5f2660;
+
+    font-weight: 500;
 }
 
 
@@ -762,6 +799,8 @@ input[type="radio"]:checked + .talle-box {
     background: transparent;
     border: 2px solid #dc3545;
     color: #dc3545;
+    padding: 10px 50px;
+    border-radius: 5px;
 
     font-weight: 600;
 
@@ -771,6 +810,25 @@ input[type="radio"]:checked + .talle-box {
 .boton-peligro:hover {
     background: #dc3545;
     color: white;
+}
+
+.table-frontend thead th {
+    background-color: rgba(95, 38, 96, 0.25);
+    color: rgb(95, 38, 96);
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(95, 38, 96, 0.35);
+}
+
+.table-frontend {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(95, 38, 96, 0.15);
+}
+
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 

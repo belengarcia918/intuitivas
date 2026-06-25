@@ -1,5 +1,17 @@
 <x-layout title="Iniciar sesión - Intuitivas">
 
+@if(session('success'))
+    <div id="mensaje-success"
+         data-msg="{{ session('success') }}">
+    </div>
+@endif
+
+@if(session('error'))
+    <div id="mensaje-error"
+         data-msg="{{ session('error') }}">
+    </div>
+@endif
+
 <section class="container py-5">
 
     <div class="row justify-content-center">
@@ -13,43 +25,35 @@
                         Iniciar Sesión
                     </h3>
 
-                    @if(session('success'))
-                        <div id="mensaje-success" data-msg="{{ session('success') }}"></div>
-                    @endif
-
-                    @if(session('error'))
-                        <div id="mensaje-error" data-msg="{{ session('error') }}"></div>
-                    @endif
-
                     <form action="{{ route('login.post') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
                             <label class="form-label">Correo electrónico</label>
                             <input type="email"
-                                   name="email"
-                                   class="form-control"
-                                   placeholder="ejemplo@mail.com"
-                                   value="{{ old('email') }}">
+                                name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                placeholder="ejemplo@mail.com"
+                                value="{{ old('email') }}">
 
                             @error('email')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="••••••••">
+                                name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="••••••••">
 
                             @error('password')
-                                <small class="text-danger d-block mt-1">
+                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </small>
+                                </div>
                             @enderror
                         </div>
 
@@ -61,7 +65,7 @@
                                 {{ old('remember') ? 'checked' : '' }}>
 
                             <label class="form-check-label" for="remember">
-                                Recordarme
+                                Recuerdame
                             </label>
                         </div>
 
@@ -106,7 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function mostrarToast(mensaje, tipo) {
 
         let toast = document.createElement('div');
-        toast.innerText = mensaje;
+        toast.innerHTML =
+            (tipo === 'success'
+                ? '<i class="bi bi-check-circle-fill me-2"></i>'
+                : '<i class="bi bi-x-circle-fill me-2"></i>')
+            + mensaje;
 
         toast.style.position = 'fixed';
         toast.style.top = '20px';
@@ -116,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toast.style.borderRadius = '5px';
         toast.style.zIndex = '9999';
         toast.style.fontWeight = '500';
-        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+        toast.style.boxShadow = '0 12px 24px rgba(0,0,0,.18), 0 4px 8px rgba(0,0,0,.12)';
         toast.style.backgroundColor = '#ffffff';
         toast.style.border = '2px solid #c2c2c2';
 

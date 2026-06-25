@@ -11,16 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('venta_detalles', function (Blueprint $table) {
-
-            $table->string('nombre_producto')
-                ->after('producto_id');
-
-            $table->string('color')
-                ->after('nombre_producto');
-
-            $table->string('talle')
-                ->after('color');
+        Schema::table('producto_variantes', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -29,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('venta_detalles', function (Blueprint $table) {
+        Schema::table('producto_variantes', function (Blueprint $table) {
             //
         });
     }
